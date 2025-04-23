@@ -26,7 +26,7 @@ Ms. Simpson is licensed to practice in Texas and the U.S. Southern District of T
         <Separator className="my-8 bg-woodlands-gold/20" />
 
         <AttorneyProfile 
-          name="Bryan Holman"
+          name="Bryan C. Holman"
           image="/public/lovable-uploads/e7cbab38-2c31-4735-923d-c00a44ed632a.png"
           bio="Bryan Holman brings a wealth of practical experience and entrepreneurial insight to his role at The Woodlands Law Firm. A native Texan, Bryan earned his Bachelor of Science from Texas A&M University before completing his Juris Doctor at South Texas College of Law, where he focused on building the legal skills necessary for effective advocacy and client service.
 
