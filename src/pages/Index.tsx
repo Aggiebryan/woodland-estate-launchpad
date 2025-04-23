@@ -22,9 +22,14 @@ const Index = () => {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
                 <Link to="/contact">
+                  <a href="https://woodlandslaw.cliogrow.com/book"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >
                   <Button size="lg" className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold w-full sm:w-auto">
                     Free Consultation
                   </Button>
+                 </a>
                 </Link>
                 <Link to="/practice-areas">
                   <Button size="lg" variant="outline" className="border-woodlands-gold text-woodlands-gold hover:bg-woodlands-gold/10 w-full sm:w-auto">
