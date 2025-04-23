@@ -17,6 +17,11 @@ export default {
 				'2xl': '1400px'
 			}
 		},
+		fontFamily: {
+			serif: ['Playfair Display', 'serif'],
+			body: ['Source Sans 3', 'sans-serif'],
+			cormorant: ['Cormorant Garamond', 'serif'],
+		},
 		extend: {
 			colors: {
 				border: 'hsl(var(--border))',
@@ -51,6 +56,14 @@ export default {
 				card: {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
+				},
+				woodlands: {
+					purple: '#342134',
+					gold: '#d4af37',
+					cream: '#f5f5dc',
+					lightgold: '#e6c770',
+					darkpurple: '#1e131e',
+					lightpurple: '#4d304d',
 				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
