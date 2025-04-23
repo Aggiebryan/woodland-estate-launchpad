@@ -29,7 +29,12 @@ const Navbar = () => {
           <DesktopNav />
           
           <div className="hidden md:flex">
-            <a href="https://woodlandslaw.cliogrow.com/book" target="_blank" rel="noopener noreferrer">
+            <a 
+              href="https://woodlandslaw.cliogrow.com/book" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="inline-block"
+            >
               <Button className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
                 Free Consultation
               </Button>
@@ -59,3 +64,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

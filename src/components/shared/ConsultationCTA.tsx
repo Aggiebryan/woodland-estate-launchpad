@@ -1,4 +1,3 @@
-
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -40,8 +39,10 @@ const ConsultationCTA = ({
         >
           {subtitle}
         </p>
-        <Link
-          to="/contact"
+        <a
+          href="https://woodlandslaw.cliogrow.com/book"
+          target="_blank"
+          rel="noopener noreferrer"
           className={`inline-flex items-center px-6 py-3 rounded-md text-lg font-medium transition-all duration-200 ${
             variant === "light"
               ? "bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold"
@@ -50,7 +51,7 @@ const ConsultationCTA = ({
         >
           {buttonText}
           <ArrowRight className="ml-2 h-5 w-5" />
-        </Link>
+        </a>
       </div>
     </div>
   );

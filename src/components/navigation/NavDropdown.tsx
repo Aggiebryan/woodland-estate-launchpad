@@ -26,7 +26,7 @@ const NavDropdown = ({ label, items }: NavDropdownProps) => {
       <DropdownMenuTrigger asChild>
         <Button 
           variant="ghost" 
-          className="px-3 py-2 text-woodlands-gold hover:text-woodlands-purple hover:bg-woodlands-gold/20 font-body flex items-center gap-1"
+          className="px-3 py-2 text-woodlands-gold hover:text-woodlands-purple hover:bg-woodlands-gold font-body flex items-center gap-1 transition-all duration-200"
         >
           {label}
           <ChevronDown size={16} className={isOpen ? "transform rotate-180 transition-transform" : "transition-transform"} />
@@ -49,3 +49,4 @@ const NavDropdown = ({ label, items }: NavDropdownProps) => {
 };
 
 export default NavDropdown;
+

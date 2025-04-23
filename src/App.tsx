@@ -1,9 +1,9 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import MainLayout from "./components/layout/MainLayout";
 import Index from "./pages/Index";
 import Contact from "./pages/Contact";
 import OurFirm from "./pages/OurFirm";
@@ -13,14 +13,24 @@ import Wills from "./pages/Wills";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
-  <div className="min-h-screen bg-woodlands-purple flex items-center justify-center">
-    <div className="bg-white/10 p-8 rounded-lg max-w-md text-center">
-      <h1 className="text-3xl font-serif text-woodlands-gold mb-4">Coming Soon</h1>
-      <p className="text-woodlands-cream">
-        This page is currently under development. Please check back later for updates.
-      </p>
+  <MainLayout>
+    <div className="min-h-[60vh] bg-woodlands-purple flex items-center justify-center px-4">
+      <div className="bg-white/10 p-8 rounded-lg max-w-md text-center">
+        <h1 className="text-3xl font-serif text-woodlands-gold mb-4">Coming Soon</h1>
+        <p className="text-woodlands-cream mb-8">
+          This page is currently under development. Please check back later for updates.
+        </p>
+        <a 
+          href="https://woodlandslaw.cliogrow.com/book" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="inline-block bg-woodlands-gold text-woodlands-purple px-6 py-3 rounded-md font-medium hover:bg-woodlands-lightgold transition-colors"
+        >
+          Schedule a Free Consultation
+        </a>
+      </div>
     </div>
-  </div>
+  </MainLayout>
 );
 
 // Service pages
