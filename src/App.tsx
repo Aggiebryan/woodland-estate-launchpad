@@ -9,9 +9,9 @@ import Contact from "./pages/Contact";
 import OurFirm from "./pages/OurFirm";
 import OurAttorneys from "./pages/OurAttorneys";
 import NotFound from "./pages/NotFound";
+import Wills from "./pages/Wills";
 
 // Will be implemented in future updates
-const Wills = () => <Index />;
 const Trusts = () => <Index />;
 const Probate = () => <Index />;
 const EstatePlanning = () => <Index />;
