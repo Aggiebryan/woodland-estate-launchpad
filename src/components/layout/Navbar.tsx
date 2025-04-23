@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -37,7 +38,10 @@ const Navbar = () => {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body flex items-center gap-1">
+                <Button 
+                  variant="ghost" 
+                  className="px-3 py-2 text-woodlands-gold hover:text-woodlands-purple hover:bg-woodlands-gold/20 font-body flex items-center gap-1"
+                >
                   Practice Areas
                   <ChevronDown size={16} />
                 </Button>
@@ -60,7 +64,10 @@ const Navbar = () => {
             
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body flex items-center gap-1">
+                <Button 
+                  variant="ghost" 
+                  className="px-3 py-2 text-woodlands-gold hover:text-woodlands-purple hover:bg-woodlands-gold/20 font-body flex items-center gap-1"
+                >
                   About Us
                   <ChevronDown size={16} />
                 </Button>
