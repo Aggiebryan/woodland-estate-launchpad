@@ -44,23 +44,36 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent className="bg-white w-52">
                 <DropdownMenuItem asChild>
-                  <Link to="/wills" className="w-full px-4 py-2 hover:bg-woodlands-cream">Wills</Link>
+                  <Link to="/wills" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Wills</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/trusts" className="w-full px-4 py-2 hover:bg-woodlands-cream">Trusts</Link>
+                  <Link to="/trusts" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Trusts</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/probate" className="w-full px-4 py-2 hover:bg-woodlands-cream">Probate</Link>
+                  <Link to="/probate" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Probate</Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
-                  <Link to="/estate-planning" className="w-full px-4 py-2 hover:bg-woodlands-cream">Estate Planning</Link>
+                  <Link to="/estate-planning" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Estate Planning</Link>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
             
-            <Link to="/about" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body">
-              About Us
-            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body flex items-center gap-1">
+                  About Us
+                  <ChevronDown size={16} />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-white w-52">
+                <DropdownMenuItem asChild>
+                  <Link to="/our-firm" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Our Firm</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/our-attorneys" className="w-full px-4 py-2 hover:bg-woodlands-cream text-woodlands-purple">Our Attorneys</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
             
             <Link to="/blog" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body">
               Blog
@@ -145,13 +158,27 @@ const Navbar = () => {
               </div>
             </div>
             
-            <Link
-              to="/about"
-              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
-              onClick={() => setIsOpen(false)}
-            >
-              About Us
-            </Link>
+            <div className="relative">
+              <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
+                About Us
+              </button>
+              <div className="pl-4 bg-woodlands-darkpurple/30">
+                <Link 
+                  to="/our-firm" 
+                  className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Our Firm
+                </Link>
+                <Link 
+                  to="/our-attorneys" 
+                  className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Our Attorneys
+                </Link>
+              </div>
+            </div>
             
             <Link
               to="/blog"
