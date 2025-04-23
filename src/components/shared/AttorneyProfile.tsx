@@ -9,24 +9,26 @@ interface AttorneyProfileProps {
 
 const AttorneyProfile: React.FC<AttorneyProfileProps> = ({ name, image, bio }) => {
   return (
-    <Card className="mb-8 bg-woodlands-darkpurple border-woodlands-gold/20">
-      <CardHeader className="flex flex-col md:flex-row gap-6 items-center pb-2">
-        <div className="w-64 h-64 shrink-0">
-          <img 
-            src={image} 
-            alt={name} 
-            className="w-full h-full object-cover rounded-lg"
-          />
+    <Card className="mb-8 bg-woodlands-darkpurple border-woodlands-gold/20 overflow-hidden">
+      <CardHeader className="p-0">
+        <div className="flex flex-col md:flex-row">
+          <div className="w-full md:w-1/3 shrink-0">
+            <img 
+              src={image} 
+              alt={name} 
+              className="w-full h-auto object-cover"
+            />
+          </div>
+          <div className="w-full md:w-2/3 p-6">
+            <h3 className="text-3xl font-serif text-woodlands-gold mb-4">{name}</h3>
+            <div className="text-woodlands-cream space-y-4 text-base leading-relaxed">
+              {bio.split('\n\n').map((paragraph, index) => (
+                <p key={index} className="mb-4 last:mb-0">{paragraph}</p>
+              ))}
+            </div>
+          </div>
         </div>
-        <h3 className="text-3xl font-serif text-woodlands-gold text-center md:text-left">{name}</h3>
       </CardHeader>
-      <CardContent>
-        <div className="text-woodlands-cream space-y-4 whitespace-pre-wrap">
-          {bio.split('\n\n').map((paragraph, index) => (
-            <p key={index}>{paragraph}</p>
-          ))}
-        </div>
-      </CardContent>
     </Card>
   );
 };
