@@ -14,7 +14,7 @@ const Wills = () => {
               <Shield className="w-16 h-16 text-woodlands-gold mb-4" />
             </div>
             <h1 className="text-4xl md:text-5xl font-serif text-woodlands-gold text-center mb-6">
-              Wills & Estate Planning
+              Wills
             </h1>
             <p className="text-woodlands-cream text-center max-w-3xl mx-auto text-lg font-body">
               Protect your legacy and ensure your wishes are carried out with a professionally drafted will. Our experienced attorneys will guide you through the process.
