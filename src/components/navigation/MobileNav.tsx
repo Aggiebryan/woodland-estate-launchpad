@@ -20,6 +20,37 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
           Home
         </Link>
         
+        {/* About Us Dropdown */}
+        <div className="relative">
+          <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
+            About Us
+          </button>
+          <div className="pl-4 bg-woodlands-darkpurple/30">
+            <Link 
+              to="/our-firm" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Our Firm
+            </Link>
+            <Link 
+              to="/our-attorneys" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Meet the Attorneys
+            </Link>
+            <Link 
+              to="/testimonials" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Testimonials
+            </Link>
+          </div>
+        </div>
+        
+        {/* Services Dropdown */}
         <div className="relative">
           <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
             Services
@@ -40,44 +71,44 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
               Trusts
             </Link>
             <Link 
+              to="/powers-of-attorney" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Powers of Attorney
+            </Link>
+            <Link 
+              to="/living-wills" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Living Wills & Advance Directives
+            </Link>
+            <Link 
               to="/probate" 
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
-              Probate
+              Probate & Estate Administration
             </Link>
             <Link 
-              to="/estate-planning" 
+              to="/guardianship" 
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
-              Estate Planning
+              Guardianship
             </Link>
-          </div>
-        </div>
-        
-        <div className="relative">
-          <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
-            About Us
-          </button>
-          <div className="pl-4 bg-woodlands-darkpurple/30">
             <Link 
-              to="/our-firm" 
+              to="/elder-law" 
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
-              Our Firm
-            </Link>
-            <Link 
-              to="/our-attorneys" 
-              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
-              onClick={onClose}
-            >
-              Our Attorneys
+              Elder Law & Medicaid Planning
             </Link>
           </div>
         </div>
 
+        {/* Resources Dropdown */}
         <div className="relative">
           <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
             Resources
@@ -95,33 +126,105 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
-              FAQs
+              FAQ: Wills & Trusts
+            </Link>
+            <Link 
+              to="/blog" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Blog
             </Link>
             <Link 
               to="/glossary" 
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
-              Glossary
+              Glossary of Terms
             </Link>
           </div>
         </div>
         
-        <Link
-          to="/blog"
-          className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
-          onClick={onClose}
-        >
-          Blog
-        </Link>
+        {/* Start Your Plan Dropdown */}
+        <div className="relative">
+          <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
+            Start Your Plan
+          </button>
+          <div className="pl-4 bg-woodlands-darkpurple/30">
+            <Link 
+              to="/intake-form" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Secure Client Intake Form
+            </Link>
+            <Link 
+              to="/will-questionnaire" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Will Questionnaire
+            </Link>
+            <Link 
+              to="/schedule" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Schedule a Consultation
+            </Link>
+            <Link 
+              to="/virtual-planning" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Virtual Planning Options
+            </Link>
+          </div>
+        </div>
         
-        <Link
-          to="/contact"
-          className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
-          onClick={onClose}
-        >
-          Contact
-        </Link>
+        {/* Contact Us Dropdown */}
+        <div className="relative">
+          <button className="w-full text-left block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple">
+            Contact Us
+          </button>
+          <div className="pl-4 bg-woodlands-darkpurple/30">
+            <Link 
+              to="/contact#location" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Office Location
+            </Link>
+            <Link 
+              to="/contact#call" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Call
+            </Link>
+            <Link 
+              to="/contact#email" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Email
+            </Link>
+            <Link 
+              to="/contact#form" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Contact Form
+            </Link>
+            <Link 
+              to="/contact#hours" 
+              className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
+              onClick={onClose}
+            >
+              Office Hours
+            </Link>
+          </div>
+        </div>
         
         <a
           href="https://woodlandslaw.cliogrow.com/book"

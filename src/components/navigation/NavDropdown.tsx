@@ -8,6 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 interface NavDropdownProps {
   label: string;
@@ -18,18 +19,20 @@ interface NavDropdownProps {
 }
 
 const NavDropdown = ({ label, items }: NavDropdownProps) => {
+  const [isOpen, setIsOpen] = useState(false);
+  
   return (
-    <DropdownMenu>
+    <DropdownMenu open={isOpen} onOpenChange={setIsOpen}>
       <DropdownMenuTrigger asChild>
         <Button 
           variant="ghost" 
           className="px-3 py-2 text-woodlands-gold hover:text-woodlands-purple hover:bg-woodlands-gold/20 font-body flex items-center gap-1"
         >
           {label}
-          <ChevronDown size={16} />
+          <ChevronDown size={16} className={isOpen ? "transform rotate-180 transition-transform" : "transition-transform"} />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="bg-white w-52">
+      <DropdownMenuContent className="bg-white w-64 shadow-lg border border-woodlands-gold/20 z-50">
         {items.map((item) => (
           <DropdownMenuItem key={item.href} asChild>
             <Link 

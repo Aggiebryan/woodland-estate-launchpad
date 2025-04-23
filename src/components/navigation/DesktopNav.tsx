@@ -1,25 +1,44 @@
 
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
 import NavDropdown from "./NavDropdown";
 
 const DesktopNav = () => {
+  const aboutItems = [
+    { label: "Our Firm", href: "/our-firm" },
+    { label: "Meet the Attorneys", href: "/our-attorneys" },
+    { label: "Testimonials", href: "/testimonials" },
+  ];
+
   const servicesItems = [
     { label: "Wills", href: "/wills" },
     { label: "Trusts", href: "/trusts" },
-    { label: "Probate", href: "/probate" },
-    { label: "Estate Planning", href: "/estate-planning" },
-  ];
-
-  const aboutItems = [
-    { label: "Our Firm", href: "/our-firm" },
-    { label: "Our Attorneys", href: "/our-attorneys" },
+    { label: "Powers of Attorney", href: "/powers-of-attorney" },
+    { label: "Living Wills & Advance Directives", href: "/living-wills" },
+    { label: "Probate & Estate Administration", href: "/probate" },
+    { label: "Guardianship", href: "/guardianship" },
+    { label: "Elder Law & Medicaid Planning", href: "/elder-law" },
   ];
 
   const resourcesItems = [
     { label: "Estate Planning Checklist", href: "/checklist" },
-    { label: "FAQs", href: "/faqs" },
-    { label: "Glossary", href: "/glossary" },
+    { label: "FAQ: Wills & Trusts", href: "/faqs" },
+    { label: "Blog", href: "/blog" },
+    { label: "Glossary of Terms", href: "/glossary" },
+  ];
+
+  const startPlanItems = [
+    { label: "Secure Client Intake Form", href: "/intake-form" },
+    { label: "Will Questionnaire", href: "/will-questionnaire" },
+    { label: "Schedule a Consultation", href: "/schedule" },
+    { label: "Virtual Planning Options", href: "/virtual-planning" },
+  ];
+
+  const contactItems = [
+    { label: "Office Location", href: "/contact#location" },
+    { label: "Call", href: "/contact#call" },
+    { label: "Email", href: "/contact#email" },
+    { label: "Contact Form", href: "/contact#form" },
+    { label: "Office Hours", href: "/contact#hours" },
   ];
 
   return (
@@ -28,17 +47,11 @@ const DesktopNav = () => {
         Home
       </Link>
       
-      <NavDropdown label="Services" items={servicesItems} />
       <NavDropdown label="About Us" items={aboutItems} />
+      <NavDropdown label="Services" items={servicesItems} />
       <NavDropdown label="Resources" items={resourcesItems} />
-      
-      <Link to="/blog" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body">
-        Blog
-      </Link>
-      
-      <Link to="/contact" className="px-3 py-2 text-woodlands-gold hover:text-woodlands-lightgold font-body">
-        Contact
-      </Link>
+      <NavDropdown label="Start Your Plan" items={startPlanItems} />
+      <NavDropdown label="Contact Us" items={contactItems} />
     </div>
   );
 };

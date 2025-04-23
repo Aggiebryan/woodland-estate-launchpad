@@ -61,7 +61,7 @@ const Footer = () => {
 
           {/* Column 2 - Quick Links */}
           <div className="mb-8 md:mb-0">
-            <h3 className="font-serif text-xl font-semibold mb-4">Practice Areas</h3>
+            <h3 className="font-serif text-xl font-semibold mb-4">Services</h3>
             <ul className="space-y-2 font-body">
               <li>
                 <Link to="/wills" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
@@ -74,18 +74,18 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
+                <Link to="/powers-of-attorney" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
+                  Powers of Attorney
+                </Link>
+              </li>
+              <li>
                 <Link to="/probate" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
                   Probate
                 </Link>
               </li>
               <li>
-                <Link to="/estate-planning" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
-                  Estate Planning
-                </Link>
-              </li>
-              <li>
-                <Link to="/blog" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
-                  Blog
+                <Link to="/elder-law" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
+                  Elder Law & Medicaid
                 </Link>
               </li>
             </ul>
@@ -131,12 +131,15 @@ const Footer = () => {
             <p className="text-woodlands-cream opacity-80 text-sm mb-4 md:mb-0">
               &copy; {currentYear} The Woodlands Law Firm. All rights reserved.
             </p>
-            <div className="flex space-x-6 text-sm font-body">
+            <div className="flex flex-wrap gap-4 justify-center text-sm font-body">
               <Link to="/privacy" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
                 Privacy Policy
               </Link>
               <Link to="/terms" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
-                Terms of Service
+                Terms of Use
+              </Link>
+              <Link to="/disclaimer" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
+                Attorney Advertising Notice
               </Link>
               <Link to="/sitemap" className="text-woodlands-cream opacity-80 hover:opacity-100 hover:text-woodlands-lightgold transition-colors">
                 Sitemap
