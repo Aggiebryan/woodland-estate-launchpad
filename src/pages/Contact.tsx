@@ -1,4 +1,3 @@
-
 import MainLayout from "@/components/layout/MainLayout";
 import ConsultationForm from "@/components/shared/ConsultationForm";
 import { Mail, Phone, MapPin, Clock } from "lucide-react";
@@ -27,10 +26,10 @@ const Contact = () => {
                 <div>
                   <p className="font-semibold text-woodlands-lightgold">Phone</p>
                   <a 
-                    href="tel:+12815551234" 
+                    href="tel:+18326260116" 
                     className="text-woodlands-cream hover:text-woodlands-gold transition-colors"
                   >
-                    (281) 555-1234
+                    (832) 626-0116
                   </a>
                 </div>
               </li>
@@ -40,10 +39,10 @@ const Contact = () => {
                 <div>
                   <p className="font-semibold text-woodlands-lightgold">Email</p>
                   <a 
-                    href="mailto:info@woodlandsestate.law"
+                    href="mailto:admin@woodlands.law"
                     className="text-woodlands-cream hover:text-woodlands-gold transition-colors"
                   >
-                    info@woodlandsestate.law
+                    admin@woodlands.law
                   </a>
                 </div>
               </li>
@@ -64,9 +63,9 @@ const Contact = () => {
                 <div>
                   <p className="font-semibold text-woodlands-lightgold">Office</p>
                   <p className="text-woodlands-cream">
-                    10000 Research Forest Drive<br />
-                    Suite 300<br />
-                    The Woodlands, TX 77381
+                    2219 Sawdust Rd.<br />
+                    Suite 803<br />
+                    The Woodlands, TX 77380
                   </p>
                 </div>
               </li>
@@ -76,7 +75,7 @@ const Contact = () => {
               <h3 className="text-xl font-serif text-woodlands-gold mb-4">Follow Us</h3>
               <div className="flex space-x-4">
                 <a 
-                  href="https://facebook.com" 
+                  href="https://www.facebook.com/woodlandslaw" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 text-woodlands-gold p-3 rounded-full transition-colors"
@@ -87,7 +86,7 @@ const Contact = () => {
                   </svg>
                 </a>
                 <a 
-                  href="https://linkedin.com" 
+                  href="https://www.linkedin.com/company/woodlandslaw" 
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 text-woodlands-gold p-3 rounded-full transition-colors"
@@ -97,6 +96,17 @@ const Contact = () => {
                     <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
                     <rect x="2" y="9" width="4" height="12"></rect>
                     <circle cx="4" cy="4" r="2"></circle>
+                  </svg>
+                </a>
+                <a 
+                  href="https://x.com/woodlands_law" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 text-woodlands-gold p-3 rounded-full transition-colors"
+                  aria-label="Twitter"
+                >
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M18.901 1.153h3.68l-8.04 9.557L24 22.846h-7.406l-5.8-7.584-6.638 7.584H1.353l8.15-9.108L0 1.153h7.594l5.243 6.932zM16.9 20.777h2.042L7.089 3.245H4.907z" />
                   </svg>
                 </a>
               </div>

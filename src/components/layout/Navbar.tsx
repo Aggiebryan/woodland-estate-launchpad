@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Menu, X, ChevronDown } from "lucide-react";
@@ -73,11 +72,11 @@ const Navbar = () => {
           </div>
           
           <div className="hidden md:flex">
-            <Link to="/contact">
+            <a href="https://woodlandslaw.cliogrow.com/book" target="_blank" rel="noopener noreferrer">
               <Button className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
                 Free Consultation
               </Button>
-            </Link>
+            </a>
           </div>
           
           {/* Mobile Navigation Toggle */}
@@ -170,13 +169,14 @@ const Navbar = () => {
               Contact
             </Link>
             
-            <Link
-              to="/contact"
+            <a
+              href="https://woodlandslaw.cliogrow.com/book"
+              target="_blank"
+              rel="noopener noreferrer"
               className="block px-3 py-2 text-center bg-woodlands-gold text-woodlands-purple font-semibold rounded-md mt-4"
-              onClick={() => setIsOpen(false)}
             >
               Free Consultation
-            </Link>
+            </a>
           </div>
         </div>
       )}
