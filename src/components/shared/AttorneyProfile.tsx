@@ -1,5 +1,5 @@
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardHeader } from "@/components/ui/card";
 
 interface AttorneyProfileProps {
   name: string;
@@ -20,10 +20,10 @@ const AttorneyProfile: React.FC<AttorneyProfileProps> = ({ name, image, bio }) =
             />
           </div>
           <div className="w-full md:w-2/3 p-6">
-            <h3 className="text-3xl font-serif text-woodlands-gold mb-4">{name}</h3>
-            <div className="text-woodlands-cream space-y-4 text-base leading-relaxed">
+            <h3 className="text-3xl font-serif text-woodlands-gold mb-6">{name}</h3>
+            <div className="text-woodlands-cream space-y-6 text-base leading-relaxed">
               {bio.split('\n\n').map((paragraph, index) => (
-                <p key={index} className="mb-4 last:mb-0">{paragraph}</p>
+                <p key={index} className="indent-4 first:indent-0">{paragraph}</p>
               ))}
             </div>
           </div>
