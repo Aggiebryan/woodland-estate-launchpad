@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -12,6 +11,8 @@ import OurAttorneys from "./pages/OurAttorneys";
 import NotFound from "./pages/NotFound";
 import Wills from "./pages/Wills";
 import Blog from "./pages/Blog";
+import Trusts from "./pages/Trusts";
+import WillsAndTrusts from "./pages/WillsAndTrusts";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -36,7 +37,6 @@ const UnderDevelopment = () => (
 );
 
 // Service pages
-const Trusts = () => <UnderDevelopment />;
 const PowersOfAttorney = () => <UnderDevelopment />;
 const LivingWills = () => <UnderDevelopment />;
 const Probate = () => <UnderDevelopment />;
@@ -74,8 +74,6 @@ const MedicaidStrategies = () => <UnderDevelopment />;
 const Testimonials = () => <UnderDevelopment />;
 
 const queryClient = new QueryClient();
-
-const WillsAndTrusts = () => <UnderDevelopment />;
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
