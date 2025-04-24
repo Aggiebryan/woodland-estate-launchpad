@@ -9,9 +9,9 @@ interface MainLayoutProps {
 
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen bg-gradient-to-br from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple">
       <Navbar />
-      <main className="flex-grow bg-woodlands-purple">{children}</main>
+      <main className="flex-grow">{children}</main>
       <Footer />
     </div>
   );
