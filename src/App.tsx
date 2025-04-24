@@ -74,6 +74,8 @@ const Testimonials = () => <UnderDevelopment />;
 
 const queryClient = new QueryClient();
 
+const WillsAndTrusts = () => <UnderDevelopment />;
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -129,6 +131,8 @@ const App = () => (
           <Route path="/trusts-vs-wills-texas" element={<ComparingTrustsWills />} />
           <Route path="/executor-duties-texas" element={<ExecutorDuties />} />
           <Route path="/medicaid-spend-down-strategies" element={<MedicaidStrategies />} />
+          
+          <Route path="/wills-and-trusts" element={<WillsAndTrusts />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
