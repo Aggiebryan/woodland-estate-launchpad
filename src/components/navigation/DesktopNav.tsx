@@ -11,7 +11,7 @@ const DesktopNav = () => {
 
   const servicesItems = [
     { label: "Wills", href: "/wills" },
-    { label: "Trusts", href: "/trusts" },
+    { label: "Trusts", href: "/wills-and-trusts" }, // Updated to point to Wills and Trusts page
     { label: "Powers of Attorney", href: "/powers-of-attorney" },
     { label: "Living Wills & Advance Directives", href: "/living-wills" },
     { label: "Probate & Estate Administration", href: "/probate" },

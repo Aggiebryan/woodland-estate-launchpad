@@ -64,7 +64,7 @@ const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
               Wills
             </Link>
             <Link 
-              to="/trusts" 
+              to="/wills-and-trusts" 
               className="block px-3 py-2 text-woodlands-gold font-body hover:bg-woodlands-darkpurple"
               onClick={onClose}
             >
