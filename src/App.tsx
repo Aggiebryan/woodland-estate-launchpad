@@ -10,6 +10,7 @@ import OurFirm from "./pages/OurFirm";
 import OurAttorneys from "./pages/OurAttorneys";
 import NotFound from "./pages/NotFound";
 import Wills from "./pages/Wills";
+import Blog from "./pages/Blog";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -42,7 +43,7 @@ const Guardianship = () => <UnderDevelopment />;
 const ElderLaw = () => <UnderDevelopment />;
 
 // Resource pages
-const Blog = () => <UnderDevelopment />;
+const BlogPage = () => <UnderDevelopment />;
 const Checklist = () => <UnderDevelopment />;
 const FAQs = () => <UnderDevelopment />;
 const Glossary = () => <UnderDevelopment />;
@@ -102,7 +103,7 @@ const App = () => (
           {/* Resources Routes */}
           <Route path="/checklist" element={<Checklist />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog" element={<BlogPage />} />
           <Route path="/glossary" element={<Glossary />} />
           
           {/* Start Your Plan Routes */}
@@ -133,6 +134,8 @@ const App = () => (
           <Route path="/medicaid-spend-down-strategies" element={<MedicaidStrategies />} />
           
           <Route path="/wills-and-trusts" element={<WillsAndTrusts />} />
+          
+          <Route path="/blog" element={<Blog />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
