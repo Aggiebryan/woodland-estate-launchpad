@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -43,7 +44,6 @@ const Guardianship = () => <UnderDevelopment />;
 const ElderLaw = () => <UnderDevelopment />;
 
 // Resource pages
-const BlogPage = () => <UnderDevelopment />;
 const Checklist = () => <UnderDevelopment />;
 const FAQs = () => <UnderDevelopment />;
 const Glossary = () => <UnderDevelopment />;
@@ -103,7 +103,7 @@ const App = () => (
           {/* Resources Routes */}
           <Route path="/checklist" element={<Checklist />} />
           <Route path="/faqs" element={<FAQs />} />
-          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog" element={<Blog />} />
           <Route path="/glossary" element={<Glossary />} />
           
           {/* Start Your Plan Routes */}
@@ -134,8 +134,6 @@ const App = () => (
           <Route path="/medicaid-spend-down-strategies" element={<MedicaidStrategies />} />
           
           <Route path="/wills-and-trusts" element={<WillsAndTrusts />} />
-          
-          <Route path="/blog" element={<Blog />} />
           
           <Route path="*" element={<NotFound />} />
         </Routes>
