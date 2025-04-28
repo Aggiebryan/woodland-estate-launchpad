@@ -94,7 +94,7 @@ const Index = () => {
                     <Check className="h-5 w-5 text-woodlands-gold" />
                   </div>
                   <div>
-                    <h4 className="font-bold text-lg text-woodlands-purple mb-1">Extensive Experience</h4>
+                    <h4 className="font-bold text-lg text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-1">Extensive Experience</h4>
                     <p className="text-woodlands-darkpurple">Our team brings decades of combined experience in estate planning and probate law.</p>
                   </div>
                 </div>
