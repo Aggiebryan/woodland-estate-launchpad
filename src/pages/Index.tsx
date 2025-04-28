@@ -121,7 +121,7 @@ const Index = () => {
               </div>
               
               <Link to="/our-attorneys">
-                <Button size="lg" className="bg-gradient-to-r from-woodlands-purple to-woodlands-darkpurple text-white hover:shadow-lg transition-all duration-300">
+                <Button size="lg" className="bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold text-woodlands-purple hover:from-woodlands-lightgold hover:to-woodlands-gold transition-all duration-300 shadow-lg hover:shadow-woodlands-gold/20 w-full sm:w-auto">
                   Meet Our Team
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
