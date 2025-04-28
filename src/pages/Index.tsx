@@ -15,8 +15,10 @@ const Index = () => {
         <div className="relative max-w-7xl mx-auto backdrop-blur-sm">
           <div className="text-center md:text-left md:flex md:items-center md:justify-between">
             <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold leading-tight">
-                Protect Your Legacy & Your Loved Ones
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold leading-tight">
+                <span className="text-white">Protect </span> 
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold">Your Legacy</span> 
+                <span className="text-white"> & Your Loved Ones</span>
               </h1>
               <p className="text-xl text-woodlands-cream/90 mt-6 md:max-w-md backdrop-blur-sm">
                 Expert estate planning attorneys helping families in The Woodlands secure their future and protect what matters most.
@@ -64,15 +66,89 @@ const Index = () => {
         </div>
       </section>
 
+      {/* Expertise in Action Section */}
+      <section className="py-16 px-4 bg-white relative overflow-hidden">
+        <div className="max-w-7xl mx-auto relative">
+          <div className="md:flex md:items-center md:justify-between">
+            <div className="md:w-1/2 mb-10 md:mb-0 pr-0 md:pr-8">
+              <div className="mb-8">
+                <h2 className="text-3xl md:text-4xl font-serif font-bold text-woodlands-darkpurple mb-2">
+                  Expertise in Action:
+                </h2>
+                <h3 className="text-2xl md:text-3xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-6">
+                  Meet Our Attorneys
+                </h3>
+                <p className="text-woodlands-darkpurple mb-6 leading-relaxed">
+                  At The Woodlands Law Firm, our skilled attorneys are dedicated to delivering exceptional legal services, 
+                  utilizing the latest technologies to offer efficient solutions with a strong commitment to client satisfaction.
+                </p>
+                <p className="text-woodlands-darkpurple mb-8 leading-relaxed">
+                  Our proven track record of success, exceptional approach, and commitment to keeping our clients 
+                  informed throughout every step of the legal process are what set us apart.
+                </p>
+              </div>
+              
+              <div className="space-y-6 mb-8">
+                <div className="flex">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-woodlands-purple mb-1">Extensive Experience</h4>
+                    <p className="text-woodlands-darkpurple">Our team brings decades of combined experience in estate planning and probate law.</p>
+                  </div>
+                </div>
+                
+                <div className="flex">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-woodlands-purple mb-1">Personalized Approach</h4>
+                    <p className="text-woodlands-darkpurple">We take the time to understand your unique needs and goals to create tailored solutions.</p>
+                  </div>
+                </div>
+                
+                <div className="flex">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <div>
+                    <h4 className="font-bold text-lg text-woodlands-purple mb-1">Ongoing Support</h4>
+                    <p className="text-woodlands-darkpurple">We provide continued support to ensure your estate plan remains current and effective.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <Link to="/our-attorneys">
+                <Button size="lg" className="bg-gradient-to-r from-woodlands-purple to-woodlands-darkpurple text-white hover:shadow-lg transition-all duration-300">
+                  Meet Our Team
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </Link>
+            </div>
+            
+            <div className="md:w-5/12">
+              <div className="rounded-lg overflow-hidden shadow-xl border border-gray-200">
+                <img 
+                  src="/placeholder.svg" 
+                  alt="The Woodlands Law Firm Attorneys" 
+                  className="w-full h-full object-cover aspect-[4/3]"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Services Section */}
-      <section className="py-16 px-4 bg-gradient-to-br from-woodlands-lightpurple via-woodlands-purple to-woodlands-darkpurple relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-woodlands-gold/5 to-transparent"></div>
+      <section className="py-16 px-4 bg-white relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold">
-              Our Estate Planning Services
+            <h2 className="text-3xl md:text-4xl font-serif font-bold text-woodlands-darkpurple">
+              Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold">Estate Planning</span> Services
             </h2>
-            <p className="text-woodlands-cream/90 mt-4 max-w-3xl mx-auto">
+            <p className="text-woodlands-darkpurple mt-4 max-w-3xl mx-auto">
               Comprehensive legal solutions to protect your assets, provide for your loved ones, and secure your legacy.
             </p>
           </div>
@@ -100,14 +176,14 @@ const Index = () => {
                 link: "/estate-planning"
               }
             ].map((service, index) => (
-              <div key={index} className="group backdrop-blur-sm bg-woodlands-purple/30 p-6 rounded-lg border border-woodlands-gold/20 shadow-lg hover:shadow-woodlands-gold/10 transition-all duration-300 hover:bg-woodlands-purple/40">
-                <h3 className="text-xl font-serif font-semibold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-3">
+              <div key={index} className="group bg-white p-6 rounded-lg border border-woodlands-darkpurple/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-woodlands-gold/20">
+                <h3 className="text-xl font-serif font-semibold text-woodlands-purple mb-3">
                   {service.title}
                 </h3>
-                <p className="text-woodlands-cream/90 mb-4 group-hover:text-woodlands-cream transition-colors duration-300">
+                <p className="text-woodlands-darkpurple mb-4 group-hover:text-woodlands-purple transition-colors duration-300">
                   {service.description}
                 </p>
-                <Link to={service.link} className="inline-flex items-center text-woodlands-lightgold hover:text-woodlands-gold font-medium transition-colors duration-300">
+                <Link to={service.link} className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold font-medium transition-colors duration-300">
                   Learn More
                   <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
                 </Link>
