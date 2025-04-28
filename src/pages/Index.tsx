@@ -1,4 +1,3 @@
-
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
@@ -10,55 +9,36 @@ const Index = () => {
   return (
     <MainLayout>
       {/* Hero Section */}
-      <section className="relative py-16 md:py-28 px-4 bg-gradient-to-br from-woodlands-purple via-woodlands-darkpurple to-woodlands-lightpurple overflow-hidden">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/eec20be5-5337-4ef4-bf2e-108bd0116fda.png')] opacity-5 bg-center bg-no-repeat bg-contain"></div>
-        <div className="relative max-w-7xl mx-auto backdrop-blur-sm">
-          <div className="text-center md:text-left md:flex md:items-center md:justify-between">
-            <div className="md:w-1/2 mb-10 md:mb-0">
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold leading-tight">
-                Protect Your Legacy & Your Loved Ones
-              </h1>
-              <p className="text-xl text-woodlands-cream/90 mt-6 md:max-w-md backdrop-blur-sm">
-                Expert estate planning attorneys helping families in The Woodlands secure their future and protect what matters most.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8 justify-center md:justify-start">
-                <Link to="/contact">
-                  <a href="https://woodlandslaw.cliogrow.com/book"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    >
-                  <Button size="lg" className="bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold text-woodlands-purple hover:from-woodlands-lightgold hover:to-woodlands-gold transition-all duration-300 shadow-lg hover:shadow-woodlands-gold/20 w-full sm:w-auto">
-                    Free Consultation
-                  </Button>
-                  </a>
-                </Link>
-                <Link to="/practice-areas">
-                  <Button size="lg" variant="outline" className="border-2 border-woodlands-gold/30 text-woodlands-gold hover:bg-woodlands-gold/10 w-full sm:w-auto backdrop-blur-md transition-all duration-300">
-                    Our Services
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <div className="md:w-5/12">
-              <div className="backdrop-blur-md bg-woodlands-darkpurple/30 rounded-lg p-6 border border-woodlands-gold/20 shadow-lg hover:shadow-woodlands-gold/10 transition-all duration-300">
-                <h2 className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
-                  Why Choose Us?
-                </h2>
-                <ul className="space-y-4">
-                  {[
-                    "Personalized estate plans tailored to your needs",
-                    "20+ years of estate planning experience",
-                    "Compassionate, client-focused approach",
-                    "Clear, jargon-free communication",
-                    "Convenient location in The Woodlands"
-                  ].map((item, index) => (
-                    <li key={index} className="flex items-center group">
-                      <Check className="h-6 w-6 text-woodlands-gold mr-2 flex-shrink-0 group-hover:text-woodlands-lightgold transition-colors duration-300" />
-                      <span className="text-woodlands-cream/90 group-hover:text-woodlands-cream transition-colors duration-300">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+      <section className="relative py-16 md:py-28 px-4 bg-woodlands-purple overflow-hidden">
+        <div 
+          className="absolute inset-0 bg-[url('https://same-6cmaerz9hcn-latest.netlify.app/images/estate-planning-hero.jpg')] bg-cover bg-center opacity-20"
+          style={{ backgroundBlendMode: 'multiply' }}
+        ></div>
+        <div className="relative max-w-7xl mx-auto">
+          <div className="text-center">
+            <h1 className="text-4xl md:text-6xl font-serif font-bold text-woodlands-gold mb-6 leading-tight">
+              Houston Estate Planning <br className="hidden md:block" />
+              & Probate Attorneys
+            </h1>
+            <p className="text-xl md:text-2xl text-woodlands-cream/90 max-w-3xl mx-auto mb-8">
+              Our experienced attorneys help families in The Woodlands protect their legacy and loved ones through comprehensive estate planning.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <a 
+                href="https://woodlandslaw.cliogrow.com/book"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block"
+              >
+                <Button size="lg" className="bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold text-woodlands-purple hover:from-woodlands-lightgold hover:to-woodlands-gold transition-all duration-300 shadow-lg hover:shadow-woodlands-gold/20 w-full sm:w-auto">
+                  Schedule a Free Consultation
+                </Button>
+              </a>
+              <Link to="/practice-areas">
+                <Button size="lg" variant="outline" className="border-2 border-woodlands-gold/30 text-woodlands-gold hover:bg-woodlands-gold/10 w-full sm:w-auto backdrop-blur-md transition-all duration-300">
+                  Learn About Our Services
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
