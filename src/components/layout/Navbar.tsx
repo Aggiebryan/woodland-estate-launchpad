@@ -17,11 +17,11 @@ const Navbar = () => {
             <Link to="/" className="flex items-center">
               <img
                 src="/lovable-uploads/eec20be5-5337-4ef4-bf2e-108bd0116fda.png"
-                alt="Woodlands Estate Law"
+                alt="Estate Planning"
                 className="h-16 w-auto"
               />
               <span className="ml-3 text-woodlands-gold font-serif text-xl font-semibold hidden sm:block">
-                Woodlands Estate Law
+                Estate Planning
               </span>
             </Link>
           </div>
@@ -64,4 +64,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
