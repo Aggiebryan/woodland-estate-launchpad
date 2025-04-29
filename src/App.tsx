@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -13,6 +14,7 @@ import Wills from "./pages/Wills";
 import Blog from "./pages/Blog";
 import Trusts from "./pages/Trusts";
 import WillsAndTrusts from "./pages/WillsAndTrusts";
+import EstatePlanningLanding from "./pages/EstatePlanningLanding";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -97,6 +99,9 @@ const App = () => (
           <Route path="/probate" element={<Probate />} />
           <Route path="/guardianship" element={<Guardianship />} />
           <Route path="/elder-law" element={<ElderLaw />} />
+          
+          {/* Landing Page Route */}
+          <Route path="/estate-planning" element={<EstatePlanningLanding />} />
           
           {/* Resources Routes */}
           <Route path="/checklist" element={<Checklist />} />
