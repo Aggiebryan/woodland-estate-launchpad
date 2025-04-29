@@ -194,7 +194,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-4 bg-gradient-to-r from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative overflow-hidden">
+      <section className="py-16 px-4 bg-gradient-to-br from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-woodlands-gold/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-12">
