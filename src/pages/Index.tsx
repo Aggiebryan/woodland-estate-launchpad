@@ -194,7 +194,7 @@ const Index = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-16 px-4 bg-gradient-to-br from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative overflow-hidden">
+      <section className="py-16 px-4 bg-gradient-to-b from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-woodlands-gold/5 to-transparent"></div>
         <div className="max-w-7xl mx-auto relative">
           <div className="text-center mb-12">
@@ -227,7 +227,7 @@ const Index = () => {
       </section>
 
       {/* Call to Action with Consultation Form */}
-      <section className="py-16 px-4 bg-gradient-to-tr from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative">
+      <section className="py-16 px-4 bg-gradient-to-t from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* CTA Left side */}
