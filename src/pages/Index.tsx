@@ -1,10 +1,10 @@
-
 import { Link } from "react-router-dom";
 import { ArrowRight, Check } from "lucide-react";
 import MainLayout from "@/components/layout/MainLayout";
 import ConsultationCTA from "@/components/shared/ConsultationCTA";
 import TestimonialCard from "@/components/shared/TestimonialCard";
 import { Button } from "@/components/ui/button";
+import ConsultationForm from "@/components/shared/ConsultationForm";
 
 const Index = () => {
   return (
@@ -131,7 +131,7 @@ const Index = () => {
             <div className="md:w-5/12">
               <div className="rounded-lg overflow-hidden shadow-xl border border-gray-200">
                 <img 
-                  src="/placeholder.svg" 
+                  src="/lovable-uploads/9ff24536-21a2-4073-beec-ecc9a5e333c9.png" 
                   alt="The Woodlands Law Firm Attorneys" 
                   className="w-full h-full object-cover aspect-[4/3]"
                 />
@@ -226,14 +226,61 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Call to Action */}
-      <section className="py-8 px-4 mb-16 relative">
+      {/* Call to Action with Consultation Form */}
+      <section className="py-16 px-4 bg-white relative">
         <div className="max-w-7xl mx-auto">
-          <ConsultationCTA 
-            variant="dark"
-            title="Ready to Secure Your Legacy?"
-            subtitle="Schedule your free 15-minute consultation today and take the first step toward protecting your family's future."
-          />
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+            {/* CTA Left side */}
+            <div className="bg-woodlands-darkpurple p-8 rounded-lg border border-woodlands-gold/20 shadow-lg">
+              <h2 className="text-3xl md:text-4xl font-serif font-bold text-woodlands-gold mb-4">
+                Ready to Secure Your Legacy?
+              </h2>
+              <p className="text-woodlands-cream/90 mb-6">
+                Take the first step toward protecting your family's future with expert estate planning guidance. Our attorneys are ready to help you create a plan tailored to your unique needs.
+              </p>
+              
+              <div className="space-y-6 mt-8">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <p className="text-woodlands-cream/90">Free 15-minute initial consultation</p>
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <p className="text-woodlands-cream/90">Personalized estate planning strategies</p>
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="flex-shrink-0 w-8 h-8 bg-woodlands-gold/20 rounded-full flex items-center justify-center mr-4">
+                    <Check className="h-5 w-5 text-woodlands-gold" />
+                  </div>
+                  <p className="text-woodlands-cream/90">Clear, jargon-free communication</p>
+                </div>
+              </div>
+              
+              <div className="mt-8 hidden md:block">
+                <a
+                  href="tel:+18326260116"
+                  className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold transition-colors"
+                >
+                  <span className="font-medium">Call us now:</span>
+                  <span className="ml-2 text-woodlands-lightgold">(832) 626-0116</span>
+                </a>
+              </div>
+            </div>
+            
+            {/* Consultation Form */}
+            <div className="bg-woodlands-lightpurple p-8 rounded-lg border border-woodlands-gold/20 shadow-lg">
+              <h2 className="text-2xl font-serif font-semibold text-woodlands-gold mb-6">
+                Free Consultation Request
+              </h2>
+              <ConsultationForm />
+            </div>
+          </div>
         </div>
       </section>
     </MainLayout>
