@@ -1,5 +1,5 @@
 
-import { ArrowRight, Shield, FileText, FileKey, FileHeart } from "lucide-react";
+import { ArrowRight, Shield, FileText, FileKey, FileHeart, Phone, Lock } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
