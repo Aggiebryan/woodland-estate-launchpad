@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
-import { ArrowRight, Check } from "lucide-react";
-import MainLayout from "@/components/layout/MainLayout";
+import { ArrowRight, Check, Phone, Mail, Clock, MapPin } from "lucide-react";
+import MainLayout from "../components/layout/MainLayout";
 import ConsultationCTA from "@/components/shared/ConsultationCTA";
 import TestimonialCard from "@/components/shared/TestimonialCard";
 import { Button } from "@/components/ui/button";
