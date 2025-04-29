@@ -13,7 +13,7 @@ const OurAttorneys = () => {
         
         <AttorneyProfile 
           name="Gwendolyn Simpson"
-          image="/public/lovable-uploads/fc6c1c70-3817-4323-a54c-2a04adee36fb.png"
+          image="/lovable-uploads/fc6c1c70-3817-4323-a54c-2a04adee36fb.png"
           bio="Gwendolyn Simpson, a native Houstonian, is the founder and managing attorney of The Woodlands Law Firm. She earned her Juris Doctor from Baylor Law School in 2007, where she received nine Dean's Academic Merit Scholarships and tied for Best Brief in the Dawson and Sodd Moot Court Competition. Prior to law school, she graduated summa cum laude from LeTourneau University with a Bachelor of Business Administration and completed her associate degree in legal assisting at North Harris College.
 
 Ms. Simpson began her legal career in 1998 as a paralegal before becoming a licensed attorney in 2007. She established her own civil practice, focusing on civil litigation, transactions, probate, and personal injury. Her career includes serving as staff attorney to the Honorable Kathleen Hamilton in the 359th Judicial District Court of Montgomery County, Texas. In 2012, she was appointed by the Board of Judges to serve as a Master/Referee for the same court. In 2015, she contributed to the development and administration of Montgomery County's Veterans' Treatment Court.
@@ -27,7 +27,7 @@ Ms. Simpson is licensed to practice in Texas and the U.S. Southern District of T
 
         <AttorneyProfile 
           name="Bryan C. Holman"
-          image="/public/lovable-uploads/e7cbab38-2c31-4735-923d-c00a44ed632a.png"
+          image="/lovable-uploads/e7cbab38-2c31-4735-923d-c00a44ed632a.png"
           bio="Bryan Holman brings a wealth of practical experience and entrepreneurial insight to his role at The Woodlands Law Firm. A native Texan, Bryan earned his Bachelor of Science from Texas A&M University before completing his Juris Doctor at South Texas College of Law, where he focused on building the legal skills necessary for effective advocacy and client service.
 
 Bryan's career in law was preceded by over a decade of work as an insurance adjuster. From 1999 to 2013, he represented major national carriers in claims involving natural disasters such as hurricanes, floods, blizzards, and wildfires. This background gave him a detailed understanding of the insurance industry and the legal challenges claimants face.
