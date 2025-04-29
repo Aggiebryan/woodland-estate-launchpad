@@ -17,7 +17,7 @@ const Footer = () => {
                 alt="Woodlands Estate Law"
                 className="h-12 w-auto mr-3"
               />
-              <h3 className="font-serif text-xl font-semibold">Woodlands Estate Law</h3>
+              <h3 className="font-serif text-xl font-semibold">Estate Planning</h3>
             </div>
             <p className="text-woodlands-cream opacity-80 mb-4 font-body">
               We provide comprehensive estate planning services to protect your legacy and your loved ones.
