@@ -227,7 +227,7 @@ const Index = () => {
       </section>
 
       {/* Call to Action with Consultation Form */}
-      <section className="py-16 px-4 bg-gradient-to-tr from-woodlands-darkpurple via-woodlands-purple to-woodlands-purple relative">
+      <section className="py-16 px-4 bg-gradient-to-t from-woodlands-darkpurple via-woodlands-purple to-woodlands-purple relative">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* CTA Left side */}
