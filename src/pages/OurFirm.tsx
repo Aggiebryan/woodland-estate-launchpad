@@ -12,20 +12,39 @@ const OurFirm = () => {
           </h1>
           <Card className="bg-woodlands-darkpurple border-woodlands-gold/20">
             <CardContent className="pt-6 space-y-6 text-woodlands-cream leading-relaxed">
+              <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
+                Our Legacy of Protection
+              </h2>
               <p>
-                The Woodlands Law Firm is a Texas-based law firm focused on civil litigation, estate planning, consumer protection, insurance disputes, and personal injury, and business planning. Located in The Woodlands, Texas, our firm is dedicated to representing individuals, families, and small businesses throughout Montgomery County, Harris County, and the surrounding areas.
+                The Woodlands Law Firm brings sophisticated legal expertise with the personalized attention you deserve. Our attorneys combine over 20 years of collective experience in estate planning and probate matters, delivering the caliber of legal counsel typically found in downtown Houston firms with the accessibility and relationship-focused approach of your trusted local advisors.
               </p>
               <p>
-                We provide legal representation with a commitment to integrity, preparation, and results. Our attorneys bring decades of combined experience in both the courtroom and the negotiation table. We work closely with clients to protect their rights, resolve disputes, and plan for the future.
+                At The Woodlands Law Firm, we recognize that estate planning is far more than document preparation—it's about securing your family's future with confidence and peace of mind. Our estate planning practice is built on the principle that every family deserves a customized strategy that protects what matters most, whether you're planning for young children, preparing for retirement, or addressing complex business succession issues.
               </p>
               <p>
-                Founded by attorney Gwendolyn Simpson, the firm is built on a foundation of practical legal knowledge and community trust. Ms. Simpson and her team offer strategic advocacy across a wide range of legal matters, with a strong focus on achieving outcomes that matter. Whether drafting wills and trusts, litigating breach of contract claims, or pursuing justice in a personal injury case, we aim to deliver clear answers and effective representation.
+                Our estate planning attorneys specialize in:
+
+Comprehensive estate plans tailored to Texas law
+Revocable and irrevocable trusts
+Asset protection strategies
+Business succession planning
+Special needs planning
+Powers of attorney and advanced directives
+Probate and estate administration
               </p>
               <p>
-                We understand that legal problems can disrupt your life or your business. That's why we strive to simplify the process, provide honest guidance, and work efficiently toward resolution. Our team is responsive, thorough, and committed to each client's goals.
+                The Woodlands Law Firm offers a comprehensive range of legal services with estate planning as an integral component of our practice. Our attorneys excel in civil litigation focused on plaintiff-side representation, including Deceptive Trade Practices Act violations, insurance disputes, and personal injury matters. This multidisciplinary approach provides our estate planning clients with unique advantages—our litigation experience informs preventative strategies in estate documents, while our probate expertise ensures your plan will function effectively when needed. By maintaining this balanced practice, we deliver more robust legal protection than firms with narrower specializations can provide.
               </p>
               <p>
-                Our attorneys are licensed to practice in Texas state courts and the U.S. District Court for the Southern District of Texas. We are members of the Montgomery County Bar Association, The Woodlands Bar Association, and the Federalist Society.
+                When you engage with The Woodlands Law Firm for your estate planning needs, we commit to:
+
+Taking the time to understand your family dynamics and financial goals
+Explaining complex legal concepts in straightforward terms
+Creating flexible estate plans that evolve with your changing circumstances
+Providing exceptional value with transparent fee structures
+Building lasting relationships based on trust and exceptional service
+
+The journey to securing your family's future begins with a conversation. Contact us today to discover how our estate planning attorneys can help you protect what matters most.
               </p>
               <p>
                 If you are looking for a local law firm that values honesty, precision, and client-focused results, contact The Woodlands Law Firm today. We offer consultations and welcome the opportunity to serve as your trusted legal advisors.
