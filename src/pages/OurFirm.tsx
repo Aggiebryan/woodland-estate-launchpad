@@ -26,14 +26,13 @@ const OurFirm = () => {
               </p>
               <p>
                 Our estate planning attorneys specialize in:
-              <li>  == $0 "Comprehensive estate plans tailored to Texas law"</li>
-Comprehensive estate plans tailored to Texas law
-Revocable and irrevocable trusts
-Asset protection strategies
-Business succession planning
-Special needs planning
-Powers of attorney and advanced directives
-Probate and estate administration
+              <li>  Comprehensive estate plans tailored to Texas law</li>
+              <li>Revocable and irrevocable trusts</li>
+              <li>Asset protection strategies</li>
+              <li>Business succession planning</li>
+              <li>Special needs planning</li>
+              <li>Powers of attorney and advanced directives</li>
+              <li>Probate and estate administration</li>
               </p>
               <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
                 The Full Service Advantage
