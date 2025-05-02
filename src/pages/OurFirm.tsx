@@ -45,7 +45,7 @@ const OurFirm = () => {
               </h2>
               <p>
                 When you engage with The Woodlands Law Firm for your estate planning needs, we commit to:
-              </p>
+            
               <li>Taking the time to understand your family dynamics and financial goals</li>
               <li>Explaining complex legal concepts in straightforward terms</li>
               <li>Creating flexible estate plans that evolve with your changing circumstances</li>
