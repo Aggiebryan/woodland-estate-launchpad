@@ -27,6 +27,7 @@ const OurFirm = () => {
               
                 <p>Our estate planning attorneys specialize in:</p>
               <p>
+              <ul class="list-disc list-inside space-y-2 ml-4">
               <li>Comprehensive estate plans tailored to Texas law</li>
               <li>Revocable and irrevocable trusts</li>
               <li>Asset protection strategies</li>
@@ -34,6 +35,7 @@ const OurFirm = () => {
               <li>Special needs planning</li>
               <li>Powers of attorney and advanced directives</li>
               <li>Probate and estate administration</li>
+              </ul>
               </p>
               <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
                 The Full Service Advantage
