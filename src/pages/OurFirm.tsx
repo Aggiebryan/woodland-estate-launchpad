@@ -18,6 +18,9 @@ const OurFirm = () => {
               <p>
                 The Woodlands Law Firm brings sophisticated legal expertise with the personalized attention you deserve. Our attorneys combine over 20 years of collective experience in estate planning and probate matters, delivering the caliber of legal counsel typically found in downtown Houston firms with the accessibility and relationship-focused approach of your trusted local advisors.
               </p>
+              <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
+                Estate Planning Excellence
+              </h2>
               <p>
                 At The Woodlands Law Firm, we recognize that estate planning is far more than document preparation—it's about securing your family's future with confidence and peace of mind. Our estate planning practice is built on the principle that every family deserves a customized strategy that protects what matters most, whether you're planning for young children, preparing for retirement, or addressing complex business succession issues.
               </p>
@@ -32,9 +35,15 @@ Special needs planning
 Powers of attorney and advanced directives
 Probate and estate administration
               </p>
+              <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
+                The Full Service Advantage
+              </h2>
               <p>
                 The Woodlands Law Firm offers a comprehensive range of legal services with estate planning as an integral component of our practice. Our attorneys excel in civil litigation focused on plaintiff-side representation, including Deceptive Trade Practices Act violations, insurance disputes, and personal injury matters. This multidisciplinary approach provides our estate planning clients with unique advantages—our litigation experience informs preventative strategies in estate documents, while our probate expertise ensures your plan will function effectively when needed. By maintaining this balanced practice, we deliver more robust legal protection than firms with narrower specializations can provide.
               </p>
+              <h2 class="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold to-woodlands-lightgold mb-4">
+                Our Commitment
+              </h2>
               <p>
                 When you engage with The Woodlands Law Firm for your estate planning needs, we commit to:
 
