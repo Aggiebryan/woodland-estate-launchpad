@@ -25,7 +25,8 @@ const OurFirm = () => {
                 At The Woodlands Law Firm, we recognize that estate planning is far more than document preparation—it's about securing your family's future with confidence and peace of mind. Our estate planning practice is built on the principle that every family deserves a customized strategy that protects what matters most, whether you're planning for young children, preparing for retirement, or addressing complex business succession issues.
               </p>
               <p>
-                Our estate planning attorneys specialize in:
+                <p>Our estate planning attorneys specialize in:</p>
+          
               <li>  Comprehensive estate plans tailored to Texas law</li>
               <li>Revocable and irrevocable trusts</li>
               <li>Asset protection strategies</li>
