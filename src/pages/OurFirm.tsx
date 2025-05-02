@@ -26,7 +26,7 @@ const OurFirm = () => {
               </p>
               <p>
                 <p>Our estate planning attorneys specialize in:</p>
-              <ul class="list-disc list-inside space-y-2 ml-4">
+              <ul class="list-disc list-inside space-y-1 ml-4">
               <li>Comprehensive estate plans tailored to Texas law</li>
               <li>Revocable and irrevocable trusts</li>
               <li>Asset protection strategies</li>
