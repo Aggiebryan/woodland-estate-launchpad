@@ -45,13 +45,13 @@ const OurFirm = () => {
               </h2>
               <p>
                 When you engage with The Woodlands Law Firm for your estate planning needs, we commit to:
-
-Taking the time to understand your family dynamics and financial goals
-Explaining complex legal concepts in straightforward terms
-Creating flexible estate plans that evolve with your changing circumstances
-Providing exceptional value with transparent fee structures
-Building lasting relationships based on trust and exceptional service
-
+              </p>
+              <li>Taking the time to understand your family dynamics and financial goals</li>
+              <li>Explaining complex legal concepts in straightforward terms</li>
+              <li>Creating flexible estate plans that evolve with your changing circumstances</li>
+              <li>Providing exceptional value with transparent fee structures</li>
+              <li>Building lasting relationships based on trust and exceptional service</li>
+            
 The journey to securing your family's future begins with a conversation. Contact us today to discover how our estate planning attorneys can help you protect what matters most.
               </p>
               <p>
