@@ -125,8 +125,19 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* Attorney Advertising Notice */}
+        <div className="mt-8 pt-6 pb-4 border-t border-woodlands-gold/20">
+          <h4 className="text-sm font-serif font-semibold mb-2 text-woodlands-lightgold">Attorney Advertising Notice</h4>
+          <p className="text-woodlands-cream/80 text-xs text-justify">
+            This website is designed for general information only. The information presented at this site should not be construed as formal legal advice or the formation of a lawyer-client relationship. 
+            <Link to="/disclaimer" className="text-woodlands-lightgold hover:underline ml-1">
+              View Full Disclaimer
+            </Link>
+          </p>
+        </div>
+
         {/* Bottom Section */}
-        <div className="border-t border-woodlands-gold/20 mt-8 pt-8">
+        <div className="border-t border-woodlands-gold/20 mt-4 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <p className="text-woodlands-cream opacity-80 text-sm mb-4 md:mb-0">
               &copy; {currentYear} The Woodlands Law Firm. All rights reserved.

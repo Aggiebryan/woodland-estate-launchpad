@@ -2,6 +2,7 @@
 import React from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
+import AttorneyNotice from "./AttorneyNotice";
 
 interface MainLayoutProps {
   children: React.ReactNode;
