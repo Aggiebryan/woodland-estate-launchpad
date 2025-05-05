@@ -16,6 +16,7 @@ import Trusts from "./pages/Trusts";
 import WillsAndTrusts from "./pages/WillsAndTrusts";
 import EstatePlanningLanding from "./pages/EstatePlanningLanding";
 import Disclaimer from "./pages/Disclaimer";
+import Privacy from "./pages/Privacy";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -58,7 +59,7 @@ const Schedule = () => <UnderDevelopment />;
 const VirtualPlanning = () => <UnderDevelopment />;
 
 // Legal pages
-const Privacy = () => <UnderDevelopment />;
+// Removed the UnderDevelopment for Privacy since we now have a real page
 const Terms = () => <UnderDevelopment />;
 // Removed the UnderDevelopment for Disclaimer since we now have a real page
 const Sitemap = () => <UnderDevelopment />;
