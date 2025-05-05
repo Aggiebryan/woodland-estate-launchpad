@@ -17,6 +17,7 @@ import WillsAndTrusts from "./pages/WillsAndTrusts";
 import EstatePlanningLanding from "./pages/EstatePlanningLanding";
 import Disclaimer from "./pages/Disclaimer";
 import Privacy from "./pages/Privacy";
+import Sitemap from "./pages/Sitemap";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -62,7 +63,7 @@ const VirtualPlanning = () => <UnderDevelopment />;
 // Removed the UnderDevelopment for Privacy since we now have a real page
 const Terms = () => <UnderDevelopment />;
 // Removed the UnderDevelopment for Disclaimer since we now have a real page
-const Sitemap = () => <UnderDevelopment />;
+// Removed the UnderDevelopment for Sitemap since we now have a real page
 
 // SEO-focused landing pages
 const ParentsWithMinorChildren = () => <UnderDevelopment />;
