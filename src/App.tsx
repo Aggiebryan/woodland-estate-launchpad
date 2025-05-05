@@ -18,6 +18,7 @@ import EstatePlanningLanding from "./pages/EstatePlanningLanding";
 import Disclaimer from "./pages/Disclaimer";
 import Privacy from "./pages/Privacy";
 import Sitemap from "./pages/Sitemap";
+import Terms from "./pages/Terms";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -61,7 +62,7 @@ const VirtualPlanning = () => <UnderDevelopment />;
 
 // Legal pages
 // Removed the UnderDevelopment for Privacy since we now have a real page
-const Terms = () => <UnderDevelopment />;
+// Removed the UnderDevelopment for Terms since we now have a real page
 // Removed the UnderDevelopment for Disclaimer since we now have a real page
 // Removed the UnderDevelopment for Sitemap since we now have a real page
 
