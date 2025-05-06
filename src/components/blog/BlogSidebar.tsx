@@ -15,23 +15,28 @@ const BlogSidebar = ({ recentPosts }: BlogSidebarProps) => {
         <CardTitle className="text-woodlands-gold">Recent Posts</CardTitle>
       </CardHeader>
       <CardContent>
-        <ul className="space-y-4">
-          {recentPosts.map((post) => (
-            <li key={post.id}>
-              <Link 
-                to={`/blog/${post.id}`} 
-                className="block hover:bg-woodlands-purple/20 p-2 rounded transition-colors"
-              >
-                <h3 className="text-woodlands-cream/90 hover:text-woodlands-gold transition-colors">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-woodlands-cream/60">
-                  {new Date(post.date).toLocaleDateString()}
-                </p>
-              </Link>
-            </li>
-          ))}
-        </ul>
+        {recentPosts.length > 0 ? (
+          <ul className="space-y-4">
+            {recentPosts.map((post) => (
+              <li key={post.id}>
+                <Link 
+                  to={`/blog/${post.id}`} 
+                  className="block hover:bg-woodlands-purple/20 p-2 rounded transition-colors"
+                >
+                  <h3 
+                    className="text-woodlands-cream/90 hover:text-woodlands-gold transition-colors"
+                    dangerouslySetInnerHTML={{ __html: post.title }}
+                  ></h3>
+                  <p className="text-sm text-woodlands-cream/60">
+                    {new Date(post.date).toLocaleDateString()}
+                  </p>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="text-woodlands-cream/70">No recent posts available</p>
+        )}
       </CardContent>
     </Card>
   );

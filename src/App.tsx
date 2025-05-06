@@ -12,6 +12,7 @@ import OurAttorneys from "./pages/OurAttorneys";
 import NotFound from "./pages/NotFound";
 import Wills from "./pages/Wills";
 import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
 import Trusts from "./pages/Trusts";
 import WillsAndTrusts from "./pages/WillsAndTrusts";
 import EstatePlanningLanding from "./pages/EstatePlanningLanding";
@@ -111,6 +112,7 @@ const App = () => (
           <Route path="/checklist" element={<Checklist />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="/glossary" element={<Glossary />} />
           
           {/* Start Your Plan Routes */}

@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -98,4 +99,57 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* WordPress Content Styling */
+.prose {
+  @apply text-woodlands-cream/90;
+}
+
+.prose h1, .prose h2, .prose h3, .prose h4, .prose h5, .prose h6 {
+  @apply text-woodlands-gold font-serif mt-8 mb-4;
+}
+
+.prose h1 {
+  @apply text-3xl;
+}
+
+.prose h2 {
+  @apply text-2xl;
+}
+
+.prose h3 {
+  @apply text-xl;
+}
+
+.prose p {
+  @apply mb-4;
+}
+
+.prose a {
+  @apply text-woodlands-lightgold hover:text-woodlands-gold transition-colors;
+}
+
+.prose ul, .prose ol {
+  @apply my-4 pl-5;
+}
+
+.prose li {
+  @apply mb-2;
+}
+
+.prose img {
+  @apply my-4 rounded-lg max-w-full;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-woodlands-gold/50 pl-4 italic my-4 text-woodlands-cream/80;
+}
+
+.prose pre {
+  @apply bg-woodlands-darkpurple/50 p-4 rounded-md my-4 overflow-auto;
+}
+
+.prose-gold a {
+  @apply text-woodlands-lightgold hover:text-woodlands-gold;
 }
