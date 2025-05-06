@@ -120,6 +120,16 @@ const BlogPost = () => {
                 </div>
               </div>
               
+              {post.featuredImage && (
+                <div className="my-6">
+                  <img 
+                    src={post.featuredImage}
+                    alt={post.title}
+                    className="w-full h-auto max-h-96 object-cover rounded-lg"
+                  />
+                </div>
+              )}
+              
               <Card className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20">
                 <CardContent className="pt-6">
                   <div 
@@ -128,6 +138,21 @@ const BlogPost = () => {
                   ></div>
                 </CardContent>
               </Card>
+              
+              {post.categories && post.categories.length > 0 && (
+                <div className="flex items-center gap-2 flex-wrap pt-4">
+                  <span className="text-woodlands-cream/60 text-sm">Categories:</span>
+                  {post.categories.map(category => (
+                    <Link 
+                      key={category.id}
+                      to={`/blog?category=${category.id}`}
+                      className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
+                    >
+                      {category.name}
+                    </Link>
+                  ))}
+                </div>
+              )}
               
               {post.tags && post.tags.length > 0 && (
                 <div className="flex items-center gap-2 flex-wrap pt-4">

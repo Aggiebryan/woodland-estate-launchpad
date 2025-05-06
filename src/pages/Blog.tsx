@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import BlogSearch from '@/components/blog/BlogSearch';
@@ -10,26 +10,37 @@ import { fetchWordPressPosts } from '@/services/wordpressApi';
 import { BlogPost } from '@/types/blog';
 import { useToast } from '@/hooks/use-toast';
 import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Loader2 } from 'lucide-react';
+import { Loader2, Image } from 'lucide-react';
 
 const Blog = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(parseInt(searchParams.get('page') || '1', 10));
   const [totalPages, setTotalPages] = useState(1);
   const { toast } = useToast();
   const postsPerPage = 10;
+  
+  const categoryId = parseInt(searchParams.get('category') || '0', 10);
 
   useEffect(() => {
+    // Update URL params when state changes
+    const params = new URLSearchParams();
+    if (searchTerm) params.set('search', searchTerm);
+    if (currentPage > 1) params.set('page', currentPage.toString());
+    if (categoryId > 0) params.set('category', categoryId.toString());
+    setSearchParams(params);
+    
     const loadPosts = async () => {
       setLoading(true);
       try {
         const { posts: fetchedPosts, totalPages } = await fetchWordPressPosts(
           currentPage,
           postsPerPage,
-          searchTerm
+          searchTerm,
+          categoryId
         );
         
         setPosts(fetchedPosts);
@@ -50,7 +61,7 @@ const Blog = () => {
     };
 
     loadPosts();
-  }, [currentPage, searchTerm, toast]);
+  }, [currentPage, searchTerm, categoryId, toast, setSearchParams]);
 
   const handleSearch = (term: string) => {
     setSearchTerm(term);
@@ -99,14 +110,29 @@ const Blog = () => {
                 <div className="space-y-6">
                   {posts.map((post) => (
                     <Card key={post.id} className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20 hover:border-woodlands-gold/40 transition-colors">
-                      <CardHeader>
-                        <CardTitle>
+                      <CardHeader className="flex flex-col md:flex-row gap-4">
+                        {post.featuredImage ? (
+                          <Link 
+                            to={`/blog/${post.id}`}
+                            className="md:w-1/3 shrink-0"
+                          >
+                            <img 
+                              src={post.featuredImage} 
+                              alt={post.title}
+                              className="w-full h-48 md:h-32 object-cover rounded-md"
+                            />
+                          </Link>
+                        ) : (
+                          <div className="md:w-1/3 h-32 bg-woodlands-purple/20 rounded-md flex items-center justify-center">
+                            <Image className="w-8 h-8 text-woodlands-cream/40" />
+                          </div>
+                        )}
+                        <CardTitle className="md:w-2/3">
                           <Link 
                             to={`/blog/${post.id}`}
                             className="text-woodlands-gold hover:text-woodlands-lightgold transition-colors"
-                          >
-                            {post.title}
-                          </Link>
+                            dangerouslySetInnerHTML={{ __html: post.title }}
+                          ></Link>
                         </CardTitle>
                       </CardHeader>
                       <CardContent>
@@ -118,8 +144,20 @@ const Blog = () => {
                           <span>{post.author}</span>
                           <span>{new Date(post.date).toLocaleDateString()}</span>
                         </div>
-                        <div className="mt-4 flex gap-2 flex-wrap">
-                          {post.tags.map((tag) => (
+                        <div className="mt-4 flex flex-wrap gap-2">
+                          {post.categories?.map((category) => (
+                            <button
+                              key={category.id}
+                              onClick={() => {
+                                setSearchTerm('');
+                                setSearchParams({ category: category.id.toString() });
+                              }}
+                              className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
+                            >
+                              {category.name}
+                            </button>
+                          ))}
+                          {post.tags?.map((tag) => (
                             <span
                               key={tag}
                               className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/30 text-woodlands-cream/80"

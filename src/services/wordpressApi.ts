@@ -12,14 +12,21 @@ const transformWordPressPost = (wpPost: any): BlogPost => {
     content: wpPost.content.rendered,
     date: wpPost.date,
     author: wpPost._embedded?.author?.[0]?.name || "The Woodlands Law Firm",
-    tags: wpPost._embedded?.['wp:term']?.[1]?.map((tag: any) => tag.name) || []
+    tags: wpPost._embedded?.['wp:term']?.[1]?.map((tag: any) => tag.name) || [],
+    categories: wpPost._embedded?.['wp:term']?.[0]?.map((category: any) => ({
+      id: category.id,
+      name: category.name,
+      slug: category.slug
+    })) || [],
+    featuredImage: wpPost._embedded?.['wp:featuredmedia']?.[0]?.source_url || null
   };
 };
 
-export const fetchWordPressPosts = async (page = 1, perPage = 10, searchTerm = ''): Promise<{posts: BlogPost[], totalPages: number}> => {
+export const fetchWordPressPosts = async (page = 1, perPage = 10, searchTerm = '', categoryId = 0): Promise<{posts: BlogPost[], totalPages: number}> => {
   try {
     const searchQuery = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : '';
-    const response = await fetch(`${WP_API_URL}/posts?page=${page}&per_page=${perPage}${searchQuery}&_embed`);
+    const categoryQuery = categoryId > 0 ? `&categories=${categoryId}` : '';
+    const response = await fetch(`${WP_API_URL}/posts?page=${page}&per_page=${perPage}${searchQuery}${categoryQuery}&_embed`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch posts');
@@ -59,7 +66,7 @@ export const fetchWordPressPostById = async (slug: string): Promise<BlogPost | n
 
 export const fetchWordPressCategories = async () => {
   try {
-    const response = await fetch(`${WP_API_URL}/categories`);
+    const response = await fetch(`${WP_API_URL}/categories?per_page=100`);
     
     if (!response.ok) {
       throw new Error('Failed to fetch categories');
