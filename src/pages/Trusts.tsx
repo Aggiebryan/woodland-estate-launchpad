@@ -1,4 +1,3 @@
-
 import { Shield, Lock, CheckCircle, FileText, ArrowRight, HelpCircle, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
@@ -429,8 +428,8 @@ const Trusts = () => {
                 
                 <div>
                   <h3 className="text-xl text-woodlands-gold mb-4">Quick Contact Form</h3>
-                  <Form {...form} onSubmit={form.handleSubmit(onSubmit)}>
-                    <div className="space-y-4">
+                  <Form {...form}>
+                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
                       <FormField
                         control={form.control}
                         name="name"
@@ -510,7 +509,7 @@ const Trusts = () => {
                       >
                         Request Free Consultation
                       </Button>
-                    </div>
+                    </form>
                   </Form>
                   <p className="text-sm text-woodlands-cream/70 mt-3">
                     Submissions route securely to our attorneys and receive a reply within one business day.
