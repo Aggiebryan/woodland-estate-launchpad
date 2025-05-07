@@ -94,20 +94,24 @@ const Trusts = () => {
                   </a>. We handle every detail from drafting to funding so you spend time with family, not forms.
                 </p>
                 
-                <div className="mt-8 text-center">
+                <div className="mt-8 flex flex-col sm:flex-row gap-4">
+                  <a href="tel:+18326260116" className="flex-1">
+                    <Button className="w-full bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
+                      <Phone className="mr-2 h-4 w-4" />
+                      Call (832) 626-0116
+                    </Button>
+                  </a>
                   <a 
                     href="https://woodlandslaw.cliogrow.com/book" 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="inline-block"
+                    className="flex-1"
                   >
-                    <Button className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
-                      Book Your Free Consultation Now
+                    <Button className="w-full bg-woodlands-darkpurple text-woodlands-gold border border-woodlands-gold hover:bg-woodlands-gold/10">
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Schedule Online
                     </Button>
                   </a>
-                  <p className="mt-2 text-woodlands-cream/70 text-sm">
-                    Or call <a href="tel:8326260116" className="text-woodlands-lightgold hover:text-woodlands-gold">(832) 626‑0116</a>
-                  </p>
                 </div>
               </div>
             </section>
