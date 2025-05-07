@@ -1,5 +1,5 @@
 
-import { Shield, Lock, CheckCircle, FileText, ArrowRight, HelpCircle } from "lucide-react";
+import { Shield, Lock, CheckCircle, FileText, ArrowRight, HelpCircle, Phone, Calendar } from "lucide-react";
 import { Link } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import ConsultationCTA from "@/components/shared/ConsultationCTA";
