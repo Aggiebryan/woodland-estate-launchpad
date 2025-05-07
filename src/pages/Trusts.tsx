@@ -75,13 +75,12 @@ const Trusts = () => {
                   Houston, Conroe, Spring, and every corner of the state. Seniors who wish to simplify 
                   affairs, parents who want guardianship instructions, high‑net‑worth families with tax 
                   concerns, and entrepreneurs planning succession all rely on our attorneys for clear, 
-                  legally sound guidance. Our managing attorney, Gwendolyn Simpson, is Board Certified in 
-                  Civil Appellate Law; our estate team brings the same precision to each trust we draft.
+                  legally sound guidance. 
                 </p>
                 
                 <div className="bg-woodlands-darkpurple/40 p-5 rounded-lg border border-woodlands-gold/20 my-6">
                   <p className="italic">
-                    "A trust is a box that holds assets." — <span className="text-woodlands-gold">Riddle & Butts, LLP</span>
+                    "Put not your trust in money, but put your money in Trust" — <span className="text-woodlands-gold">Oliver Wendell Holmes</span>
                   </p>
                 </div>
                 
