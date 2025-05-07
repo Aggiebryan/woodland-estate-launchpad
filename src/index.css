@@ -99,6 +99,11 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Add justification to all paragraphs site-wide */
+  p {
+    @apply text-justify;
+  }
 }
 
 /* WordPress Content Styling */
@@ -123,7 +128,7 @@
 }
 
 .prose p {
-  @apply mb-4;
+  @apply mb-4 text-justify;
 }
 
 .prose a {
