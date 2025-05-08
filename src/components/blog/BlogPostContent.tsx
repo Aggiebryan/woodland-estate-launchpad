@@ -12,10 +12,7 @@ interface BlogPostContentProps {
 const BlogPostContent = ({ post }: BlogPostContentProps) => {
   return (
     <>
-      <h1 
-        className="text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
-        dangerouslySetInnerHTML={{ __html: post.title }}
-      ></h1>
+      
       
       <div className="flex flex-wrap items-center gap-6 text-sm text-woodlands-cream/70">
         <div className="flex items-center">
