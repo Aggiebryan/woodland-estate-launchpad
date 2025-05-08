@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -21,6 +20,7 @@ import Privacy from "./pages/Privacy";
 import Sitemap from "./pages/Sitemap";
 import Terms from "./pages/Terms";
 import EstateChecklist from "./pages/EstateChecklist";
+import Glossary from "./pages/Glossary";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -55,7 +55,7 @@ const ElderLaw = () => <UnderDevelopment />;
 // Updated the Checklist to use our new EstateChecklist component
 // const Checklist = () => <UnderDevelopment />; 
 const FAQs = () => <UnderDevelopment />;
-const Glossary = () => <UnderDevelopment />;
+// No longer need Glossary as UnderDevelopment as we've implemented it
 
 // Plan pages
 const IntakeForm = () => <UnderDevelopment />;
