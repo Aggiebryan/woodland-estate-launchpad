@@ -41,10 +41,6 @@ const BlogPostHero = ({ post }: BlogPostHeroProps) => {
             day: 'numeric'
           })}</span>
         </div>
-        <div className="flex items-center">
-          <User className="w-4 h-4 mr-2" />
-          <span>{post.author}</span>
-        </div>
       </div>
     </div>
   );
