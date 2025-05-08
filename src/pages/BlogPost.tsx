@@ -108,7 +108,7 @@ const BlogPost = () => {
             className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold mb-8"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Blog
+            Back to Blog List
           </Link>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
