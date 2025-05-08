@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
-import { fetchWordPressPostById } from '@/services/wordpressApi';
+import { fetchWordPressPostById, fetchWordPressPosts } from '@/services/wordpressApi';
 import { BlogPost as BlogPostType } from '@/types/blog';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
@@ -16,6 +16,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
+import BlogSidebar from '@/components/blog/BlogSidebar';
 
 const commentSchema = z.object({
   name: z.string().min(2, {
@@ -32,6 +33,7 @@ const commentSchema = z.object({
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostType | null>(null);
+  const [recentPosts, setRecentPosts] = useState<BlogPostType[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [submittingComment, setSubmittingComment] = useState(false);
@@ -99,7 +101,26 @@ const BlogPost = () => {
       }
     };
 
+    // Load recent posts for the sidebar
+    const loadRecentPosts = async () => {
+      try {
+        // Try to fetch recent posts from WordPress
+        const result = await fetchWordPressPosts(1, 5);
+        if (result.posts.length > 0) {
+          setRecentPosts(result.posts);
+        } else {
+          // Use fallback data if WordPress API fails
+          setRecentPosts(blogPosts.slice(0, 5));
+        }
+      } catch (err) {
+        console.error('Failed to fetch recent posts:', err);
+        // Fallback to static data
+        setRecentPosts(blogPosts.slice(0, 5));
+      }
+    };
+
     loadPost();
+    loadRecentPosts();
   }, [slug, toast]);
 
   const onSubmitComment = async (values: z.infer<typeof commentSchema>) => {
@@ -156,7 +177,7 @@ const BlogPost = () => {
   return (
     <MainLayout>
       <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <Link 
             to="/blog" 
             className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold mb-8"
@@ -165,231 +186,241 @@ const BlogPost = () => {
             Back to Blog
           </Link>
 
-          {loading ? (
-            <div className="flex justify-center items-center h-64">
-              <Loader2 className="w-8 h-8 text-woodlands-gold animate-spin" />
-            </div>
-          ) : error && !post ? (
-            <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
-              <CardContent className="pt-6">
-                <p className="text-woodlands-cream/90">{error}</p>
-              </CardContent>
-            </Card>
-          ) : post ? (
-            <div className="space-y-6">
-              {error && (
-                <Card className="bg-woodlands-darkpurple/30 border-yellow-500/30">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            {/* Main Content - Takes up 2/3 of the width on large screens */}
+            <div className="lg:col-span-2">
+              {loading ? (
+                <div className="flex justify-center items-center h-64">
+                  <Loader2 className="w-8 h-8 text-woodlands-gold animate-spin" />
+                </div>
+              ) : error && !post ? (
+                <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
                   <CardContent className="pt-6">
                     <p className="text-woodlands-cream/90">{error}</p>
                   </CardContent>
                 </Card>
-              )}
-              
-              <h1 
-                className="text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
-                dangerouslySetInnerHTML={{ __html: post.title }}
-              ></h1>
-              
-              <div className="flex flex-wrap items-center gap-6 text-sm text-woodlands-cream/70">
-                <div className="flex items-center">
-                  <Calendar className="w-4 h-4 mr-2" />
-                  <span>{new Date(post.date).toLocaleDateString()}</span>
-                </div>
-                <div className="flex items-center">
-                  <User className="w-4 h-4 mr-2" />
-                  <span>{post.author}</span>
-                </div>
-              </div>
-              
-              {post.featuredImage && (
-                <div className="my-6">
-                  <img 
-                    src={post.featuredImage}
-                    alt={post.title}
-                    className="w-full h-auto max-h-96 object-cover rounded-lg"
-                  />
-                </div>
-              )}
-              
-              <Card className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20">
-                <CardContent className="pt-6">
-                  <div 
-                    className="prose prose-invert prose-gold max-w-none"
-                    dangerouslySetInnerHTML={{ __html: post.content }}
-                  ></div>
-                </CardContent>
-              </Card>
-              
-              {post.categories && post.categories.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap pt-4">
-                  <span className="text-woodlands-cream/60 text-sm">Categories:</span>
-                  {post.categories.map(category => (
-                    <Link 
-                      key={category.id}
-                      to={`/blog?category=${category.id}`}
-                      className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
-                    >
-                      {category.name}
-                    </Link>
-                  ))}
-                </div>
-              )}
-              
-              {post.tags && post.tags.length > 0 && (
-                <div className="flex items-center gap-2 flex-wrap pt-4">
-                  <Tag className="w-4 h-4 text-woodlands-cream/60" />
-                  {post.tags.map(tag => (
-                    <span 
-                      key={tag}
-                      className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/30 text-woodlands-cream/80"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {/* Share Section */}
-              <div className="pt-8 pb-4 border-t border-woodlands-gold/20">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="text-woodlands-cream/80 font-serif">Share this:</span>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="bg-[#4267B2]/10 hover:bg-[#4267B2]/20 border-[#4267B2]/30 text-woodlands-cream"
-                    onClick={() => handleShare('facebook')}
-                  >
-                    <Facebook size={16} className="mr-2" /> Facebook
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="bg-[#1DA1F2]/10 hover:bg-[#1DA1F2]/20 border-[#1DA1F2]/30 text-woodlands-cream"
-                    onClick={() => handleShare('twitter')}
-                  >
-                    <Twitter size={16} className="mr-2" /> Twitter
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border-[#0A66C2]/30 text-woodlands-cream"
-                    onClick={() => handleShare('linkedin')}
-                  >
-                    <Linkedin size={16} className="mr-2" /> LinkedIn
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 border-woodlands-gold/30 text-woodlands-cream"
-                    onClick={() => handleShare('email')}
-                  >
-                    <Mail size={16} className="mr-2" /> Email
-                  </Button>
-                </div>
-              </div>
-
-              {/* Author Section */}
-              <Card className="bg-woodlands-darkpurple/50 border-woodlands-gold/20">
-                <CardContent className="pt-6">
-                  <div className="flex items-start gap-4">
-                    <Avatar className="h-16 w-16 border-2 border-woodlands-gold/30">
-                      <AvatarImage src="/placeholder.svg" alt={post.author} />
-                      <AvatarFallback className="bg-woodlands-purple text-woodlands-cream">
-                        {post.author.slice(0, 2).toUpperCase()}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div>
-                      <h3 className="text-lg font-serif text-woodlands-gold mb-2">{post.author}</h3>
-                      <p className="text-woodlands-cream/80 text-sm">
-                        Attorney at The Woodlands Law Firm specializing in estate planning and probate matters. 
-                        Dedicated to helping clients protect their assets and secure their family's future.
-                      </p>
+              ) : post ? (
+                <div className="space-y-6">
+                  {error && (
+                    <Card className="bg-woodlands-darkpurple/30 border-yellow-500/30">
+                      <CardContent className="pt-6">
+                        <p className="text-woodlands-cream/90">{error}</p>
+                      </CardContent>
+                    </Card>
+                  )}
+                  
+                  <h1 
+                    className="text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
+                    dangerouslySetInnerHTML={{ __html: post.title }}
+                  ></h1>
+                  
+                  <div className="flex flex-wrap items-center gap-6 text-sm text-woodlands-cream/70">
+                    <div className="flex items-center">
+                      <Calendar className="w-4 h-4 mr-2" />
+                      <span>{new Date(post.date).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex items-center">
+                      <User className="w-4 h-4 mr-2" />
+                      <span>{post.author}</span>
                     </div>
                   </div>
-                </CardContent>
-              </Card>
-
-              {/* Comments Section */}
-              <div className="pt-8 border-t border-woodlands-gold/20">
-                <h2 className="text-2xl font-serif text-woodlands-gold mb-6">Leave a Reply</h2>
-                
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmitComment)} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <FormField
-                        control={form.control}
-                        name="name"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-woodlands-cream">Name*</FormLabel>
-                            <FormControl>
-                              <Input 
-                                placeholder="Your name" 
-                                className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
-                                {...field} 
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
-                      />
-                      
-                      <FormField
-                        control={form.control}
-                        name="email"
-                        render={({ field }) => (
-                          <FormItem>
-                            <FormLabel className="text-woodlands-cream">Email*</FormLabel>
-                            <FormControl>
-                              <Input 
-                                placeholder="your.email@example.com" 
-                                className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
-                                {...field} 
-                              />
-                            </FormControl>
-                            <FormMessage />
-                          </FormItem>
-                        )}
+                  
+                  {post.featuredImage && (
+                    <div className="my-6">
+                      <img 
+                        src={post.featuredImage}
+                        alt={post.title}
+                        className="w-full h-auto max-h-96 object-cover rounded-lg"
                       />
                     </div>
+                  )}
+                  
+                  <Card className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20">
+                    <CardContent className="pt-6">
+                      <div 
+                        className="prose prose-invert prose-gold max-w-none"
+                        dangerouslySetInnerHTML={{ __html: post.content }}
+                      ></div>
+                    </CardContent>
+                  </Card>
+                  
+                  {post.categories && post.categories.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap pt-4">
+                      <span className="text-woodlands-cream/60 text-sm">Categories:</span>
+                      {post.categories.map(category => (
+                        <Link 
+                          key={category.id}
+                          to={`/blog?category=${category.id}`}
+                          className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
+                        >
+                          {category.name}
+                        </Link>
+                      ))}
+                    </div>
+                  )}
+                  
+                  {post.tags && post.tags.length > 0 && (
+                    <div className="flex items-center gap-2 flex-wrap pt-4">
+                      <Tag className="w-4 h-4 text-woodlands-cream/60" />
+                      {post.tags.map(tag => (
+                        <span 
+                          key={tag}
+                          className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/30 text-woodlands-cream/80"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
+                  {/* Share Section */}
+                  <div className="pt-8 pb-4 border-t border-woodlands-gold/20">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <span className="text-woodlands-cream/80 font-serif">Share this:</span>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-[#4267B2]/10 hover:bg-[#4267B2]/20 border-[#4267B2]/30 text-woodlands-cream"
+                        onClick={() => handleShare('facebook')}
+                      >
+                        <Facebook size={16} className="mr-2" /> Facebook
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-[#1DA1F2]/10 hover:bg-[#1DA1F2]/20 border-[#1DA1F2]/30 text-woodlands-cream"
+                        onClick={() => handleShare('twitter')}
+                      >
+                        <Twitter size={16} className="mr-2" /> Twitter
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border-[#0A66C2]/30 text-woodlands-cream"
+                        onClick={() => handleShare('linkedin')}
+                      >
+                        <Linkedin size={16} className="mr-2" /> LinkedIn
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 border-woodlands-gold/30 text-woodlands-cream"
+                        onClick={() => handleShare('email')}
+                      >
+                        <Mail size={16} className="mr-2" /> Email
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Author Section */}
+                  <Card className="bg-woodlands-darkpurple/50 border-woodlands-gold/20">
+                    <CardContent className="pt-6">
+                      <div className="flex items-start gap-4">
+                        <Avatar className="h-16 w-16 border-2 border-woodlands-gold/30">
+                          <AvatarImage src="/placeholder.svg" alt={post.author} />
+                          <AvatarFallback className="bg-woodlands-purple text-woodlands-cream">
+                            {post.author.slice(0, 2).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <h3 className="text-lg font-serif text-woodlands-gold mb-2">{post.author}</h3>
+                          <p className="text-woodlands-cream/80 text-sm">
+                            Attorney at The Woodlands Law Firm specializing in estate planning and probate matters. 
+                            Dedicated to helping clients protect their assets and secure their family's future.
+                          </p>
+                        </div>
+                      </div>
+                    </CardContent>
+                  </Card>
+
+                  {/* Comments Section */}
+                  <div className="pt-8 border-t border-woodlands-gold/20">
+                    <h2 className="text-2xl font-serif text-woodlands-gold mb-6">Leave a Reply</h2>
                     
-                    <FormField
-                      control={form.control}
-                      name="comment"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-woodlands-cream">Comment*</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="Share your thoughts..." 
-                              className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream min-h-[150px]" 
-                              {...field} 
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <Button 
-                      type="submit" 
-                      className="bg-woodlands-gold hover:bg-woodlands-lightgold text-woodlands-darkpurple font-medium"
-                      disabled={submittingComment}
-                    >
-                      {submittingComment && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                      Post Comment
-                    </Button>
-                  </form>
-                </Form>
-              </div>
+                    <Form {...form}>
+                      <form onSubmit={form.handleSubmit(onSubmitComment)} className="space-y-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <FormField
+                            control={form.control}
+                            name="name"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-woodlands-cream">Name*</FormLabel>
+                                <FormControl>
+                                  <Input 
+                                    placeholder="Your name" 
+                                    className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
+                                    {...field} 
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                          
+                          <FormField
+                            control={form.control}
+                            name="email"
+                            render={({ field }) => (
+                              <FormItem>
+                                <FormLabel className="text-woodlands-cream">Email*</FormLabel>
+                                <FormControl>
+                                  <Input 
+                                    placeholder="your.email@example.com" 
+                                    className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
+                                    {...field} 
+                                  />
+                                </FormControl>
+                                <FormMessage />
+                              </FormItem>
+                            )}
+                          />
+                        </div>
+                        
+                        <FormField
+                          control={form.control}
+                          name="comment"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Comment*</FormLabel>
+                              <FormControl>
+                                <Textarea 
+                                  placeholder="Share your thoughts..." 
+                                  className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream min-h-[150px]" 
+                                  {...field} 
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <Button 
+                          type="submit" 
+                          className="bg-woodlands-gold hover:bg-woodlands-lightgold text-woodlands-darkpurple font-medium"
+                          disabled={submittingComment}
+                        >
+                          {submittingComment && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                          Post Comment
+                        </Button>
+                      </form>
+                    </Form>
+                  </div>
+                </div>
+              ) : (
+                <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
+                  <CardContent className="pt-6">
+                    <p className="text-woodlands-cream/90">Post not found</p>
+                  </CardContent>
+                </Card>
+              )}
             </div>
-          ) : (
-            <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
-              <CardContent className="pt-6">
-                <p className="text-woodlands-cream/90">Post not found</p>
-              </CardContent>
-            </Card>
-          )}
+
+            {/* Sidebar - Takes up 1/3 of the width on large screens */}
+            <div className="lg:col-span-1">
+              <BlogSidebar recentPosts={recentPosts} />
+            </div>
+          </div>
         </div>
       </div>
     </MainLayout>
