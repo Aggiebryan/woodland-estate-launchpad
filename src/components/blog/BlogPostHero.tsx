@@ -30,7 +30,7 @@ const BlogPostHero = ({ post }: BlogPostHeroProps) => {
           </div>
         )}
         <h1 
-          className="text-4xl md:text-5xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
+          className="text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
           dangerouslySetInnerHTML={{ __html: post.title }}
         ></h1>
         <div className="flex justify-center items-center text-woodlands-cream/80">
