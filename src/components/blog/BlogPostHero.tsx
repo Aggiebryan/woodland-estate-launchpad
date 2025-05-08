@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { BlogPost } from '@/types/blog';
-import { Calendar } from 'lucide-react';
+import { Calendar, User } from 'lucide-react';
 import { Badge } from "@/components/ui/badge";
 
 interface BlogPostHeroProps {
@@ -33,15 +33,20 @@ const BlogPostHero = ({ post }: BlogPostHeroProps) => {
           className="text-4xl md:text-5xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
           dangerouslySetInnerHTML={{ __html: post.title }}
         ></h1>
-        <div className="flex justify-center items-center text-woodlands-cream/80">
-          <Calendar className="w-4 h-4 mr-2" />
-          <span>{new Date(post.date).toLocaleDateString('en-US', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-          })}</span>
+        <div className="flex flex-wrap justify-center items-center gap-4 text-woodlands-cream/80 mt-4">
+          <div className="flex items-center">
+            <Calendar className="w-4 h-4 mr-2" />
+            <span>{new Date(post.date).toLocaleDateString('en-US', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric'
+            })}</span>
+          </div>
+          <div className="flex items-center">
+            <User className="w-4 h-4 mr-2" />
+            <span>{post.author}</span>
+          </div>
         </div>
-        
       </div>
     </div>
   );
