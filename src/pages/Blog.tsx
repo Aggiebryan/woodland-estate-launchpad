@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -141,7 +142,7 @@ const Blog = () => {
                       </CardHeader>
                       <CardContent>
                         <div 
-                          className="text-woodlands-cream/90 mb-4 line-clamp-5"
+                          className="text-woodlands-cream/90 mb-4 min-h-[7.5rem] line-clamp-5 text-base"
                           dangerouslySetInnerHTML={{ __html: post.excerpt }}
                         ></div>
                         <div className="mt-4 flex flex-wrap gap-2">

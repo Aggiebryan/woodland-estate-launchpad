@@ -2,7 +2,6 @@
 import React from 'react';
 import { BlogPost } from '@/types/blog';
 import { Calendar, User } from 'lucide-react';
-import { Badge } from "@/components/ui/badge";
 
 interface BlogPostHeroProps {
   post: BlogPost;
@@ -21,12 +20,15 @@ const BlogPostHero = ({ post }: BlogPostHeroProps) => {
       <div className="absolute inset-0 bg-woodlands-darkpurple/60"></div>
       <div className="relative z-10 max-w-4xl mx-auto">
         {post.categories && post.categories.length > 0 && (
-          <div className="mb-5">
-            <Badge 
-              className="bg-woodlands-gold hover:bg-woodlands-lightgold text-white px-3 py-1 text-sm font-medium"
-            >
-              {post.categories[0].name}
-            </Badge>
+          <div className="mb-5 flex gap-2 justify-center flex-wrap">
+            {post.categories.map(category => (
+              <div 
+                key={category.id}
+                className="bg-woodlands-gold text-white text-sm font-medium px-3 py-1"
+              >
+                {category.name}
+              </div>
+            ))}
           </div>
         )}
         <h1 
