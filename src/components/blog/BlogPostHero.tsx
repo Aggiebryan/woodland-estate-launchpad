@@ -11,7 +11,7 @@ interface BlogPostHeroProps {
 const BlogPostHero = ({ post }: BlogPostHeroProps) => {
   return (
     <div 
-      className="relative bg-cover bg-center h-80 flex items-center justify-center text-center px-4"
+      className="text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
       style={{ 
         backgroundImage: 'url("/lovable-uploads/9aecbe80-5ebf-4a07-be93-fadd11c88611.png")',
         backgroundSize: 'cover',
