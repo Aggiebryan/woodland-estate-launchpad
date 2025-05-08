@@ -1,5 +1,5 @@
 
-import { ArrowRight, Shield, FileText, FileKey, FileHeart, Phone, Lock } from "lucide-react";
+import { ArrowRight, Shield, FileText, FileKey, FileHeart, Phone, Lock, CheckSquare } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -128,16 +128,24 @@ const EstatePlanningLanding = () => {
               <p className="text-woodlands-cream mb-6">
                 Our experienced estate planning attorneys will guide you through every step of the process.
               </p>
-              <a 
-                href="https://woodlandslaw.cliogrow.com/book"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Button size="lg" className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
-                  Schedule Your Free Consultation
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-              </a>
+              <div className="flex flex-col sm:flex-row justify-center gap-4">
+                <a 
+                  href="https://woodlandslaw.cliogrow.com/book"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Button size="lg" className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold w-full">
+                    Schedule Your Free Consultation
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </a>
+                <Link to="/checklist">
+                  <Button size="lg" variant="outline" className="border-woodlands-gold/50 text-woodlands-gold hover:bg-woodlands-gold/10 w-full">
+                    <CheckSquare className="mr-2 h-5 w-5" />
+                    Estate Planning Checklist
+                  </Button>
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -311,15 +319,22 @@ const EstatePlanningLanding = () => {
             <p className="text-woodlands-cream mb-6 max-w-2xl mx-auto">
               Our experienced attorneys will help you understand your options and create a customized plan that meets your specific needs and goals.
             </p>
-            <a 
-              href="https://woodlandslaw.cliogrow.com/book"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Button size="lg" className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold">
-                Schedule Your Free Consultation
-              </Button>
-            </a>
+            <div className="flex flex-col sm:flex-row justify-center gap-4">
+              <a 
+                href="https://woodlandslaw.cliogrow.com/book"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <Button size="lg" className="bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold w-full">
+                  Schedule Your Free Consultation
+                </Button>
+              </a>
+              <Link to="/checklist">
+                <Button size="lg" variant="outline" className="border-woodlands-gold/50 text-woodlands-gold hover:bg-woodlands-gold/10 w-full">
+                  View Estate Planning Checklist
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
       </section>

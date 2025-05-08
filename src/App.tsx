@@ -20,6 +20,7 @@ import Disclaimer from "./pages/Disclaimer";
 import Privacy from "./pages/Privacy";
 import Sitemap from "./pages/Sitemap";
 import Terms from "./pages/Terms";
+import EstateChecklist from "./pages/EstateChecklist";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -51,7 +52,8 @@ const Guardianship = () => <UnderDevelopment />;
 const ElderLaw = () => <UnderDevelopment />;
 
 // Resource pages
-const Checklist = () => <UnderDevelopment />;
+// Updated the Checklist to use our new EstateChecklist component
+// const Checklist = () => <UnderDevelopment />; 
 const FAQs = () => <UnderDevelopment />;
 const Glossary = () => <UnderDevelopment />;
 
@@ -109,7 +111,7 @@ const App = () => (
           <Route path="/estate-planning" element={<EstatePlanningLanding />} />
           
           {/* Resources Routes */}
-          <Route path="/checklist" element={<Checklist />} />
+          <Route path="/checklist" element={<EstateChecklist />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
