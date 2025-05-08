@@ -1,16 +1,15 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useSearchParams } from 'react-router-dom';
+import { useSearchParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
 import BlogSidebar from '@/components/blog/BlogSidebar';
 import BlogSearch from '@/components/blog/BlogSearch';
+import BlogPostList from '@/components/blog/BlogPostList';
+import BlogPagination from '@/components/blog/BlogPagination';
 import { blogPosts } from '@/data/blogPosts'; // Keep for fallback
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { fetchWordPressPosts } from '@/services/wordpressApi';
 import { BlogPost } from '@/types/blog';
 import { useToast } from '@/hooks/use-toast';
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious, PaginationEllipsis } from "@/components/ui/pagination";
-import { Loader2, Image } from 'lucide-react';
 
 const Blog = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -72,6 +71,12 @@ const Blog = () => {
     setCurrentPage(page);
     window.scrollTo(0, 0); // Scroll to top on page change
   };
+  
+  const handleCategoryClick = (categoryId: number) => {
+    setSearchTerm('');
+    setSearchParams({ category: categoryId.toString() });
+    setCurrentPage(1);
+  };
 
   // Get recent posts for sidebar
   const recentPosts = [...posts].slice(0, 5);
@@ -90,136 +95,18 @@ const Blog = () => {
                 <BlogSearch searchTerm={searchTerm} onSearch={handleSearch} />
               </div>
               
-              {loading ? (
-                <div className="flex justify-center items-center h-64">
-                  <Loader2 className="w-8 h-8 text-woodlands-gold animate-spin" />
-                </div>
-              ) : error ? (
-                <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
-                  <CardContent className="pt-6">
-                    <p className="text-woodlands-cream/90">{error}</p>
-                  </CardContent>
-                </Card>
-              ) : posts.length === 0 ? (
-                <Card className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20">
-                  <CardContent className="pt-6">
-                    <p className="text-woodlands-cream/90">No posts found matching your search criteria.</p>
-                  </CardContent>
-                </Card>
-              ) : (
-                <div className="space-y-6">
-                  {posts.map((post) => (
-                    <Card key={post.id} className="backdrop-blur-sm bg-woodlands-darkpurple/30 border-woodlands-gold/20 hover:border-woodlands-gold/40 transition-colors">
-                      <CardHeader className="flex flex-col md:flex-row gap-4">
-                        {post.featuredImage ? (
-                          <Link 
-                            to={`/blog/${post.id}`}
-                            className="md:w-1/3 shrink-0"
-                          >
-                            <img 
-                              src={post.featuredImage} 
-                              alt={post.title}
-                              className="w-full h-48 md:h-32 object-cover rounded-md"
-                            />
-                          </Link>
-                        ) : (
-                          <div className="md:w-1/3 h-32 bg-woodlands-purple/20 rounded-md flex items-center justify-center">
-                            <Image className="w-8 h-8 text-woodlands-cream/40" />
-                          </div>
-                        )}
-                        <div className="md:w-2/3 flex flex-col">
-                          <CardTitle>
-                            <Link 
-                              to={`/blog/${post.id}`}
-                              className="text-woodlands-gold hover:text-woodlands-lightgold transition-colors"
-                              dangerouslySetInnerHTML={{ __html: post.title }}
-                            ></Link>
-                          </CardTitle>
-                          <div className="text-sm text-woodlands-cream/60 mt-2">
-                            <span>Written by: {post.author}</span> • <span>{new Date(post.date).toLocaleDateString()}</span>
-                          </div>
-                        </div>
-                      </CardHeader>
-                      <CardContent>
-                        <div 
-                          className="text-woodlands-cream/90 mb-4 min-h-[7.5rem] line-clamp-5 text-base"
-                          dangerouslySetInnerHTML={{ __html: post.excerpt }}
-                        ></div>
-                        <div className="mt-4 flex flex-wrap gap-2">
-                          {post.categories?.map((category) => (
-                            <button
-                              key={category.id}
-                              onClick={() => {
-                                setSearchTerm('');
-                                setSearchParams({ category: category.id.toString() });
-                              }}
-                              className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
-                            >
-                              {category.name}
-                            </button>
-                          ))}
-                          {post.tags?.map((tag) => (
-                            <span
-                              key={tag}
-                              className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/30 text-woodlands-cream/80"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
-              )}
+              <BlogPostList 
+                posts={posts}
+                loading={loading}
+                error={error}
+                onCategoryClick={handleCategoryClick}
+              />
               
-              {/* Pagination */}
-              {totalPages > 1 && (
-                <Pagination className="mt-8">
-                  <PaginationContent>
-                    <PaginationItem>
-                      <PaginationPrevious 
-                        onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                        className={currentPage === 1 ? "pointer-events-none opacity-50" : ""}
-                      />
-                    </PaginationItem>
-                    
-                    {[...Array(totalPages)].map((_, i) => {
-                      const page = i + 1;
-                      // Show current page, first, last, and siblings
-                      if (
-                        page === 1 || 
-                        page === totalPages ||
-                        (page >= currentPage - 1 && page <= currentPage + 1)
-                      ) {
-                        return (
-                          <PaginationItem key={page}>
-                            <PaginationLink
-                              isActive={page === currentPage}
-                              onClick={() => handlePageChange(page)}
-                            >
-                              {page}
-                            </PaginationLink>
-                          </PaginationItem>
-                        );
-                      } else if (
-                        (page === 2 && currentPage > 3) || 
-                        (page === totalPages - 1 && currentPage < totalPages - 2)
-                      ) {
-                        return <PaginationItem key={page}><PaginationEllipsis /></PaginationItem>;
-                      }
-                      return null;
-                    })}
-                    
-                    <PaginationItem>
-                      <PaginationNext 
-                        onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-                        className={currentPage === totalPages ? "pointer-events-none opacity-50" : ""}
-                      />
-                    </PaginationItem>
-                  </PaginationContent>
-                </Pagination>
-              )}
+              <BlogPagination 
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={handlePageChange}
+              />
             </div>
             
             {/* Sidebar */}
