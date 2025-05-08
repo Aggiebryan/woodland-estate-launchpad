@@ -139,6 +139,14 @@
   @apply my-4 pl-5;
 }
 
+.prose ul {
+  @apply list-disc;
+}
+
+.prose ol {
+  @apply list-decimal;
+}
+
 .prose li {
   @apply mb-2;
 }

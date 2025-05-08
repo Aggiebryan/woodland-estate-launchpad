@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useSearchParams } from 'react-router-dom';
 import MainLayout from '@/components/layout/MainLayout';
@@ -137,11 +136,11 @@ const Blog = () => {
                       </CardHeader>
                       <CardContent>
                         <div 
-                          className="text-woodlands-cream/90 mb-4"
+                          className="text-woodlands-cream/90 mb-4 line-clamp-5"
                           dangerouslySetInnerHTML={{ __html: post.excerpt }}
                         ></div>
                         <div className="flex justify-between items-center text-sm text-woodlands-cream/60">
-                          <span>{post.author}</span>
+                          <span>Written by: {post.author}</span>
                           <span>{new Date(post.date).toLocaleDateString()}</span>
                         </div>
                         <div className="mt-4 flex flex-wrap gap-2">
