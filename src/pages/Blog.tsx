@@ -126,23 +126,24 @@ const Blog = () => {
                             <Image className="w-8 h-8 text-woodlands-cream/40" />
                           </div>
                         )}
-                        <CardTitle className="md:w-2/3">
-                          <Link 
-                            to={`/blog/${post.id}`}
-                            className="text-woodlands-gold hover:text-woodlands-lightgold transition-colors"
-                            dangerouslySetInnerHTML={{ __html: post.title }}
-                          ></Link>
-                        </CardTitle>
+                        <div className="md:w-2/3 flex flex-col">
+                          <CardTitle>
+                            <Link 
+                              to={`/blog/${post.id}`}
+                              className="text-woodlands-gold hover:text-woodlands-lightgold transition-colors"
+                              dangerouslySetInnerHTML={{ __html: post.title }}
+                            ></Link>
+                          </CardTitle>
+                          <div className="text-sm text-woodlands-cream/60 mt-2">
+                            <span>Written by: {post.author}</span> • <span>{new Date(post.date).toLocaleDateString()}</span>
+                          </div>
+                        </div>
                       </CardHeader>
                       <CardContent>
                         <div 
                           className="text-woodlands-cream/90 mb-4 line-clamp-5"
                           dangerouslySetInnerHTML={{ __html: post.excerpt }}
                         ></div>
-                        <div className="flex justify-between items-center text-sm text-woodlands-cream/60">
-                          <span>Written by: {post.author}</span>
-                          <span>{new Date(post.date).toLocaleDateString()}</span>
-                        </div>
                         <div className="mt-4 flex flex-wrap gap-2">
                           {post.categories?.map((category) => (
                             <button
