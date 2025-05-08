@@ -20,7 +20,7 @@ const Glossary = () => {
     },
     {
       term: "Ademption",
-      definition: "If you leave someone a specific asset in your will but you no longer own it at death, that gift fails ("adeems") and the beneficiary receives nothing in its place. Id. § 255.401."
+      definition: "If you leave someone a specific asset in your will but you no longer own it at death, that gift fails (\"adeems\") and the beneficiary receives nothing in its place. Id. § 255.401."
     },
     {
       term: "Administrator",
@@ -28,7 +28,7 @@ const Glossary = () => {
     },
     {
       term: "Ancillary Probate",
-      definition: "A secondary probate in another state to transfer real estate located outside Texas. Used when the main probate (the "domiciliary" probate) is opened here."
+      definition: "A secondary probate in another state to transfer real estate located outside Texas. Used when the main probate (the \"domiciliary\" probate) is opened here."
     },
     {
       term: "Beneficiary",
@@ -48,15 +48,15 @@ const Glossary = () => {
     },
     {
       term: "Corpus",
-      definition: "The principal—also called the "trust estate"—held in trust, as distinguished from income the corpus produces."
+      definition: "The principal—also called the \"trust estate\"—held in trust, as distinguished from income the corpus produces."
     },
     {
       term: "Durable Power of Attorney",
-      definition: "A written authorization that lets someone (your "agent") handle financial or legal tasks for you. It stays effective even if you become incapacitated. Tex. Est. Code Ann. § 751.002(4)."
+      definition: "A written authorization that lets someone (your \"agent\") handle financial or legal tasks for you. It stays effective even if you become incapacitated. Tex. Est. Code Ann. § 751.002(4)."
     },
     {
       term: "Elective Share (Spousal Election)",
-      definition: "Texas does not use the traditional "elective share." Instead, a surviving spouse keeps his or her half of community property and may claim certain constitutional allowances in the homestead and exempt property. Tex. Const. art. XVI, § 52; Tex. Est. Code Ann. §§ 353.051–.153."
+      definition: "Texas does not use the traditional \"elective share.\" Instead, a surviving spouse keeps his or her half of community property and may claim certain constitutional allowances in the homestead and exempt property. Tex. Const. art. XVI, § 52; Tex. Est. Code Ann. §§ 353.051–.153."
     },
     {
       term: "Fiduciary",
@@ -68,7 +68,7 @@ const Glossary = () => {
     },
     {
       term: "Grantor / Settlor / Trustor",
-      definition: "The person who creates and funds a trust. Texas statutes use "settlor." Tex. Prop. Code Ann. § 111.004(15)."
+      definition: "The person who creates and funds a trust. Texas statutes use \"settlor.\" Tex. Prop. Code Ann. § 111.004(15)."
     },
     {
       term: "Guardianship of the Estate / Person",
@@ -112,11 +112,11 @@ const Glossary = () => {
     },
     {
       term: "Pour‑Over Will",
-      definition: "A will that directs any property still in your name at death to "pour over" into a revocable trust you created during life, ensuring all assets follow one set of distribution rules."
+      definition: "A will that directs any property still in your name at death to \"pour over\" into a revocable trust you created during life, ensuring all assets follow one set of distribution rules."
     },
     {
       term: "Precatory Language",
-      definition: "Words of wish or desire ("I hope," "I request") that do not impose a legal duty. Lawyers avoid precatory language when a binding command is intended."
+      definition: "Words of wish or desire (\"I hope,\" \"I request\") that do not impose a legal duty. Lawyers avoid precatory language when a binding command is intended."
     },
     {
       term: "Probate",
