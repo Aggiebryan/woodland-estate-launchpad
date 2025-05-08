@@ -5,16 +5,46 @@ import MainLayout from '@/components/layout/MainLayout';
 import { fetchWordPressPostById } from '@/services/wordpressApi';
 import { BlogPost as BlogPostType } from '@/types/blog';
 import { useToast } from '@/hooks/use-toast';
-import { Card, CardContent } from "@/components/ui/card";
-import { Loader2, ArrowLeft, Calendar, User, Tag } from 'lucide-react';
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Loader2, ArrowLeft, Calendar, User, Tag, Facebook, Twitter, Linkedin, Mail } from 'lucide-react';
 import { blogPosts } from '@/data/blogPosts'; // Fallback data
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Form, FormField, FormItem, FormLabel, FormControl, FormMessage } from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+
+const commentSchema = z.object({
+  name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  email: z.string().email({
+    message: "Please enter a valid email address.",
+  }),
+  comment: z.string().min(1, {
+    message: "Comment cannot be empty.",
+  }),
+});
 
 const BlogPost = () => {
   const { slug } = useParams<{ slug: string }>();
   const [post, setPost] = useState<BlogPostType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [submittingComment, setSubmittingComment] = useState(false);
   const { toast } = useToast();
+
+  const form = useForm<z.infer<typeof commentSchema>>({
+    resolver: zodResolver(commentSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+      comment: "",
+    },
+  });
 
   useEffect(() => {
     const loadPost = async () => {
@@ -71,6 +101,57 @@ const BlogPost = () => {
 
     loadPost();
   }, [slug, toast]);
+
+  const onSubmitComment = async (values: z.infer<typeof commentSchema>) => {
+    setSubmittingComment(true);
+    
+    try {
+      // In a real app, this would send the comment to the server
+      console.log("Comment submitted:", values);
+      
+      // Show success message
+      toast({
+        title: "Comment Submitted",
+        description: "Your comment has been submitted for review.",
+        variant: "default",
+      });
+      
+      // Reset the form
+      form.reset();
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to submit your comment. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
+  const handleShare = (platform: string) => {
+    if (!post) return;
+    
+    const title = post.title.replace(/<[^>]*>?/gm, '');
+    const url = window.location.href;
+    
+    switch (platform) {
+      case 'facebook':
+        window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+        break;
+      case 'twitter':
+        window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+        break;
+      case 'linkedin':
+        window.open(`https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent(title)}`, '_blank');
+        break;
+      case 'email':
+        window.open(`mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`, '_blank');
+        break;
+      default:
+        break;
+    }
+  };
 
   return (
     <MainLayout>
@@ -167,6 +248,140 @@ const BlogPost = () => {
                   ))}
                 </div>
               )}
+
+              {/* Share Section */}
+              <div className="pt-8 pb-4 border-t border-woodlands-gold/20">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="text-woodlands-cream/80 font-serif">Share this:</span>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="bg-[#4267B2]/10 hover:bg-[#4267B2]/20 border-[#4267B2]/30 text-woodlands-cream"
+                    onClick={() => handleShare('facebook')}
+                  >
+                    <Facebook size={16} className="mr-2" /> Facebook
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="bg-[#1DA1F2]/10 hover:bg-[#1DA1F2]/20 border-[#1DA1F2]/30 text-woodlands-cream"
+                    onClick={() => handleShare('twitter')}
+                  >
+                    <Twitter size={16} className="mr-2" /> Twitter
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="bg-[#0A66C2]/10 hover:bg-[#0A66C2]/20 border-[#0A66C2]/30 text-woodlands-cream"
+                    onClick={() => handleShare('linkedin')}
+                  >
+                    <Linkedin size={16} className="mr-2" /> LinkedIn
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="bg-woodlands-gold/10 hover:bg-woodlands-gold/20 border-woodlands-gold/30 text-woodlands-cream"
+                    onClick={() => handleShare('email')}
+                  >
+                    <Mail size={16} className="mr-2" /> Email
+                  </Button>
+                </div>
+              </div>
+
+              {/* Author Section */}
+              <Card className="bg-woodlands-darkpurple/50 border-woodlands-gold/20">
+                <CardContent className="pt-6">
+                  <div className="flex items-start gap-4">
+                    <Avatar className="h-16 w-16 border-2 border-woodlands-gold/30">
+                      <AvatarImage src="/placeholder.svg" alt={post.author} />
+                      <AvatarFallback className="bg-woodlands-purple text-woodlands-cream">
+                        {post.author.slice(0, 2).toUpperCase()}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div>
+                      <h3 className="text-lg font-serif text-woodlands-gold mb-2">{post.author}</h3>
+                      <p className="text-woodlands-cream/80 text-sm">
+                        Attorney at The Woodlands Law Firm specializing in estate planning and probate matters. 
+                        Dedicated to helping clients protect their assets and secure their family's future.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Comments Section */}
+              <div className="pt-8 border-t border-woodlands-gold/20">
+                <h2 className="text-2xl font-serif text-woodlands-gold mb-6">Leave a Reply</h2>
+                
+                <Form {...form}>
+                  <form onSubmit={form.handleSubmit(onSubmitComment)} className="space-y-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <FormField
+                        control={form.control}
+                        name="name"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Name*</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="Your name" 
+                                className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Email*</FormLabel>
+                            <FormControl>
+                              <Input 
+                                placeholder="your.email@example.com" 
+                                className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream" 
+                                {...field} 
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <FormField
+                      control={form.control}
+                      name="comment"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-woodlands-cream">Comment*</FormLabel>
+                          <FormControl>
+                            <Textarea 
+                              placeholder="Share your thoughts..." 
+                              className="bg-woodlands-darkpurple/30 border-woodlands-gold/20 text-woodlands-cream min-h-[150px]" 
+                              {...field} 
+                            />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <Button 
+                      type="submit" 
+                      className="bg-woodlands-gold hover:bg-woodlands-lightgold text-woodlands-darkpurple font-medium"
+                      disabled={submittingComment}
+                    >
+                      {submittingComment && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+                      Post Comment
+                    </Button>
+                  </form>
+                </Form>
+              </div>
             </div>
           ) : (
             <Card className="bg-woodlands-darkpurple/30 border-red-500/30">
