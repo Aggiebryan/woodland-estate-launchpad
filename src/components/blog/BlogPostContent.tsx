@@ -4,6 +4,7 @@ import { BlogPost } from '@/types/blog';
 import { Link } from 'react-router-dom';
 import { Card, CardContent } from "@/components/ui/card";
 import { User, Calendar, Tag } from 'lucide-react';
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface BlogPostContentProps {
   post: BlogPost;
@@ -12,8 +13,6 @@ interface BlogPostContentProps {
 const BlogPostContent = ({ post }: BlogPostContentProps) => {
   return (
     <>
-      
-      
       <div className="flex flex-wrap items-center gap-6 text-sm text-woodlands-cream/70">
         <div className="flex items-center">
           <Calendar className="w-4 h-4 mr-2" />
@@ -26,12 +25,14 @@ const BlogPostContent = ({ post }: BlogPostContentProps) => {
       </div>
       
       {post.featuredImage && (
-        <div className="my-6">
-          <img 
-            src={post.featuredImage}
-            alt={post.title}
-            className="w-full h-auto max-h-96 object-cover rounded-lg"
-          />
+        <div className="my-6 w-full">
+          <AspectRatio ratio={16 / 9} className="bg-woodlands-darkpurple/50 rounded-lg overflow-hidden">
+            <img 
+              src={post.featuredImage}
+              alt={post.title}
+              className="w-full h-full object-contain"
+            />
+          </AspectRatio>
         </div>
       )}
       
