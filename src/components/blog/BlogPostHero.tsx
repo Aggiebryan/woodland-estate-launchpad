@@ -11,7 +11,7 @@ interface BlogPostHeroProps {
 const BlogPostHero = ({ post }: BlogPostHeroProps) => {
   return (
     <div 
-      className="text-4xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
+      className="relative bg-cover bg-center h-80 flex items-center justify-center text-center px-4"
       style={{ 
         backgroundImage: 'url("/lovable-uploads/9aecbe80-5ebf-4a07-be93-fadd11c88611.png")',
         backgroundSize: 'cover',
@@ -30,7 +30,7 @@ const BlogPostHero = ({ post }: BlogPostHeroProps) => {
           </div>
         )}
         <h1 
-          className="text-4xl md:text-5xl font-serif font-bold text-white mb-4"
+          className="text-4xl md:text-5xl font-serif font-bold text-transparent bg-clip-text bg-gradient-to-r from-woodlands-gold via-woodlands-lightgold to-woodlands-gold"
           dangerouslySetInnerHTML={{ __html: post.title }}
         ></h1>
         <div className="flex justify-center items-center text-woodlands-cream/80">
