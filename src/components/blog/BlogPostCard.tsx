@@ -45,15 +45,16 @@ const BlogPostCard = ({ post, onCategoryClick }: BlogPostCardProps) => {
       </CardHeader>
       <CardContent>
         <div 
-          className="text-woodlands-cream/90 mb-4 min-h-[7.5rem] line-clamp-5 text-base"
+          className="text-woodlands-cream/90 mb-4 line-clamp-5 text-base"
           dangerouslySetInnerHTML={{ __html: post.excerpt }}
+          style={{ minHeight: 'auto', maxHeight: '130px' }}
         ></div>
         <div className="mt-4 flex flex-wrap gap-2">
           {post.categories?.map((category) => (
             <button
               key={category.id}
               onClick={() => onCategoryClick(category.id)}
-              className="px-2 py-1 text-xs rounded-full bg-woodlands-purple/40 text-woodlands-cream/90 hover:bg-woodlands-purple/60 transition-colors"
+              className="px-2 py-1 text-xs bg-woodlands-gold text-white hover:bg-woodlands-lightgold transition-colors"
             >
               {category.name}
             </button>
