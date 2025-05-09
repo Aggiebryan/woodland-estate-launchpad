@@ -72,7 +72,7 @@ const Guardianship = () => {
     <MainLayout>
       {/* Hero Section */}
       <section className="bg-woodlands-darkpurple py-16 relative">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/fc6c1c70-3817-4323-a54c-2a04adee36fb.png')] opacity-10 bg-cover bg-center"></div>
+        
         <div className="container mx-auto px-4 relative z-10">
           <div className="flex items-center justify-center mb-8">
             <UserCheck className="w-16 h-16 text-woodlands-gold mb-4" />
