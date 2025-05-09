@@ -99,10 +99,10 @@ const ConsultationForm = () => {
             <SelectValue placeholder="Select a service" />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="wills">Wills</SelectItem>
+            <SelectItem value="estate-planning">General Estate Planning</SelectItem>
             <SelectItem value="trusts">Trusts</SelectItem>
             <SelectItem value="probate">Probate</SelectItem>
-            <SelectItem value="estate-planning">General Estate Planning</SelectItem>
+            <SelectItem value="Guardianship">Guardianship</SelectItem>
             <SelectItem value="other">Other</SelectItem>
           </SelectContent>
         </Select>
