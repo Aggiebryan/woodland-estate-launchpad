@@ -140,7 +140,7 @@ const EstateChecklist = () => {
             <div ref={checklistRef} className="space-y-12">
               {/* Instructions */}
               <div className="bg-woodlands-darkpurple/30 p-6 rounded-lg border border-woodlands-gold/20">
-                <h3 className="text-xl font-serif text-woodlands-gold mb-4">Instructions for the Client</h3>
+                <h3 className="text-xl font-serif text-woodlands-gold mb-4">Instructions</h3>
                 <p className="text-woodlands-cream">
                   Use the checkboxes to mark each item you have already completed. Read the brief note beneath each line—this tells 
                   you <em>why</em> the step matters and prompts honest reflection on your own circumstances.
