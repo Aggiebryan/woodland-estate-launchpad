@@ -24,6 +24,7 @@ import EstateChecklist from "./pages/EstateChecklist";
 import Glossary from "./pages/Glossary";
 import FAQs from "./pages/FAQs";
 import PowersOfAttorney from "./pages/PowersOfAttorney";
+import LivingWills from "./pages/LivingWills";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -49,7 +50,7 @@ const UnderDevelopment = () => (
 
 // Service pages
 // Removed the PowersOfAttorney component definition since we're now importing it
-const LivingWills = () => <UnderDevelopment />;
+// Removed the LivingWills component definition since we're now importing it
 const Probate = () => <UnderDevelopment />;
 const Guardianship = () => <UnderDevelopment />;
 const ElderLaw = () => <UnderDevelopment />;
