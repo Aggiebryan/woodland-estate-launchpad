@@ -29,6 +29,7 @@ import Probate from "./pages/Probate";
 import Guardianship from "./pages/Guardianship";
 import ElderLaw from "./pages/ElderLaw";
 import Schedule from "./pages/Schedule";
+import IntakeForm from "./pages/IntakeForm";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -53,7 +54,6 @@ const UnderDevelopment = () => (
 );
 
 // Plan pages
-const IntakeForm = () => <UnderDevelopment />;
 const WillQuestionnaire = () => <UnderDevelopment />;
 const VirtualPlanning = () => <UnderDevelopment />;
 
