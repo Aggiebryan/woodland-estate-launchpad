@@ -25,6 +25,7 @@ const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
         <Navbar />
         <main className="flex-grow">{children}</main>
         <Footer />
+        <AttorneyNotice />
       </div>
     </div>
   );
