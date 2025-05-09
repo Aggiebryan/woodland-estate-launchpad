@@ -209,19 +209,19 @@ const Index = () => {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
             <TestimonialCard 
-              quote="The attorneys at Woodlands Estate Law made the estate planning process simple and straightforward. They explained everything clearly and created a plan that gives me peace of mind."
-              author="Sarah Johnson"
-              role="Client since 2020"
+              quote="I have worked with Gwen many times and she is not only brilliant but a passionate advocate for her clients.  I highly recommend Gwen!!!"
+              author="Lisa B"
+              role="Client since 2019"
             />
             <TestimonialCard 
-              quote="After my father passed, navigating probate seemed overwhelming. The team guided me through every step with compassion and expertise. I cannot recommend them enough."
-              author="Michael Rodriguez"
-              role="Probate Client"
+              quote="This law firm is Outstanding. When I had questions / concerns they responded in less than 24hr. They were very easy to work with and got my case settled quickly."
+              author="Kimberly P"
+              role="Client Since 2024"
             />
             <TestimonialCard 
-              quote="Creating a trust for my special needs child was complex, but they designed a solution that perfectly met our family's unique needs. True professionals who genuinely care."
-              author="Jennifer Williams"
-              role="Trust Client"
+              quote="This law firm is hands down the best. We were treated like family and our matter was resolved quickly and efficiently. We will always use The Woodlands Law Firm and Gwendolyn Simpson for any matter we may need help with."
+              author="Madison G"
+              role="Client Since 2024"
             />
           </div>
         </div>
