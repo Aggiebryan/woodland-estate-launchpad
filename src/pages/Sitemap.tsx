@@ -1,7 +1,7 @@
 
 import MainLayout from "@/components/layout/MainLayout";
 import { Link } from "react-router-dom";
-import { ListTree } from "lucide-react";
+import { ListTree, ChevronRight } from "lucide-react";
 
 const Sitemap = () => {
   // Groups of routes organized by category
@@ -78,34 +78,43 @@ const Sitemap = () => {
     <MainLayout>
       <div className="bg-woodlands-purple min-h-screen py-16">
         <div className="container mx-auto px-4">
-          <div className="flex items-center justify-center mb-8">
-            <ListTree className="w-12 h-12 text-woodlands-gold mb-4" />
-          </div>
-          <h1 className="text-4xl md:text-5xl font-serif text-woodlands-gold text-center mb-12">
-            Site Map
-          </h1>
-          
-          <div className="max-w-5xl mx-auto bg-white/5 rounded-lg p-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="max-w-5xl mx-auto">
+            <div className="flex items-center justify-center mb-8">
+              <ListTree className="w-12 h-12 text-woodlands-gold mb-4" />
+            </div>
+            <h1 className="text-4xl md:text-5xl font-serif text-woodlands-gold text-center mb-12">
+              Site Map
+            </h1>
+            
+            <div className="bg-white/5 rounded-lg p-8 shadow-lg">
               {routeGroups.map((group, groupIndex) => (
-                <div key={groupIndex} className="mb-8">
-                  <h2 className="text-2xl font-serif text-woodlands-gold mb-4">
+                <div key={groupIndex} className="mb-10 last:mb-0">
+                  <h2 className="text-2xl font-serif text-woodlands-gold mb-4 pb-2 border-b border-woodlands-gold/20">
                     {group.title}
                   </h2>
-                  <ul className="space-y-2 text-woodlands-cream font-body">
+                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3">
                     {group.routes.map((route, routeIndex) => (
-                      <li key={routeIndex}>
-                        <Link
-                          to={route.path}
-                          className="hover:text-woodlands-lightgold transition-colors"
-                        >
-                          {route.label}
-                        </Link>
-                      </li>
+                      <Link
+                        key={routeIndex}
+                        to={route.path}
+                        className="flex items-center text-woodlands-cream hover:text-woodlands-lightgold transition-colors py-2"
+                      >
+                        <ChevronRight className="h-4 w-4 mr-2 text-woodlands-gold" />
+                        <span className="font-body">{route.label}</span>
+                      </Link>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
+            </div>
+            
+            <div className="mt-12 text-center">
+              <p className="text-woodlands-cream/80 text-sm">
+                Can't find what you're looking for?{" "}
+                <Link to="/contact" className="text-woodlands-lightgold hover:underline">
+                  Contact us
+                </Link>
+              </p>
             </div>
           </div>
         </div>
