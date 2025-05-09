@@ -1,3 +1,4 @@
+
 #root {
   max-width: 1280px;
   margin: 0 auto;
@@ -40,3 +41,22 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Ensure that the content within each page is properly visible above the background */
+.content-wrapper {
+  position: relative;
+  z-index: 5;
+}
+
+/* Enhance text readability against the textured background */
+.text-woodlands-cream {
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+/* Ensure that cards and containers stand out against the texture */
+.bg-white, .bg-woodlands-purple {
+  background-blend-mode: normal;
+  position: relative;
+  z-index: 5;
+}
+
