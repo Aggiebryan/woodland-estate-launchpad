@@ -14,23 +14,71 @@ import { toast } from "@/components/ui/use-toast";
 
 const ConsultationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formData, setFormData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    phone: "",
+    service: "",
+    message: "",
+  });
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSelectChange = (value: string) => {
+    setFormData((prev) => ({ ...prev, service: value }));
+  };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      // Format email content
+      const emailSubject = "Website Estate Planning Request";
+      const emailBody = `
+New consultation request from the website:
+
+Name: ${formData.first_name} ${formData.last_name}
+Email: ${formData.email}
+Phone: ${formData.phone}
+Service Needed: ${formData.service}
+Message: ${formData.message}
+      `;
+      
+      // Create mailto URL
+      const mailtoUrl = `mailto:Bryan@woodlands.law?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
+      
+      // Open default email client with pre-filled content
+      window.open(mailtoUrl);
+      
       toast({
         title: "Consultation Request Received",
         description: "We'll contact you within 1 business day to confirm your appointment.",
       });
       
-      // Reset form
-      const form = e.target as HTMLFormElement;
-      form.reset();
-    }, 1000);
+      // Reset form data
+      setFormData({
+        first_name: "",
+        last_name: "",
+        email: "",
+        phone: "",
+        service: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Error",
+        description: "There was a problem submitting your request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   
   return (
@@ -45,6 +93,8 @@ const ConsultationForm = () => {
             name="first_name"
             placeholder="John"
             required
+            value={formData.first_name}
+            onChange={handleChange}
             className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
           />
         </div>
@@ -57,6 +107,8 @@ const ConsultationForm = () => {
             name="last_name"
             placeholder="Doe"
             required
+            value={formData.last_name}
+            onChange={handleChange}
             className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
           />
         </div>
@@ -73,6 +125,8 @@ const ConsultationForm = () => {
             type="email"
             placeholder="john@example.com"
             required
+            value={formData.email}
+            onChange={handleChange}
             className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
           />
         </div>
@@ -85,6 +139,8 @@ const ConsultationForm = () => {
             name="phone"
             placeholder="(555) 123-4567"
             required
+            value={formData.phone}
+            onChange={handleChange}
             className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
           />
         </div>
@@ -94,7 +150,12 @@ const ConsultationForm = () => {
         <label htmlFor="service" className="block text-sm font-medium text-woodlands-gold mb-1">
           Service Needed *
         </label>
-        <Select name="service" required>
+        <Select 
+          name="service" 
+          value={formData.service} 
+          onValueChange={handleSelectChange} 
+          required
+        >
           <SelectTrigger className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream focus:border-woodlands-gold">
             <SelectValue placeholder="Select a service" />
           </SelectTrigger>
@@ -117,6 +178,8 @@ const ConsultationForm = () => {
           name="message"
           rows={4}
           placeholder="Please provide a brief description of your situation and what you're looking to accomplish."
+          value={formData.message}
+          onChange={handleChange}
           className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
         />
       </div>
