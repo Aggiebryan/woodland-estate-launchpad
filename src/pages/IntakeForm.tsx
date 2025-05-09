@@ -101,34 +101,39 @@ const IntakeForm = () => {
   });
 
   const onSubmit = async (data: IntakeFormValues) => {
-    setIsSubmitting(true);
-    
-    try {
-      // In a real application, you would send this data to a server or API
-      // For now, we're just simulating the submission
-      console.log("Form data submitted:", data);
-      
-      // Show a success toast
-      toast({
-        title: "Form Submitted Successfully",
-        description: "We'll contact you soon regarding your estate planning needs.",
-        duration: 5000,
-      });
-      
-      // Reset the form
-      form.reset();
-      
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        variant: "destructive",
-        title: "Submission Error",
-        description: "There was a problem submitting your form. Please try again.",
-      });
-    } finally {
-      setIsSubmitting(false);
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("https://n8n.twlf.dev/webhook/estate_plan_intake", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error("Network response was not ok");
     }
-  };
+
+    toast({
+      title: "Form Submitted Successfully",
+      description: "We'll contact you soon regarding your estate planning needs.",
+      duration: 5000,
+    });
+
+    form.reset();
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast({
+      variant: "destructive",
+      title: "Submission Error",
+      description: "There was a problem submitting your form. Please try again.",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
 
   return (
     <MainLayout>
