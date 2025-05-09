@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -31,36 +30,27 @@ const ConsultationForm = () => {
   const handleSelectChange = (value: string) => {
     setFormData((prev) => ({ ...prev, service: value }));
   };
-  
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
-    try {
-      // Format email content
-      const emailSubject = "Website Estate Planning Request";
-      const emailBody = `
-New consultation request from the website:
 
-Name: ${formData.first_name} ${formData.last_name}
-Email: ${formData.email}
-Phone: ${formData.phone}
-Service Needed: ${formData.service}
-Message: ${formData.message}
-      `;
-      
-      // Create mailto URL
-      const mailtoUrl = `mailto:Bryan@woodlands.law?subject=${encodeURIComponent(emailSubject)}&body=${encodeURIComponent(emailBody)}`;
-      
-      // Open default email client with pre-filled content
-      window.open(mailtoUrl);
-      
+    try {
+      const response = await fetch("https://your-n8n-domain/webhook/send-consultation", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) throw new Error("Submission failed");
+
       toast({
         title: "Consultation Request Received",
         description: "We'll contact you within 1 business day to confirm your appointment.",
       });
-      
-      // Reset form data
+
       setFormData({
         first_name: "",
         last_name: "",
@@ -80,7 +70,7 @@ Message: ${formData.message}
       setIsSubmitting(false);
     }
   };
-  
+
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -201,3 +191,4 @@ Message: ${formData.message}
 };
 
 export default ConsultationForm;
+
