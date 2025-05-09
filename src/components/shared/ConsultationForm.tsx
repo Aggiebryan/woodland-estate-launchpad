@@ -36,7 +36,7 @@ const ConsultationForm = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://your-n8n-domain/webhook/send-consultation", {
+      const response = await fetch("https://n8n.twlf.dev/webhook-test/send-consultation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -191,4 +191,3 @@ const ConsultationForm = () => {
 };
 
 export default ConsultationForm;
-
