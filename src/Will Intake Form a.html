@@ -1,0 +1,1882 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Woodlands Law Firm - Revocable Living Trust Package</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', Times, serif;
+            line-height: 1.5;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 8.5in;
+            margin: 0 auto;
+            padding: 0.5in;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #0c356b;
+            padding-bottom: 10px;
+        }
+        .header h1 {
+            color: #0c356b;
+            margin-bottom: 5px;
+        }
+        .header h2 {
+            color: #0c356b;
+            font-style: italic;
+            font-weight: normal;
+            margin-top: 0;
+        }
+        .section {
+            margin-bottom: 30px;
+            border: 1px solid #ddd;
+            padding: 15px;
+            background-color: #f9f9f9;
+        }
+        .section-title {
+            background-color: #0c356b;
+            color: white;
+            padding: 10px;
+            margin: -15px -15px 15px -15px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            height: 100px;
+        }
+        .checkbox-group {
+            margin-bottom: 10px;
+        }
+        .radio-group {
+            margin-bottom: 5px;
+        }
+        .note {
+            font-style: italic;
+            font-size: 0.9em;
+            color: #555;
+        }
+        .required {
+            color: red;
+        }
+        .columns {
+            display: flex;
+            gap: 20px;
+        }
+        .column {
+            flex: 1;
+        }
+        .signature-line {
+            border-top: 1px solid #000;
+            margin-top: 30px;
+            padding-top: 5px;
+            display: inline-block;
+            width: 300px;
+        }
+        @media print {
+            .section {
+                break-inside: avoid;
+            }
+            body {
+                font-size: 12pt;
+            }
+        }
+    </style>
+</head>
+<body>
+   <div class="container">
+        <div class="header">
+            <h1>THE WOODLANDS LAW FIRM</h1>
+            <h2>Estate Planning Will Package - Client Intake Form</h2>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">PRIVACY POLICY AND CONFIDENTIALITY NOTICE</h3>
+            <p>We treat all client information with the utmost confidentiality. Our firm takes every precaution to safeguard your privacy, and the data you submit is protected using industry-standard 256-bit SSL encryption.</p>
+            <p>Your Social Security Number and other personal details will only be used if you hire our firm to represent you, and then only when necessary for your case.</p>
+            <p>Typically, Social Security Numbers are required to accurately identify parties in legal matters. Courts often request this information, and it may be used for purposes such as:</p>
+            <ul>
+                <li>Initial service of legal documents</li>
+                <li>Inclusion in court orders</li>
+                <li>Filing required reports or documents with the State</li>
+                <li>Trust administration and tax reporting</li>
+            </ul>
+            <p>If you have any questions, feel free to contact our office. We look forward to working with you!</p>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">CLIENT INFORMATION</h3>
+            <div class="columns">
+                <div class="column">
+                    <h4>Client 1</h4>
+                    <div class="form-group">
+                        <label for="client1-prefix">Prefix</label>
+                        <select id="client1-prefix" name="client1-prefix">
+                            <option value="">Select</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Rev.">Rev.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-first-name">First Name <span class="required">*</span></label>
+                        <input type="text" id="client1-first-name" name="client1-first-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-middle-name">Middle Name</label>
+                        <input type="text" id="client1-middle-name" name="client1-middle-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-last-name">Last Name <span class="required">*</span></label>
+                        <input type="text" id="client1-last-name" name="client1-last-name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-dob">Date of Birth <span class="required">*</span></label>
+                        <input type="date" id="client1-dob" name="client1-dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-ssn">Social Security Number <span class="required">*</span></label>
+                        <input type="text" id="client1-ssn" name="client1-ssn" placeholder="XXX-XX-XXXX" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-dl">Driver's License Number</label>
+                        <input type="text" id="client1-dl" name="client1-dl">
+                    </div>
+                    <div class="form-group">
+                        <label for="client1-citizenship">Citizenship <span class="required">*</span></label>
+                        <input type="text" id="client1-citizenship" name="client1-citizenship" placeholder="e.g., U.S." required>
+                    </div>
+                    <div class="form-group">
+                        <label>Gender for Legal Identification <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-male" name="client1-gender" value="male">
+                            <label for="client1-male" style="display: inline;">Male</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-female" name="client1-gender" value="female">
+                            <label for="client1-female" style="display: inline;">Female</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-alternative" name="client1-gender" value="alternative">
+                            <label for="client1-alternative" style="display: inline;">Alternative Designation</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status <span class="required">*</span></label>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-single" name="client1-marital" value="single">
+                            <label for="client1-single" style="display: inline;">Single</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-married" name="client1-marital" value="married">
+                            <label for="client1-married" style="display: inline;">Married</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-separated" name="client1-marital" value="separated">
+                            <label for="client1-separated" style="display: inline;">Separated</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-divorced" name="client1-marital" value="divorced">
+                            <label for="client1-divorced" style="display: inline;">Divorced</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client1-widowed" name="client1-marital" value="widowed">
+                            <label for="client1-widowed" style="display: inline;">Widowed</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <h4>Client 2 - If Applicable</h4>
+                    <div class="form-group">
+                        <label for="client2-prefix">Prefix</label>
+                        <select id="client2-prefix" name="client2-prefix">
+                            <option value="">Select</option>
+                            <option value="Mr.">Mr.</option>
+                            <option value="Mrs.">Mrs.</option>
+                            <option value="Ms.">Ms.</option>
+                            <option value="Dr.">Dr.</option>
+                            <option value="Rev.">Rev.</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-first-name">First Name</label>
+                        <input type="text" id="client2-first-name" name="client2-first-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-middle-name">Middle Name</label>
+                        <input type="text" id="client2-middle-name" name="client2-middle-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-last-name">Last Name</label>
+                        <input type="text" id="client2-last-name" name="client2-last-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-dob">Date of Birth</label>
+                        <input type="date" id="client2-dob" name="client2-dob">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-ssn">Social Security Number</label>
+                        <input type="text" id="client2-ssn" name="client2-ssn" placeholder="XXX-XX-XXXX">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-dl">Driver's License Number</label>
+                        <input type="text" id="client2-dl" name="client2-dl">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-citizenship">Citizenship</label>
+                        <input type="text" id="client2-citizenship" name="client2-citizenship" placeholder="e.g., U.S.">
+                    </div>
+                    <div class="form-group">
+                        <label>Gender for Legal Identification</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-male" name="client2-gender" value="male">
+                            <label for="client2-male" style="display: inline;">Male</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-female" name="client2-gender" value="female">
+                            <label for="client2-female" style="display: inline;">Female</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-alternative" name="client2-gender" value="alternative">
+                            <label for="client2-alternative" style="display: inline;">Alternative Designation</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Marital Status</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-single" name="client2-marital" value="single">
+                            <label for="client2-single" style="display: inline;">Single</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-married" name="client2-marital" value="married">
+                            <label for="client2-married" style="display: inline;">Married</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-separated" name="client2-marital" value="separated">
+                            <label for="client2-separated" style="display: inline;">Separated</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-divorced" name="client2-marital" value="divorced">
+                            <label for="client2-divorced" style="display: inline;">Divorced</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-widowed" name="client2-marital" value="widowed">
+                            <label for="client2-widowed" style="display: inline;">Widowed</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">CONTACT INFORMATION</h3>
+            <div class="form-group">
+                <label for="primary-address">Primary Legal Residence <span class="required">*</span></label>
+                <input type="text" id="primary-address" name="primary-address" placeholder="Street Address" required>
+            </div>
+            <div class="form-group">
+                <label for="primary-city">City <span class="required">*</span></label>
+                <input type="text" id="primary-city" name="primary-city" required>
+            </div>
+            <div class="form-group">
+                <label for="primary-state">State <span class="required">*</span></label>
+                <input type="text" id="primary-state" name="primary-state" required>
+            </div>
+            <div class="form-group">
+                <label for="primary-zip">Zip/Postal Code <span class="required">*</span></label>
+                <input type="text" id="primary-zip" name="primary-zip" required>
+            </div>
+            <div class="form-group">
+                <label for="primary-email">Email Address <span class="required">*</span></label>
+                <input type="email" id="primary-email" name="primary-email" required>
+            </div>
+            <div class="form-group">
+                <label for="primary-phone">Primary Phone <span class="required">*</span></label>
+                <input type="tel" id="primary-phone" name="primary-phone" required>
+            </div>
+            <div class="form-group">
+                <label for="secondary-phone">Secondary Phone</label>
+                <input type="tel" id="secondary-phone" name="secondary-phone">
+            </div>
+            <div class="form-group">
+                <label for="mailing-address">Mailing Address (if different from Primary Residence)</label>
+                <input type="text" id="mailing-address" name="mailing-address" placeholder="Street Address">
+            </div>
+            <div class="form-group">
+                <label for="mailing-city">City</label>
+                <input type="text" id="mailing-city" name="mailing-city">
+            </div>
+            <div class="form-group">
+                <label for="mailing-state">State</label>
+                <input type="text" id="mailing-state" name="mailing-state">
+            </div>
+            <div class="form-group">
+                <label for="mailing-zip">Zip/Postal Code</label>
+                <input type="text" id="mailing-zip" name="mailing-zip">
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">CHILDREN AND DESCENDANTS</h3>
+            <p>In this section, we ask for details about your children, if applicable. It's important to distinguish between children from your current marriage and those from other relationships for legal purposes.</p>
+            
+            <div class="form-group">
+                <label>Client 1: Do You Have Children?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-has-children" name="client1-has-children" value="yes">
+                    <label for="client1-has-children" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-no-children" name="client1-has-children" value="no">
+                    <label for="client1-no-children" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="client1-children-details" style="display: none;">
+                <h4>Client 1's Children Information</h4>
+                <div class="form-group child-info">
+                    <h5>Child 1</h5>
+                    <div class="form-group">
+                        <label for="child1-name">Full Name</label>
+                        <input type="text" id="child1-name" name="child1-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="child1-dob">Date of Birth</label>
+                        <input type="date" id="child1-dob" name="child1-dob">
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <div class="radio-group">
+                            <input type="radio" id="child1-biological" name="child1-relationship" value="biological">
+                            <label for="child1-biological" style="display: inline;">Biological</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child1-adopted" name="child1-relationship" value="adopted">
+                            <label for="child1-adopted" style="display: inline;">Legally Adopted</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child1-step" name="child1-relationship" value="step">
+                            <label for="child1-step" style="display: inline;">Step-Child</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="child1-parent">Other Parent's Name</label>
+                        <input type="text" id="child1-parent" name="child1-parent">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Needs?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="child1-special-yes" name="child1-special" value="yes">
+                            <label for="child1-special-yes" style="display: inline;">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child1-special-no" name="child1-special" value="no" checked>
+                            <label for="child1-special-no" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" id="add-child-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Child</button>
+            </div>
+            
+            <div class="form-group">
+                <label>Client 2: Do You Have Children (Different from Client 1's Children)?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-has-children" name="client2-has-children" value="yes">
+                    <label for="client2-has-children" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-no-children" name="client2-has-children" value="no">
+                    <label for="client2-no-children" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="client2-children-details" style="display: none;">
+                <h4>Client 2's Children Information (Different from Client 1's)</h4>
+                <div class="form-group child-info">
+                    <h5>Child 1</h5>
+                    <div class="form-group">
+                        <label for="client2-child1-name">Full Name</label>
+                        <input type="text" id="client2-child1-name" name="client2-child1-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-child1-dob">Date of Birth</label>
+                        <input type="date" id="client2-child1-dob" name="client2-child1-dob">
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child1-biological" name="client2-child1-relationship" value="biological">
+                            <label for="client2-child1-biological" style="display: inline;">Biological</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child1-adopted" name="client2-child1-relationship" value="adopted">
+                            <label for="client2-child1-adopted" style="display: inline;">Legally Adopted</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child1-step" name="client2-child1-relationship" value="step">
+                            <label for="client2-child1-step" style="display: inline;">Step-Child</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-child1-parent">Other Parent's Name</label>
+                        <input type="text" id="client2-child1-parent" name="client2-child1-parent">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Needs?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child1-special-yes" name="client2-child1-special" value="yes">
+                            <label for="client2-child1-special-yes" style="display: inline;">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child1-special-no" name="client2-child1-special" value="no" checked>
+                            <label for="client2-child1-special-no" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" id="add-client2-child-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Child</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="grandchildren-info">Do You Have Grandchildren?</label>
+                <div class="radio-group">
+                    <input type="radio" id="has-grandchildren" name="has-grandchildren" value="yes">
+                    <label for="has-grandchildren" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="no-grandchildren" name="has-grandchildren" value="no" checked>
+                    <label for="no-grandchildren" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="grandchildren-details" style="display: none;">
+                <div class="form-group">
+                    <label for="grandchildren-info">Please List Grandchildren (Name, Age, Parent's Name)</label>
+                    <textarea id="grandchildren-info" name="grandchildren-info" placeholder="e.g., John Smith, 5, son of Jane Smith"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">GUARDIAN DESIGNATIONS FOR MINOR CHILDREN</h3>
+            <p>If you have minor children, you need to designate guardians who will be responsible for your children's care if something happens to you. There are two types of guardians: Guardian of the Person (physical care) and Guardian of the Estate (financial affairs).</p>
+            
+            <div class="form-group">
+                <label>Do You Have Minor Children Requiring Guardian Designations?</label>
+                <div class="radio-group">
+                    <input type="radio" id="has-minors" name="has-minors" value="yes">
+                    <label for="has-minors" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="no-minors" name="has-minors" value="no" checked>
+                    <label for="no-minors" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="guardian-details" style="display: none;">
+                <h4>1st Choice Guardian of the Person</h4>
+                <div class="form-group">
+                    <label for="guardian1-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="guardian1-name" name="guardian1-name">
+                </div>
+                <div class="form-group">
+                    <label for="guardian1-relation">Relationship to You</label>
+                    <input type="text" id="guardian1-relation" name="guardian1-relation">
+                </div>
+                <div class="form-group">
+                    <label for="guardian1-address">Address</label>
+                    <input type="text" id="guardian1-address" name="guardian1-address">
+                </div>
+                <div class="form-group">
+                    <label for="guardian1-phone">Phone Number</label>
+                    <input type="tel" id="guardian1-phone" name="guardian1-phone">
+                </div>
+                <div class="form-group">
+                    <label for="guardian1-email">Email</label>
+                    <input type="email" id="guardian1-email" name="guardian1-email">
+                </div>
+                
+                <h4>2nd Choice Guardian of the Person (Alternate)</h4>
+                <div class="form-group">
+                    <label for="guardian2-name">Full Name</label>
+                    <input type="text" id="guardian2-name" name="guardian2-name">
+                </div>
+                <div class="form-group">
+                    <label for="guardian2-relation">Relationship to You</label>
+                    <input type="text" id="guardian2-relation" name="guardian2-relation">
+                </div>
+                <div class="form-group">
+                    <label for="guardian2-address">Address</label>
+                    <input type="text" id="guardian2-address" name="guardian2-address">
+                </div>
+                <div class="form-group">
+                    <label for="guardian2-phone">Phone Number</label>
+                    <input type="tel" id="guardian2-phone" name="guardian2-phone">
+                </div>
+                <div class="form-group">
+                    <label for="guardian2-email">Email</label>
+                    <input type="email" id="guardian2-email" name="guardian2-email">
+                </div>
+            <h4>TEMPORARY GUARDIAN DESIGNATIONS FOR MINOR CHILDREN</h4>
+            <p>If you are unavailable and your child’s permanent guardian cannot reach your child right away, Texas law allows you to name a temporary guardian who can step in at once. Use this section to identify the person you trust to act as a first responder. Until the permanent guardian arrives, that temporary guardian may take custody of your child, make all necessary decisions—including medical decisions—and keep your child out of protective custody.</p>
+                <div id="tempguardian-details" style="display: none;">
+                <h4>1st Choice Temporary Guardian</h4>
+                <div class="form-group">
+                    <label for="tempguardian1-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="tempguardian1-name" name="tempguardian1-name">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-relation">Relationship to You</label>
+                    <input type="text" id="tempguardian1-relation" name="tempguardian1-relation">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-address">Address</label>
+                    <input type="text" id="tempguardian1-address" name="tempguardian1-address">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-phone">Phone Number</label>
+                    <input type="tel" id="tempguardian1-phone" name="tempguardian1-phone">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-email">Email</label>
+                    <input type="email" id="tempguardian1-email" name="tempguardian1-email">
+                </div>
+                
+                <h4>2nd Choice Temporary Guardian (Alternate)</h4>
+                <div class="form-group">
+                    <label for="tempguardian2-name">Full Name</label>
+                    <input type="text" id="tempguardian2-name" name="tempguardian2-name">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-relation">Relationship to You</label>
+                    <input type="text" id="tempguardian2-relation" name="tempguardian2-relation">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-address">Address</label>
+                    <input type="text" id="tempguardian2-address" name="tempguardian2-address">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-phone">Phone Number</label>
+                    <input type="tel" id="tempguardian2-phone" name="tempguardian2-phone">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-email">Email</label>
+                    <input type="email" id="tempguardian2-email" name="tempguardian2-email">
+                </div>
+            </div>    
+                <h4>1st Choice Guardian of the Estate</h4>
+                <div class="form-group">
+                    <label>Same as Guardian of the Person?</label>
+                    <div class="radio-group">
+                        <input type="radio" id="estate-same-yes" name="estate-same" value="yes" checked>
+                        <label for="estate-same-yes" style="display: inline;">Yes</label>
+                    </div>
+                    <div class="radio-group">
+                        <input type="radio" id="estate-same-no" name="estate-same" value="no">
+                        <label for="estate-same-no" style="display: inline;">No</label>
+                    </div>
+                </div>
+                
+                <div id="estate-guardian-details" style="display: none;">
+                    <div class="form-group">
+                        <label for="estate-guardian1-name">Full Name</label>
+                        <input type="text" id="estate-guardian1-name" name="estate-guardian1-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian1-relation">Relationship to You</label>
+                        <input type="text" id="estate-guardian1-relation" name="estate-guardian1-relation">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian1-address">Address</label>
+                        <input type="text" id="estate-guardian1-address" name="estate-guardian1-address">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian1-phone">Phone Number</label>
+                        <input type="tel" id="estate-guardian1-phone" name="estate-guardian1-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian1-email">Email</label>
+                        <input type="email" id="estate-guardian1-email" name="estate-guardian1-email">
+                    </div>
+                    
+                    <h4>2nd Choice Guardian of the Estate (Alternate)</h4>
+                    <div class="form-group">
+                        <label for="estate-guardian2-name">Full Name</label>
+                        <input type="text" id="estate-guardian2-name" name="estate-guardian2-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian2-relation">Relationship to You</label>
+                        <input type="text" id="estate-guardian2-relation" name="estate-guardian2-relation">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian2-address">Address</label>
+                        <input type="text" id="estate-guardian2-address" name="estate-guardian2-address">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian2-phone">Phone Number</label>
+                        <input type="tel" id="estate-guardian2-phone" name="estate-guardian2-phone">
+                    </div>
+                    <div class="form-group">
+                        <label for="estate-guardian2-email">Email</label>
+                        <input type="email" id="estate-guardian2-email" name="estate-guardian2-email">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guardian-instructions">Special Instructions for Guardians</label>
+                    <textarea id="guardian-instructions" name="guardian-instructions" placeholder="Add any special instructions or considerations for the guardians"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">TEMPORARY GUARDIAN DESIGNATIONS FOR MINOR CHILDREN</h3>
+            <p>If you are unavailable and your child’s permanent guardian cannot reach your child right away, Texas law allows you to name a temporary guardian who can step in at once. Use this section to identify the person you trust to act as a first responder. Until the permanent guardian arrives, that temporary guardian may take custody of your child, make all necessary decisions—including medical decisions—and keep your child out of protective custody.</p>
+            
+            <div class="form-group">
+                <label>Do You Have Minor Children Requiring Guardian Designations?</label>
+                <div class="radio-group">
+                    <input type="radio" id="has-minors" name="has-minors" value="yes">
+                    <label for="has-minors" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="no-minors" name="has-minors" value="no" checked>
+                    <label for="no-minors" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="tempguardian-details" style="display: none;">
+                <h4>1st Choice Temporary Guardian</h4>
+                <div class="form-group">
+                    <label for="tempguardian1-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="tempguardian1-name" name="tempguardian1-name">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-relation">Relationship to You</label>
+                    <input type="text" id="tempguardian1-relation" name="tempguardian1-relation">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-address">Address</label>
+                    <input type="text" id="tempguardian1-address" name="tempguardian1-address">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-phone">Phone Number</label>
+                    <input type="tel" id="tempguardian1-phone" name="tempguardian1-phone">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian1-email">Email</label>
+                    <input type="email" id="tempguardian1-email" name="tempguardian1-email">
+                </div>
+                
+                <h4>2nd Choice Temporary Guardian (Alternate)</h4>
+                <div class="form-group">
+                    <label for="tempguardian2-name">Full Name</label>
+                    <input type="text" id="tempguardian2-name" name="tempguardian2-name">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-relation">Relationship to You</label>
+                    <input type="text" id="tempguardian2-relation" name="tempguardian2-relation">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-address">Address</label>
+                    <input type="text" id="tempguardian2-address" name="tempguardian2-address">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-phone">Phone Number</label>
+                    <input type="tel" id="tempguardian2-phone" name="tempguardian2-phone">
+                </div>
+                <div class="form-group">
+                    <label for="tempguardian2-email">Email</label>
+                    <input type="email" id="tempguardian2-email" name="tempguardian2-email">
+                </div>
+                  
+                 <div class="form-group">
+                    <label for="guardian-instructions">Special Instructions for Guardians</label>
+                    <textarea id="guardian-instructions" name="guardian-instructions" placeholder="Add any special instructions or considerations for the guardians"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">TRUSTEES & SUCCESSOR TRUSTEES</h3>
+            <p>Trustees are responsible for managing trust assets according to the trust's terms. You will typically serve as the initial trustee(s) of your revocable living trust, but you must name successor trustees to take over if you become incapacitated or upon your death.</p>
+            
+            <div class="form-group">
+                <label>Initial Trustee(s)</label>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="client1-initial-trustee" name="initial-trustee" value="client1" checked>
+                    <label for="client1-initial-trustee" style="display: inline;">Client 1 (Settlor/Grantor 1)</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="client2-initial-trustee" name="initial-trustee" value="client2">
+                    <label for="client2-initial-trustee" style="display: inline;">Client 2 (Settlor/Grantor 2)</label>
+                </div>
+                <div class="checkbox-group">
+                    <input type="checkbox" id="other-initial-trustee" name="initial-trustee" value="other">
+                    <label for="other-initial-trustee" style="display: inline;">Other (please specify):</label>
+                    <input type="text" id="other-initial-trustee-name" name="other-initial-trustee-name">
+                </div>
+            </div>
+            
+            <h4>1st Successor Trustee</h4>
+            <div class="form-group">
+                <label for="successor1-name">Full Name <span class="required">*</span></label>
+                <input type="text" id="successor1-name" name="successor1-name" required>
+            </div>
+            <div class="form-group">
+                <label for="successor1-relation">Relationship to You</label>
+                <input type="text" id="successor1-relation" name="successor1-relation">
+            </div>
+            <div class="form-group">
+                <label for="successor1-address">Address</label>
+                <input type="text" id="successor1-address" name="successor1-address">
+            </div>
+            <div class="form-group">
+                <label for="successor1-phone">Phone Number</label>
+                <input type="tel" id="successor1-phone" name="successor1-phone">
+            </div>
+            <div class="form-group">
+                <label for="successor1-email">Email</label>
+                <input type="email" id="successor1-email" name="successor1-email">
+            </div>
+            
+            <h4>2nd Successor Trustee (Alternate)</h4>
+            <div class="form-group">
+                <label for="successor2-name">Full Name</label>
+                <input type="text" id="successor2-name" name="successor2-name">
+            </div>
+            <div class="form-group">
+                <label for="successor2-relation">Relationship to You</label>
+                <input type="text" id="successor2-relation" name="successor2-relation">
+            </div>
+            <div class="form-group">
+                <label for="successor2-address">Address</label>
+                <input type="text" id="successor2-address" name="successor2-address">
+            </div>
+            <div class="form-group">
+                <label for="successor2-phone">Phone Number</label>
+                <input type="tel" id="successor2-phone" name="successor2-phone">
+            </div>
+            <div class="form-group">
+                <label for="successor2-email">Email</label>
+                <input type="email" id="successor2-email" name="successor2-email">
+            </div>
+            
+            <div class="form-group">
+                <label>Consider Corporate Trustee?</label>
+                <div class="radio-group">
+                    <input type="radio" id="corporate-yes" name="corporate-trustee" value="yes">
+                    <label for="corporate-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="corporate-no" name="corporate-trustee" value="no" checked>
+                    <label for="corporate-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="corporate-details" style="display: none;">
+                <div class="form-group">
+                    <label for="corporate-name">Corporate Trustee Name</label>
+                    <input type="text" id="corporate-name" name="corporate-name">
+                </div>
+                <div class="form-group">
+                    <label for="corporate-contact">Contact Person</label>
+                    <input type="text" id="corporate-contact" name="corporate-contact">
+                </div>
+                <div class="form-group">
+                    <label for="corporate-phone">Phone Number</label>
+                    <input type="tel" id="corporate-phone" name="corporate-phone">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="trustee-powers">Special Trustee Powers or Restrictions</label>
+                <textarea id="trustee-powers" name="trustee-powers" placeholder="Specify any special powers or restrictions for trustees"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">ASSET SCHEDULE</h3>
+            <p>Please list all major assets that will be transferred to the trust. Note that some assets, such as retirement accounts and life insurance, typically pass by beneficiary designation and not through the trust.</p>
+            
+            <h4>Real Estate</h4>
+            <div class="form-group">
+                <label>Do you own real estate?</label>
+                <div class="radio-group">
+                    <input type="radio" id="real-estate-yes" name="owns-real-estate" value="yes">
+                    <label for="real-estate-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="real-estate-no" name="owns-real-estate" value="no" checked>
+                    <label for="real-estate-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="real-estate-details" style="display: none;">
+                <div class="form-group property-info">
+                    <h5>Property 1</h5>
+                    <div class="form-group">
+                        <label for="property1-address">Property Address</label>
+                        <input type="text" id="property1-address" name="property1-address">
+                    </div>
+                    <div class="form-group">
+                        <label for="property1-type">Type of Property</label>
+                        <select id="property1-type" name="property1-type">
+                            <option value="">Select</option>
+                            <option value="primary">Primary Residence</option>
+                            <option value="vacation">Vacation Home</option>
+                            <option value="rental">Rental Property</option>
+                            <option value="commercial">Commercial Property</option>
+                            <option value="land">Vacant Land</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="property1-ownership">Ownership Type</label>
+                        <select id="property1-ownership" name="property1-ownership">
+                            <option value="">Select</option>
+                            <option value="sole">Sole Ownership</option>
+                            <option value="joint">Joint Tenancy</option>
+                            <option value="tenants-common">Tenants in Common</option>
+                            <option value="community">Community Property</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="property1-value">Approximate Value</label>
+                        <input type="text" id="property1-value" name="property1-value" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label for="property1-mortgage">Outstanding Mortgage</label>
+                        <input type="text" id="property1-mortgage" name="property1-mortgage" placeholder="$">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-property-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Property</button>
+            </div>
+            
+            <h4>Bank Accounts</h4>
+            <div class="form-group">
+                <label>Do you have bank accounts to include in the trust?</label>
+                <div class="radio-group">
+                    <input type="radio" id="bank-yes" name="has-bank-accounts" value="yes">
+                    <label for="bank-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="bank-no" name="has-bank-accounts" value="no" checked>
+                    <label for="bank-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="bank-account-details" style="display: none;">
+                <div class="form-group account-info">
+                    <h5>Account 1</h5>
+                    <div class="form-group">
+                        <label for="account1-institution">Financial Institution</label>
+                        <input type="text" id="account1-institution" name="account1-institution">
+                    </div>
+                    <div class="form-group">
+                        <label for="account1-type">Account Type</label>
+                        <select id="account1-type" name="account1-type">
+                            <option value="">Select</option>
+                            <option value="checking">Checking</option>
+                            <option value="savings">Savings</option>
+                            <option value="money-market">Money Market</option>
+                            <option value="cd">Certificate of Deposit</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account1-ownership">Ownership Type</label>
+                        <select id="account1-ownership" name="account1-ownership">
+                            <option value="">Select</option>
+                            <option value="individual">Individual</option>
+                            <option value="joint">Joint</option>
+                            <option value="pod">Payable on Death</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="account1-value">Approximate Value</label>
+                        <input type="text" id="account1-value" name="account1-value" placeholder="$">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-account-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Account</button>
+            </div>
+            
+            <h4>Investment Accounts (Non-Retirement)</h4>
+            <div class="form-group">
+                <label>Do you have investment accounts to include in the trust?</label>
+                <div class="radio-group">
+                    <input type="radio" id="investment-yes" name="has-investments" value="yes">
+                    <label for="investment-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="investment-no" name="has-investments" value="no" checked>
+                    <label for="investment-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="investment-details" style="display: none;">
+                <div class="form-group investment-info">
+                    <h5>Investment Account 1</h5>
+                    <div class="form-group">
+                        <label for="investment1-institution">Financial Institution/Broker</label>
+                        <input type="text" id="investment1-institution" name="investment1-institution">
+                    </div>
+                    <div class="form-group">
+                        <label for="investment1-type">Account Type</label>
+                        <select id="investment1-type" name="investment1-type">
+                            <option value="">Select</option>
+                            <option value="brokerage">Brokerage Account</option>
+                            <option value="mutual-fund">Mutual Fund Account</option>
+                            <option value="stock">Individual Stocks</option>
+                            <option value="bond">Bonds</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="investment1-ownership">Ownership Type</label>
+                        <select id="investment1-ownership" name="investment1-ownership">
+                            <option value="">Select</option>
+                            <option value="individual">Individual</option>
+                            <option value="joint">Joint</option>
+                            <option value="tod">Transfer on Death</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="investment1-value">Approximate Value</label>
+                        <input type="text" id="investment1-value" name="investment1-value" placeholder="$">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-investment-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Investment Account</button>
+            </div>
+            
+            <h4>Business Interests</h4>
+            <div class="form-group">
+                <label>Do you own any business interests?</label>
+                <div class="radio-group">
+                    <input type="radio" id="business-yes" name="has-business" value="yes">
+                    <label for="business-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="business-no" name="has-business" value="no" checked>
+                    <label for="business-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="business-details" style="display: none;">
+                <div class="form-group business-info">
+                    <h5>Business 1</h5>
+                    <div class="form-group">
+                        <label for="business1-name">Business Name</label>
+                        <input type="text" id="business1-name" name="business1-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="business1-type">Business Type</label>
+                        <select id="business1-type" name="business1-type">
+                            <option value="">Select</option>
+                            <option value="sole-prop">Sole Proprietorship</option>
+                            <option value="partnership">Partnership</option>
+                            <option value="llc">Limited Liability Company (LLC)</option>
+                            <option value="corporation">Corporation</option>
+                            <option value="s-corp">S Corporation</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="business1-ownership">Ownership Percentage</label>
+                        <input type="text" id="business1-ownership" name="business1-ownership" placeholder="%">
+                    </div>
+                    <div class="form-group">
+                        <label for="business1-value">Approximate Value of Your Interest</label>
+                        <input type="text" id="business1-value" name="business1-value" placeholder="$">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-business-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Business</button>
+            </div>
+            
+            <h4>Valuable Personal Property</h4>
+            <div class="form-group">
+                <label>Do you have valuable personal property to include in the trust?</label>
+                <div class="radio-group">
+                    <input type="radio" id="personal-yes" name="has-personal" value="yes">
+                    <label for="personal-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="personal-no" name="has-personal" value="no" checked>
+                    <label for="personal-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="personal-details" style="display: none;">
+                <div class="form-group personal-info">
+                    <h5>Item 1</h5>
+                    <div class="form-group">
+                        <label for="personal1-description">Description</label>
+                        <input type="text" id="personal1-description" name="personal1-description">
+                    </div>
+                    <div class="form-group">
+                        <label for="personal1-type">Type</label>
+                        <select id="personal1-type" name="personal1-type">
+                            <option value="">Select</option>
+                            <option value="jewelry">Jewelry</option>
+                            <option value="art">Artwork</option>
+                            <option value="antiques">Antiques</option>
+                            <option value="collectibles">Collectibles</option>
+                            <option value="vehicles">Vehicles</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="personal1-value">Approximate Value</label>
+                        <input type="text" id="personal1-value" name="personal1-value" placeholder="$">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-personal-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Item</button>
+            </div>
+            
+            <h4>Life Insurance Policies (For Reference Only)</h4>
+            <p class="note">Note: Life insurance typically passes by beneficiary designation, not through the trust. However, the trust can be named as a beneficiary.</p>
+            <div class="form-group">
+                <label>Do you have life insurance policies?</label>
+                <div class="radio-group">
+                    <input type="radio" id="insurance-yes" name="has-insurance" value="yes">
+                    <label for="insurance-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="insurance-no" name="has-insurance" value="no" checked>
+                    <label for="insurance-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="insurance-details" style="display: none;">
+                <div class="form-group insurance-info">
+                    <h5>Policy 1</h5>
+                    <div class="form-group">
+                        <label for="insurance1-company">Insurance Company</label>
+                        <input type="text" id="insurance1-company" name="insurance1-company">
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance1-type">Policy Type</label>
+                        <select id="insurance1-type" name="insurance1-type">
+                            <option value="">Select</option>
+                            <option value="term">Term Life</option>
+                            <option value="whole">Whole Life</option>
+                            <option value="universal">Universal Life</option>
+                            <option value="variable">Variable Life</option>
+                            <option value="group">Group Life (Employer)</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance1-value">Death Benefit Amount</label>
+                        <input type="text" id="insurance1-value" name="insurance1-value" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label for="insurance1-beneficiary">Current Primary Beneficiary</label>
+                        <input type="text" id="insurance1-beneficiary" name="insurance1-beneficiary">
+                    </div>
+                    <div class="form-group">
+                        <label>Consider naming trust as beneficiary?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="insurance1-trust-yes" name="insurance1-trust" value="yes">
+                            <label for="insurance1-trust-yes" style="display: inline;">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="insurance1-trust-no" name="insurance1-trust" value="no" checked>
+                            <label for="insurance1-trust-no" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="button" id="add-insurance-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Policy</button>
+            </div>
+            
+            <h4>Retirement Accounts (For Reference Only)</h4>
+            <p class="note">Note: Retirement accounts typically pass by beneficiary designation, not through the trust. However, the trust can be named as a beneficiary in some circumstances.</p>
+            <div class="form-group">
+                <label>Do you have retirement accounts?</label>
+                <div class="radio-group">
+                    <input type="radio" id="retirement-yes" name="has-retirement" value="yes">
+                    <label for="retirement-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="retirement-no" name="has-retirement" value="no" checked>
+                    <label for="retirement-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="retirement-details" style="display: none;">
+                <div class="form-group retirement-info">
+                    <h5>Account 1</h5>
+                    <div class="form-group">
+                        <label for="retirement1-institution">Financial Institution/Administrator</label>
+                        <input type="text" id="retirement1-institution" name="retirement1-institution">
+                    </div>
+                    <div class="form-group">
+                        <label for="retirement1-type">Account Type</label>
+                        <select id="retirement1-type" name="retirement1-type">
+                            <option value="">Select</option>
+                            <option value="401k">401(k)</option>
+                            <option value="roth-401k">Roth 401(k)</option>
+                            <option value="403b">403(b)</option>
+                            <option value="ira">Traditional IRA</option>
+                            <option value="roth-ira">Roth IRA</option>
+                            <option value="sep">SEP IRA</option>
+                            <option value="simple">SIMPLE IRA</option>
+                            <option value="pension">Pension</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="retirement1-value">Approximate Value</label>
+                       <input type="text" id="retirement1-value" name="retirement1-value" placeholder="$">
+                    </div>
+                    <div class="form-group">
+                        <label for="retirement1-beneficiary">Current Primary Beneficiary</label>
+                        <input type="text" id="retirement1-beneficiary" name="retirement1-beneficiary">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-retirement-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Account</button>
+            </div>
+            
+            <div class="form-group">
+                <label for="assets-notes">Additional Notes About Assets</label>
+                <textarea id="assets-notes" name="assets-notes" placeholder="Any other information about your assets that might be relevant"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">DISTRIBUTION PLAN</h3>
+            <p>This section outlines how you want your assets distributed after your death. Be as specific as possible about your wishes.</p>
+            
+            <h4>Client 1: Primary Distribution</h4>
+            <div class="form-group">
+                <label>How would you like your property distributed upon your death? <span class="required">*</span></label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-dist-spouse" name="client1-distribution" value="spouse">
+                    <label for="client1-dist-spouse" style="display: inline;">All to spouse/partner</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-dist-children" name="client1-distribution" value="children">
+                    <label for="client1-dist-children" style="display: inline;">All to children equally</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-dist-spouse-children" name="client1-distribution" value="spouse-then-children">
+                    <label for="client1-dist-spouse-children" style="display: inline;">All to spouse/partner, then to children equally if spouse predeceases</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-dist-custom" name="client1-distribution" value="custom">
+                    <label for="client1-dist-custom" style="display: inline;">Custom distribution (please specify below)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client1-dist-custom-details">Custom Distribution Details</label>
+                <textarea id="client1-dist-custom-details" name="client1-dist-custom-details" placeholder="Please describe your custom distribution plan in detail"></textarea>
+            </div>
+            
+            <h4>Client 2: Primary Distribution (if applicable)</h4>
+            <div class="form-group">
+                <label>How would you like your property distributed upon your death?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-dist-spouse" name="client2-distribution" value="spouse">
+                    <label for="client2-dist-spouse" style="display: inline;">All to spouse/partner</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-dist-children" name="client2-distribution" value="children">
+                    <label for="client2-dist-children" style="display: inline;">All to children equally</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-dist-spouse-children" name="client2-distribution" value="spouse-then-children">
+                    <label for="client2-dist-spouse-children" style="display: inline;">All to spouse/partner, then to children equally if spouse predeceases</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-dist-custom" name="client2-distribution" value="custom">
+                    <label for="client2-dist-custom" style="display: inline;">Custom distribution (please specify below)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client2-dist-custom-details">Custom Distribution Details</label>
+                <textarea id="client2-dist-custom-details" name="client2-dist-custom-details" placeholder="Please describe your custom distribution plan in detail"></textarea>
+            </div>
+            
+            <h4>Special Bequests</h4>
+            <p>List any specific items or amounts you wish to leave to particular individuals.</p>
+            
+            <div class="form-group">
+                <label>Do you want to make any specific bequests?</label>
+                <div class="radio-group">
+                    <input type="radio" id="bequest-yes" name="has-bequests" value="yes">
+                    <label for="bequest-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="bequest-no" name="has-bequests" value="no" checked>
+                    <label for="bequest-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="bequest-details" style="display: none;">
+                <div class="form-group bequest-info">
+                    <h5>Bequest 1</h5>
+                    <div class="form-group">
+                        <label for="bequest1-item">Item or Amount</label>
+                        <input type="text" id="bequest1-item" name="bequest1-item">
+                    </div>
+                    <div class="form-group">
+                        <label for="bequest1-recipient">Recipient Name</label>
+                        <input type="text" id="bequest1-recipient" name="bequest1-recipient">
+                    </div>
+                    <div class="form-group">
+                        <label for="bequest1-relation">Relationship to You</label>
+                        <input type="text" id="bequest1-relation" name="bequest1-relation">
+                    </div>
+                    <div class="form-group">
+                        <label for="bequest1-alt">Alternate Recipient (if original recipient predeceases)</label>
+                        <input type="text" id="bequest1-alt" name="bequest1-alt">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-bequest-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Bequest</button>
+            </div>
+            
+            <h4>Charitable Gifts</h4>
+            <div class="form-group">
+                <label>Do you want to make any charitable gifts?</label>
+                <div class="radio-group">
+                    <input type="radio" id="charity-yes" name="has-charity" value="yes">
+                    <label for="charity-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="charity-no" name="has-charity" value="no" checked>
+                    <label for="charity-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="charity-details" style="display: none;">
+                <div class="form-group charity-info">
+                    <h5>Charitable Gift 1</h5>
+                    <div class="form-group">
+                        <label for="charity1-name">Charity Name</label>
+                        <input type="text" id="charity1-name" name="charity1-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="charity1-amount">Amount or Percentage</label>
+                        <input type="text" id="charity1-amount" name="charity1-amount">
+                    </div>
+                    <div class="form-group">
+                        <label for="charity1-purpose">Specific Purpose (if any)</label>
+                        <input type="text" id="charity1-purpose" name="charity1-purpose">
+                    </div>
+                </div>
+                
+                <button type="button" id="add-charity-btn" style="margin-top: 10px; padding: 5px 10px; background-color: #0c356b; color: white; border: none; border-radius: 4px; cursor: pointer;">Add Another Charitable Gift</button>
+            </div>
+            
+            <h4>Residuary Distribution</h4>
+            <p>After all specific bequests, who should receive the remainder of your estate?</p>
+            
+            <div class="form-group">
+                <label for="residuary-distribution">Residuary Distribution Instructions <span class="required">*</span></label>
+                <textarea id="residuary-distribution" name="residuary-distribution" placeholder="e.g., 'Equally to my children' or 'To my niece Jane Smith'" required></textarea>
+            </div>
+            
+            <h4>Distribution to Minors</h4>
+            <p>If any beneficiary is a minor at the time of distribution, assets will typically be held in trust until they reach a specified age.</p>
+            
+            <div class="form-group">
+                <label>At what age should minor beneficiaries receive their inheritance?</label>
+                <div class="radio-group">
+                    <input type="radio" id="minor-18" name="minor-distribution-age" value="18">
+                    <label for="minor-18" style="display: inline;">18 years (legal adult)</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="minor-21" name="minor-distribution-age" value="21">
+                    <label for="minor-21" style="display: inline;">21 years</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="minor-25" name="minor-distribution-age" value="25">
+                    <label for="minor-25" style="display: inline;">25 years</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="minor-staggered" name="minor-distribution-age" value="staggered" checked>
+                    <label for="minor-staggered" style="display: inline;">Staggered distribution (e.g., 1/3 at 21, 1/3 at 25, 1/3 at 30)</label>
+</div>
+                <div class="radio-group">
+                    <input type="radio" id="minor-custom" name="minor-distribution-age" value="custom">
+                    <label for="minor-custom" style="display: inline;">Custom (please specify below)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="minor-distribution-details">Custom Minor Distribution Details</label>
+                <textarea id="minor-distribution-details" name="minor-distribution-details" placeholder="Please specify your custom distribution plan for minors"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="distribution-notes">Additional Distribution Instructions or Notes</label>
+                <textarea id="distribution-notes" name="distribution-notes" placeholder="Any additional instructions or considerations regarding the distribution of your assets"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">SPECIAL CIRCUMSTANCES AND PROVISIONS</h3>
+            
+            <div class="form-group">
+                <label>Do you have any family members with special needs who receive or may need government benefits?</label>
+                <div class="radio-group">
+                    <input type="radio" id="special-needs-yes" name="has-special-needs" value="yes">
+                    <label for="special-needs-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="special-needs-no" name="has-special-needs" value="no" checked>
+                    <label for="special-needs-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="special-needs-details" style="display: none;">
+                <div class="form-group">
+                    <label for="special-needs-info">Please provide details about the special needs beneficiary and their requirements</label>
+                    <textarea id="special-needs-info" name="special-needs-info"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Are there any beneficiaries you wish to disinherit?</label>
+                <div class="radio-group">
+                    <input type="radio" id="disinherit-yes" name="has-disinherit" value="yes">
+                    <label for="disinherit-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="disinherit-no" name="has-disinherit" value="no" checked>
+                    <label for="disinherit-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="disinherit-details" style="display: none;">
+                <div class="form-group">
+                    <label for="disinherit-info">Please provide the names of individuals you wish to disinherit and the reason (important for legal validity)</label>
+                    <textarea id="disinherit-info" name="disinherit-info"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Are there any potential family conflicts that might affect your estate plan?</label>
+                <div class="radio-group">
+                    <input type="radio" id="conflicts-yes" name="has-conflicts" value="yes">
+                    <label for="conflicts-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="conflicts-no" name="has-conflicts" value="no" checked>
+                    <label for="conflicts-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="conflicts-details" style="display: none;">
+                <div class="form-group">
+                    <label for="conflicts-info">Please provide details about potential conflicts</label>
+                    <textarea id="conflicts-info" name="conflicts-info"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you wish to include a no-contest clause?</label>
+                <div class="radio-group">
+                    <input type="radio" id="no-contest-yes" name="no-contest" value="yes" checked>
+                    <label for="no-contest-yes" style="display: inline;">Yes (beneficiaries who contest the trust forfeit their inheritance)</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="no-contest-no" name="no-contest" value="no" checked>
+                    <label for="no-contest-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you own property in multiple states or countries?</label>
+                <div class="radio-group">
+                    <input type="radio" id="multi-state-yes" name="multi-state" value="yes">
+                    <label for="multi-state-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="multi-state-no" name="multi-state" value="no" checked>
+                    <label for="multi-state-no" style="display: inline;">No</label>
+                </div>
+            </div>
+            
+            <div id="multi-state-details" style="display: none;">
+                <div class="form-group">
+                    <label for="multi-state-info">Please list all states or countries where you own property</label>
+                    <textarea id="multi-state-info" name="multi-state-info"></textarea>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="special-provisions">Additional Special Provisions</label>
+                <textarea id="special-provisions" name="special-provisions" placeholder="Any other special instructions or considerations you would like included in your trust"></textarea>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3 class="section-title">LIVING WILL / ADVANCE HEALTHCARE DIRECTIVE</h3>
+            <p>In addition to your trust and powers of attorney, your estate plan should include advance healthcare directives that express your wishes regarding medical treatment if you become unable to communicate.</p>
+            
+            <h4>Client 1: Healthcare Directive Preferences</h4>
+            <div class="form-group">
+                <label>If you have a terminal condition with no reasonable chance of recovery, do you want life-sustaining procedures that would only prolong the dying process?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-lifesustain-yes" name="client1-lifesustain" value="yes">
+                    <label for="client1-lifesustain-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-lifesustain-no" name="client1-lifesustain" value="no" checked>
+                    <label for="client1-lifesustain-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-lifesustain-agent" name="client1-lifesustain" value="agent">
+                    <label for="client1-lifesustain-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you want artificial nutrition and hydration (feeding tubes) if you have a terminal condition?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-nutrition-yes" name="client1-nutrition" value="yes">
+                    <label for="client1-nutrition-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-nutrition-no" name="client1-nutrition" value="no">
+                    <label for="client1-nutrition-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-nutrition-agent" name="client1-nutrition" value="agent" checked>
+                    <label for="client1-nutrition-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you wish to be an organ donor?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-organ-yes" name="client1-organ" value="yes">
+                    <label for="client1-organ-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-organ-no" name="client1-organ" value="no">
+                    <label for="client1-organ-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-organ-agent" name="client1-organ" value="agent" checked>
+                    <label for="client1-organ-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client1-health-instructions">Additional Healthcare Instructions or Preferences</label>
+                <textarea id="client1-health-instructions" name="client1-health-instructions" placeholder="Any other specific healthcare instructions or preferences"></textarea>
+            </div>
+            
+            <h4>Client 2: Healthcare Directive Preferences (if applicable)</h4>
+            <div class="form-group">
+                <label>If you have a terminal condition with no reasonable chance of recovery, do you want life-sustaining procedures that would only prolong the dying process?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-lifesustain-yes" name="client2-lifesustain" value="yes">
+                    <label for="client2-lifesustain-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-lifesustain-no" name="client2-lifesustain" value="no" checked>
+                    <label for="client2-lifesustain-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-lifesustain-agent" name="client2-lifesustain" value="agent">
+                    <label for="client2-lifesustain-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you want artificial nutrition and hydration (feeding tubes) if you have a terminal condition?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-nutrition-yes" name="client2-nutrition" value="yes">
+                    <label for="client2-nutrition-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-nutrition-no" name="client2-nutrition" value="no">
+                    <label for="client2-nutrition-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-nutrition-agent" name="client2-nutrition" value="agent" checked>
+                    <label for="client2-nutrition-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Do you wish to be an organ donor?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-organ-yes" name="client2-organ" value="yes">
+                    <label for="client2-organ-yes" style="display: inline;">Yes</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-organ-no" name="client2-organ" value="no">
+                    <label for="client2-organ-no" style="display: inline;">No</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-organ-agent" name="client2-organ" value="agent" checked>
+                    <label for="client2-organ-agent" style="display: inline;">I defer this decision to my healthcare agent</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client2-health-instructions">Additional Healthcare Instructions or Preferences</label>
+                <textarea id="client2-health-instructions" name="client2-health-instructions" placeholder="Any other specific healthcare instructions or preferences"></textarea>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h3 class="section-title">POWER OF ATTORNEY</h3>
+            <p>Power of Attorney documents allow you to name agents who can act on your behalf in financial and medical matters if you become unable to do so.</p>
+            
+            <h4>Client 1: Financial Power of Attorney</h4>
+            <div class="form-group">
+                <label>When should Financial Power of Attorney become effective?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client1-financial-immediate" name="client1-financial-effective" value="immediate">
+                    <label for="client1-financial-immediate" style="display: inline;">Immediately (Durable)</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client1-financial-incapacity" name="client1-financial-effective" value="incapacity" checked>
+                    <label for="client1-financial-incapacity" style="display: inline;">Upon Incapacity (Springing)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client1-financial-agent1">Primary Agent Name <span class="required">*</span></label>
+                <input type="text" id="client1-financial-agent1" name="client1-financial-agent1" required>
+            </div>
+            <div class="form-group">
+                <label for="client1-financial-agent1-relation">Relationship to You</label>
+                <input type="text" id="client1-financial-agent1-relation" name="client1-financial-agent1-relation">
+            </div>
+            <div class="form-group">
+                <label for="client1-financial-agent1-address">Address</label>
+                <input type="text" id="client1-financial-agent1-address" name="client1-financial-agent1-address">
+            </div>
+            <div class="form-group">
+                <label for="client1-financial-agent1-phone">Phone Number</label>
+                <input type="tel" id="client1-financial-agent1-phone" name="client1-financial-agent1-phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="client1-financial-agent2">Alternate Agent Name</label>
+                <input type="text" id="client1-financial-agent2" name="client1-financial-agent2">
+            </div>
+            <div class="form-group">
+                <label for="client1-financial-agent2-relation">Relationship to You</label>
+                <input type="text" id="client1-financial-agent2-relation" name="client1-financial-agent2-relation">
+            </div>
+            
+            <h4>Client 1: Healthcare Power of Attorney</h4>
+            <div class="form-group">
+                <label for="client1-medical-agent1">Primary Agent Name <span class="required">*</span></label>
+                <input type="text" id="client1-medical-agent1" name="client1-medical-agent1" required>
+            </div>
+            <div class="form-group">
+                <label for="client1-medical-agent1-relation">Relationship to You</label>
+                <input type="text" id="client1-medical-agent1-relation" name="client1-medical-agent1-relation">
+            </div>
+            <div class="form-group">
+                <label for="client1-medical-agent1-address">Address</label>
+                <input type="text" id="client1-medical-agent1-address" name="client1-medical-agent1-address">
+            </div>
+            <div class="form-group">
+                <label for="client1-medical-agent1-phone">Phone Number</label>
+                <input type="tel" id="client1-medical-agent1-phone" name="client1-medical-agent1-phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="client1-medical-agent2">Alternate Agent Name</label>
+                <input type="text" id="client1-medical-agent2" name="client1-medical-agent2">
+            </div>
+            <div class="form-group">
+                <label for="client1-medical-agent2-relation">Relationship to You</label>
+                <input type="text" id="client1-medical-agent2-relation" name="client1-medical-agent2-relation">
+            </div>
+            
+            <h4>Client 2: Financial Power of Attorney (if applicable)</h4>
+            <div class="form-group">
+                <label>When should Financial Power of Attorney become effective?</label>
+                <div class="radio-group">
+                    <input type="radio" id="client2-financial-immediate" name="client2-financial-effective" value="immediate">
+                    <label for="client2-financial-immediate" style="display: inline;">Immediately (Durable)</label>
+                </div>
+                <div class="radio-group">
+                    <input type="radio" id="client2-financial-incapacity" name="client2-financial-effective" value="incapacity" checked>
+                    <label for="client2-financial-incapacity" style="display: inline;">Upon Incapacity (Springing)</label>
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label for="client2-financial-agent1">Primary Agent Name</label>
+                <input type="text" id="client2-financial-agent1" name="client2-financial-agent1">
+            </div>
+            <div class="form-group">
+                <label for="client2-financial-agent1-relation">Relationship to You</label>
+                <input type="text" id="client2-financial-agent1-relation" name="client2-financial-agent1-relation">
+            </div>
+            <div class="form-group">
+                <label for="client2-financial-agent1-address">Address</label>
+                <input type="text" id="client2-financial-agent1-address" name="client2-financial-agent1-address">
+            </div>
+            <div class="form-group">
+                <label for="client2-financial-agent1-phone">Phone Number</label>
+                <input type="tel" id="client2-financial-agent1-phone" name="client2-financial-agent1-phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="client2-financial-agent2">Alternate Agent Name</label>
+                <input type="text" id="client2-financial-agent2" name="client2-financial-agent2">
+            </div>
+            <div class="form-group">
+                <label for="client2-financial-agent2-relation">Relationship to You</label>
+                <input type="text" id="client2-financial-agent2-relation" name="client2-financial-agent2-relation">
+            </div>
+            
+            <h4>Client 2: Healthcare Power of Attorney (if applicable)</h4>
+            <div class="form-group">
+                <label for="client2-medical-agent1">Primary Agent Name</label>
+                <input type="text" id="client2-medical-agent1" name="client2-medical-agent1">
+            </div>
+            <div class="form-group">
+                <label for="client2-medical-agent1-relation">Relationship to You</label>
+                <input type="text" id="client2-medical-agent1-relation" name="client2-medical-agent1-relation">
+            </div>
+            <div class="form-group">
+                <label for="client2-medical-agent1-address">Address</label>
+                <input type="text" id="client2-medical-agent1-address" name="client2-medical-agent1-address">
+            </div>
+            <div class="form-group">
+                <label for="client2-medical-agent1-phone">Phone Number</label>
+                <input type="tel" id="client2-medical-agent1-phone" name="client2-medical-agent1-phone">
+            </div>
+            
+            <div class="form-group">
+                <label for="client2-medical-agent2">Alternate Agent Name</label>
+                <input type="text" id="client2-medical-agent2" name="client2-medical-agent2">
+            </div>
+            <div class="form-group">
+                <label for="client2-medical-agent2-relation">Relationship to You</label>
+                <input type="text" id="client2-medical-agent2-relation" name="client2-medical-agent2-relation">
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Get all radio button sets for Yes/No questions
+        const radioGroups = [
+            { yesId: 'client1-has-children', noId: 'client1-no-children', detailsId: 'client1-children-details' },
+            { yesId: 'client2-has-children', noId: 'client2-no-children', detailsId: 'client2-children-details' },
+            { yesId: 'has-grandchildren', noId: 'no-grandchildren', detailsId: 'grandchildren-details' },
+            { yesId: 'has-minors', noId: 'no-minors', detailsId: 'guardian-details' },
+            { yesId: 'estate-same-no', noId: 'estate-same-yes', detailsId: 'estate-guardian-details' },
+            { yesId: 'corporate-yes', noId: 'corporate-no', detailsId: 'corporate-details' },
+            { yesId: 'real-estate-yes', noId: 'real-estate-no', detailsId: 'real-estate-details' },
+            { yesId: 'bank-yes', noId: 'bank-no', detailsId: 'bank-account-details'},
+            { yesId: 'investment-yes', noId: 'investment-no', detailsId: 'investment-details' },
+            { yesId: 'business-yes', noId: 'business-no', detailsId: 'business-details' },
+            { yesId: 'personal-yes', noId: 'personal-no', detailsId: 'personal-details' },
+            { yesId: 'insurance-yes', noId: 'insurance-no', detailsId: 'insurance-details' },
+            { yesId: 'retirement-yes', noId: 'retirement-no', detailsId: 'retirement-details' },
+            { yesId: 'bequest-yes', noId: 'bequest-no', detailsId: 'bequest-details' },
+            { yesId: 'charity-yes', noId: 'charity-no', detailsId: 'charity-details' },
+            { yesId: 'special-needs-yes', noId: 'special-needs-no', detailsId: 'special-needs-details' },
+            { yesId: 'disinherit-yes', noId: 'disinherit-no', detailsId: 'disinherit-details' },
+            { yesId: 'conflicts-yes', noId: 'conflicts-no', detailsId: 'conflicts-details' },
+            { yesId: 'multi-state-yes', noId: 'multi-state-no', detailsId: 'multi-state-details' },
+        ];
+
+        // Function to toggle display of details section
+        function toggleDetails(yesRadioId, noRadioId, detailsId) {
+            const yesRadio = document.getElementById(yesRadioId);
+            const noRadio = document.getElementById(noRadioId);
+            const detailsDiv = document.getElementById(detailsId);
+
+            if (yesRadio.checked) {
+                detailsDiv.style.display = 'block';
+            } else if (noRadio.checked) {
+                detailsDiv.style.display = 'none';
+            }
+        }
+
+        // Attach event listeners to radio buttons
+        radioGroups.forEach(group => {
+            const yesRadio = document.getElementById(group.yesId);
+            const noRadio = document.getElementById(group.noId);
+
+            if (yesRadio && noRadio) {
+                yesRadio.addEventListener('change', () => toggleDetails(group.yesId, group.noId, group.detailsId));
+                noRadio.addEventListener('change', () => toggleDetails(group.yesId, group.noId, group.detailsId));
+                
+                 // Initial call in case 'Yes' is checked on page load
+                if (yesRadio.checked) {
+                    toggleDetails(group.yesId, group.noId, group.detailsId);
+                }
+            }
+        });
+        
+        //Dynamically add child fields
+        const addChildBtn = document.getElementById('add-child-btn');
+        if (addChildBtn) {
+            addChildBtn.addEventListener('click', () => {
+                const container = document.getElementById('client1-children-details');
+                const newChildDiv = document.createElement('div');
+                newChildDiv.className = 'form-group child-info';
+                
+                const childCount = container.querySelectorAll('.child-info').length + 1;
+                
+                newChildDiv.innerHTML = `
+                    <h5>Child ${childCount}</h5>
+                    <div class="form-group">
+                        <label for="child${childCount}-name">Full Name</label>
+                        <input type="text" id="child${childCount}-name" name="child${childCount}-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="child${childCount}-dob">Date of Birth</label>
+                        <input type="date" id="child${childCount}-dob" name="child${childCount}-dob">
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <div class="radio-group">
+                            <input type="radio" id="child${childCount}-biological" name="child${childCount}-relationship" value="biological">
+                            <label for="child${childCount}-biological" style="display: inline;">Biological</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child${childCount}-adopted" name="child${childCount}-relationship" value="adopted">
+                            <label for="child${childCount}-adopted" style="display: inline;">Legally Adopted</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child${childCount}-step" name="child${childCount}-relationship" value="step">
+                            <label for="child${childCount}-step" style="display: inline;">Step-Child</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="child${childCount}-parent">Other Parent's Name</label>
+                        <input type="text" id="child${childCount}-parent" name="child${childCount}-parent">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Needs?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="child${childCount}-special-yes" name="child${childCount}-special" value="yes">
+                            <label for="child${childCount}-special-yes" style="display: inline;">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="child${childCount}-special-no" name="child${childCount}-special" value="no" checked>
+                            <label for="child${childCount}-special-no" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newChildDiv);
+            });
+        }
+        
+        const addChild2Btn = document.getElementById('add-client2-child-btn');
+        if (addChild2Btn) {
+            addChild2Btn.addEventListener('click', () => {
+                const container = document.getElementById('client2-children-details');
+                const newChildDiv = document.createElement('div');
+                newChildDiv.className = 'form-group child-info';
+                
+                const childCount = container.querySelectorAll('.child-info').length + 1;
+                
+                newChildDiv.innerHTML = `
+                    <h5>Child ${childCount}</h5>
+                    <div class="form-group">
+                        <label for="client2-child${childCount}-name">Full Name</label>
+                        <input type="text" id="client2-child${childCount}-name" name="client2-child${childCount}-name">
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-child${childCount}-dob">Date of Birth</label>
+                        <input type="date" id="client2-child${childCount}-dob" name="client2-child${childCount}-dob">
+                    </div>
+                    <div class="form-group">
+                        <label>Relationship</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child${childCount}-biological" name="client2-child${childCount}-relationship" value="biological">
+                            <label for="client2-child${childCount}-biological" style="display: inline;">Biological</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child${childCount}-adopted" name="client2-child${childCount}-relationship" value="adopted">
+                            <label for="client2-child${childCount}-adopted" style="display: inline;">Legally Adopted</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child${childCount}-step" name="client2-child${childCount}-relationship" value="step">
+                            <label for="client2-child${childCount}-step" style="display: inline;">Step-Child</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="client2-child${childCount}-parent">Other Parent's Name</label>
+                        <input type="text" id="client2-child${childCount}-parent" name="client2-child${childCount}-parent">
+                    </div>
+                    <div class="form-group">
+                        <label>Special Needs?</label>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child${childCount}-special-yes" name="client2-child${childCount}-special" value="yes">
+                            <label for="client2-child${childCount}-special-yes" style="display: inline;">Yes</label>
+                        </div>
+                        <div class="radio-group">
+                            <input type="radio" id="client2-child${childCount}-special-no" name="client2-child${childCount}-special" value="no" checked>
+                            <label for="client2-child${childCount}-special-no" style="display: inline;">No</label>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newChildDiv);
+            });
+        }
+        
+        // Show/hide logic for conditional form sections
+        radioGroups.forEach(group => {
+            const yesRadio = document.getElementById(group.yesId);
+            const noRadio = document.getElementById(group.noId);
+            const detailsDiv = document.getElementById(group.detailsId);
+            
+            if (yesRadio && noRadio) {
+                yesRadio.addEventListener('change', () => toggleDetails(group.yesId, group.noId, group.detailsId));
+                noRadio.addEventListener('change', () => toggleDetails(group.yesId, group.noId, group.detailsId));
+                
+                // Initial check in case the radio is pre-selected in HTML
+                toggleDetails(group.yesId, group.noId, group.detailsId);
+            }
+        });
+    </script>
+</body>
+</html>
