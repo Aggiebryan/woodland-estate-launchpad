@@ -28,6 +28,7 @@ import LivingWills from "./pages/LivingWills";
 import Probate from "./pages/Probate";
 import Guardianship from "./pages/Guardianship";
 import ElderLaw from "./pages/ElderLaw";
+import Schedule from "./pages/Schedule";
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -54,7 +55,6 @@ const UnderDevelopment = () => (
 // Plan pages
 const IntakeForm = () => <UnderDevelopment />;
 const WillQuestionnaire = () => <UnderDevelopment />;
-const Schedule = () => <UnderDevelopment />;
 const VirtualPlanning = () => <UnderDevelopment />;
 
 // SEO-focused landing pages
