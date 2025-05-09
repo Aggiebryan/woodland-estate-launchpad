@@ -7,7 +7,7 @@ const Schedule = () => {
   return (
     <MainLayout>
       <div className="bg-woodlands-purple py-16 px-4">
-        <div className="container mx-auto max-w-5xl">
+        <div className="container mx-auto max-w-3xl">
           <div className="text-center mb-12">
             <div className="flex justify-center mb-6">
               <CalendarClock className="h-16 w-16 text-woodlands-gold"/>
@@ -20,7 +20,7 @@ const Schedule = () => {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <div className="space-y-8">
             <div className="bg-woodlands-darkpurple/50 p-8 rounded-lg border border-woodlands-gold/20">
               <h2 className="text-2xl font-serif font-semibold text-woodlands-gold mb-6">
                 What To Expect
