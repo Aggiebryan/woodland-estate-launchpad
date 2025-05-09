@@ -14,13 +14,11 @@ const OurAttorneys = () => {
         <AttorneyProfile 
           name="Gwendolyn Simpson"
           image="/lovable-uploads/fc6c1c70-3817-4323-a54c-2a04adee36fb.png"
-          bio="Gwendolyn Simpson, a native Houstonian, is the founder and managing attorney of The Woodlands Law Firm. She earned her Juris Doctor from Baylor Law School in 2007, where she received nine Dean's Academic Merit Scholarships and tied for Best Brief in the Dawson and Sodd Moot Court Competition. Prior to law school, she graduated summa cum laude from LeTourneau University with a Bachelor of Business Administration and completed her associate degree in legal assisting at North Harris College.
+          bio="Gwendolyn Simpson is the founder and managing attorney of The Woodlands Law Firm. A Houston native, she earned her J.D. from Baylor Law School in 2007, where she received multiple Dean's Academic Merit Scholarships and tied for Best Brief in the Dawson and Sodd Moot Court Competition. She graduated summa cum laude from LeTourneau University with a B.B.A. after completing an associate degree in legal assisting.
 
-Ms. Simpson began her legal career in 1998 as a paralegal before becoming a licensed attorney in 2007. She established her own civil practice, focusing on civil litigation, transactions, probate, and personal injury. Her career includes serving as staff attorney to the Honorable Kathleen Hamilton in the 359th Judicial District Court of Montgomery County, Texas. In 2012, she was appointed by the Board of Judges to serve as a Master/Referee for the same court. In 2015, she contributed to the development and administration of Montgomery County's Veterans' Treatment Court.
+Ms. Simpson's legal career began as a paralegal in 1998 before her licensure in 2007. Her experience includes serving as staff attorney to the Honorable Kathleen Hamilton in Montgomery County's 359th Judicial District Court and being appointed as a Master/Referee for the same court. In 2015, she contributed to developing Montgomery County's Veterans' Treatment Court.
 
-Beyond her practice, Ms. Simpson developed curriculum approved by the American Bar Association and taught legal courses nationwide as an adjunct professor at the Center for Advanced Legal Studies. She is a certified mediator and has been recognized by the Pro Bono College of the State Bar for her contributions to low-income Texans. Her professional affiliations include the College of the State Bar, Montgomery County Bar Association, and The Woodlands Bar Association.
-
-Ms. Simpson is licensed to practice in Texas and the U.S. Southern District of Texas. She serves clients in Montgomery, Harris, and surrounding counties. Outside of her legal work, she enjoys spending time with her family, reading historical fiction, traveling, and sampling local cupcakes."
+A certified mediator recognized by the Pro Bono College of the State Bar, Ms. Simpson has taught ABA-approved legal courses nationwide. Her professional affiliations include the College of the State Bar and local bar associations. Licensed in Texas and the U.S. Southern District of Texas, she serves clients in Montgomery, Harris, and surrounding counties while enjoying family time, historical fiction, travel, and local cupcakes."
         />
 
         <Separator className="my-8 bg-woodlands-gold/20" />
