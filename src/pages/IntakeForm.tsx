@@ -285,24 +285,7 @@ const IntakeForm = () => {
                       )}
                     />
                   </div>
-                  
-                  <FormField
-                    control={form.control}
-                    name="ssn"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">Social Security Number</FormLabel>
-                        <FormControl>
-                          <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                        <p className="text-woodlands-cream/70 text-xs mt-1">
-                          Your SSN is kept secure and is necessary for preparing your legal documents.
-                        </p>
-                      </FormItem>
-                    )}
-                  />
-                  
+                                                  
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <FormField
                       control={form.control}
@@ -377,20 +360,6 @@ const IntakeForm = () => {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-woodlands-cream">Spouse's Date of Birth</FormLabel>
-                          <FormControl>
-                            <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
-                          </FormControl>
-                          <FormMessage className="text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                    
-                    <FormField
-                      control={form.control}
-                      name="spouseSSN"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-woodlands-cream">Spouse's Social Security Number</FormLabel>
                           <FormControl>
                             <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
                           </FormControl>
