@@ -113,7 +113,6 @@ const Guardianship = () => {
 
       {/* Main Content */}
       <div className="bg-woodlands-purple py-16 relative">
-        <div className="absolute inset-0 bg-[url('/lovable-uploads/fc6c1c70-3817-4323-a54c-2a04adee36fb.png')] opacity-5 bg-cover bg-center"></div>
         <div className="container mx-auto px-4 relative z-10">
           {/* Introduction */}
           <section className="mb-16">
