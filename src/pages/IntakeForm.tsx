@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -49,11 +48,14 @@ const formSchema = z.object({
   employer: z.string().optional(),
   
   // Marital Status
-  maritalStatus: z.string().min(1, "Marital status is required"),
+  maritalStatus: z.enum(["single", "married", "separated", "divorced", "widowed"]),
   spouseName: z.string().optional(),
   spouseDateOfBirth: z.string().optional(),
+  spousePhone: z.string().optional(), // Added field
+  spouseEmail: z.string().email("Invalid email address").optional(), // Added field
   spouseOccupation: z.string().optional(),
   spouseEmployer: z.string().optional(),
+  formerSpouseName: z.string().optional(), // Added field
   
   // Children
   hasChildren: z.boolean().default(false),
@@ -101,11 +103,14 @@ const IntakeForm = () => {
       dateOfBirth: "",
       occupation: "",
       employer: "",
-      maritalStatus: "",
+      maritalStatus: "single",
       spouseName: "",
       spouseDateOfBirth: "",
+      spousePhone: "",
+      spouseEmail: "",
       spouseOccupation: "",
       spouseEmployer: "",
+      formerSpouseName: "",
       hasChildren: false,
       child1: {
         fullName: "",
@@ -163,8 +168,9 @@ const IntakeForm = () => {
     },
   });
 
-  // Watch for changes to hasChildren field
+  // Watch for changes to fields
   const hasChildren = form.watch("hasChildren");
+  const maritalStatus = form.watch("maritalStatus");
 
   // Function to check if showing the "Other Parent Name" field is needed
   const shouldShowOtherParentName = (childNumber: number) => {
@@ -612,39 +618,195 @@ const IntakeForm = () => {
                     control={form.control}
                     name="maritalStatus"
                     render={({ field }) => (
-                      <FormItem>
+                      <FormItem className="space-y-4">
                         <FormLabel className="text-woodlands-cream">Marital Status</FormLabel>
                         <FormControl>
-                          <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="Single, Married, Divorced, Widowed, etc."
-                          />
+                          <RadioGroup
+                            onValueChange={field.onChange}
+                            defaultValue={field.value}
+                            value={field.value}
+                            className="flex flex-col space-y-2"
+                          >
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem 
+                                value="single" 
+                                id="marital-single"
+                                className="border-woodlands-gold text-woodlands-gold" 
+                              />
+                              <label 
+                                htmlFor="marital-single" 
+                                className="text-woodlands-cream cursor-pointer"
+                              >
+                                Single
+                              </label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem 
+                                value="married" 
+                                id="marital-married"
+                                className="border-woodlands-gold text-woodlands-gold" 
+                              />
+                              <label 
+                                htmlFor="marital-married" 
+                                className="text-woodlands-cream cursor-pointer"
+                              >
+                                Married
+                              </label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem 
+                                value="separated" 
+                                id="marital-separated"
+                                className="border-woodlands-gold text-woodlands-gold" 
+                              />
+                              <label 
+                                htmlFor="marital-separated" 
+                                className="text-woodlands-cream cursor-pointer"
+                              >
+                                Separated
+                              </label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem 
+                                value="divorced" 
+                                id="marital-divorced"
+                                className="border-woodlands-gold text-woodlands-gold" 
+                              />
+                              <label 
+                                htmlFor="marital-divorced" 
+                                className="text-woodlands-cream cursor-pointer"
+                              >
+                                Divorced
+                              </label>
+                            </div>
+                            
+                            <div className="flex items-center space-x-2">
+                              <RadioGroupItem 
+                                value="widowed" 
+                                id="marital-widowed"
+                                className="border-woodlands-gold text-woodlands-gold" 
+                              />
+                              <label 
+                                htmlFor="marital-widowed" 
+                                className="text-woodlands-cream cursor-pointer"
+                              >
+                                Widowed
+                              </label>
+                            </div>
+                          </RadioGroup>
                         </FormControl>
                         <FormMessage className="text-red-400" />
                       </FormItem>
                     )}
                   />
                   
-                  <FormField
-                    control={form.control}
-                    name="spouseName"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">Spouse's Full Legal Name (if applicable)</FormLabel>
-                        <FormControl>
-                          <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
+                  {/* Conditional fields based on marital status */}
+                  {maritalStatus === "married" && (
+                    <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+                      <h3 className="font-serif text-woodlands-gold text-lg">
+                        Spouse Information
+                      </h3>
+                      
+                      <FormField
+                        control={form.control}
+                        name="spouseName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Spouse's Full Legal Name</FormLabel>
+                            <FormControl>
+                              <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="spouseDateOfBirth"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Spouse's Date of Birth</FormLabel>
+                              <FormControl>
+                                <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="spousePhone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Spouse's Phone Number</FormLabel>
+                              <FormControl>
+                                <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      
+                      <FormField
+                        control={form.control}
+                        name="spouseEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Spouse's Email Address</FormLabel>
+                            <FormControl>
+                              <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="spouseOccupation"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Spouse's Occupation</FormLabel>
+                              <FormControl>
+                                <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="spouseEmployer"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Spouse's Employer</FormLabel>
+                              <FormControl>
+                                <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  )}
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {(maritalStatus === "separated") && (
                     <FormField
                       control={form.control}
-                      name="spouseDateOfBirth"
+                      name="spouseName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-woodlands-cream">Spouse's Date of Birth</FormLabel>
+                          <FormLabel className="text-woodlands-cream">Spouse's Full Legal Name</FormLabel>
                           <FormControl>
                             <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
                           </FormControl>
@@ -652,15 +814,17 @@ const IntakeForm = () => {
                         </FormItem>
                       )}
                     />
-                  </div>
+                  )}
                   
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  {(maritalStatus === "divorced" || maritalStatus === "widowed") && (
                     <FormField
                       control={form.control}
-                      name="spouseOccupation"
+                      name="formerSpouseName"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel className="text-woodlands-cream">Spouse's Occupation</FormLabel>
+                          <FormLabel className="text-woodlands-cream">
+                            {maritalStatus === "divorced" ? "Former Spouse's Full Legal Name" : "Late Spouse's Full Legal Name"}
+                          </FormLabel>
                           <FormControl>
                             <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
                           </FormControl>
@@ -668,21 +832,7 @@ const IntakeForm = () => {
                         </FormItem>
                       )}
                     />
-                    
-                    <FormField
-                      control={form.control}
-                      name="spouseEmployer"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="text-woodlands-cream">Spouse's Employer</FormLabel>
-                          <FormControl>
-                            <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
-                          </FormControl>
-                          <FormMessage className="text-red-400" />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
+                  )}
                 </div>
                 
                 {/* Children Section */}
