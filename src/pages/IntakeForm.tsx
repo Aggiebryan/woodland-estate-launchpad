@@ -18,13 +18,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
-import { ArrowRight, Check } from "lucide-react";
+import { ArrowRight, Check, Plus } from "lucide-react";
 
 // Define the child schema
 const childSchema = z.object({
   fullName: z.string().optional(),
   dateOfBirth: z.string().optional(),
   sameAddress: z.boolean().optional(),
+  address: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  zipCode: z.string().optional(),
   relationshipType: z.enum(["current", "previous", "adopted"]).optional(),
   otherParentName: z.string().optional(),
 });
@@ -52,6 +56,7 @@ const formSchema = z.object({
   spouseEmployer: z.string().optional(),
   
   // Children
+  hasChildren: z.boolean().default(false),
   child1: childSchema,
   child2: childSchema,
   child3: childSchema,
@@ -77,6 +82,10 @@ type IntakeFormValues = z.infer<typeof formSchema>;
 
 const IntakeForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showChild1, setShowChild1] = useState(false);
+  const [showChild2, setShowChild2] = useState(false);
+  const [showChild3, setShowChild3] = useState(false);
+  const [showChild4, setShowChild4] = useState(false);
 
   const form = useForm<IntakeFormValues>({
     resolver: zodResolver(formSchema),
@@ -97,10 +106,15 @@ const IntakeForm = () => {
       spouseDateOfBirth: "",
       spouseOccupation: "",
       spouseEmployer: "",
+      hasChildren: false,
       child1: {
         fullName: "",
         dateOfBirth: "",
         sameAddress: false,
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
         relationshipType: undefined,
         otherParentName: "",
       },
@@ -108,6 +122,10 @@ const IntakeForm = () => {
         fullName: "",
         dateOfBirth: "",
         sameAddress: false,
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
         relationshipType: undefined,
         otherParentName: "",
       },
@@ -115,6 +133,10 @@ const IntakeForm = () => {
         fullName: "",
         dateOfBirth: "",
         sameAddress: false,
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
         relationshipType: undefined,
         otherParentName: "",
       },
@@ -122,6 +144,10 @@ const IntakeForm = () => {
         fullName: "",
         dateOfBirth: "",
         sameAddress: false,
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
         relationshipType: undefined,
         otherParentName: "",
       },
@@ -137,10 +163,19 @@ const IntakeForm = () => {
     },
   });
 
+  // Watch for changes to hasChildren field
+  const hasChildren = form.watch("hasChildren");
+
   // Function to check if showing the "Other Parent Name" field is needed
   const shouldShowOtherParentName = (childNumber: number) => {
     const childKey = `child${childNumber}` as 'child1' | 'child2' | 'child3' | 'child4';
     return form.watch(`${childKey}.relationshipType`) === 'previous';
+  };
+
+  // Function to check if the child's address fields should be shown
+  const shouldShowChildAddress = (childNumber: number) => {
+    const childKey = `child${childNumber}` as 'child1' | 'child2' | 'child3' | 'child4';
+    return form.watch(`${childKey}.sameAddress`) === false;
   };
 
   const onSubmit = async (data: IntakeFormValues) => {
@@ -166,6 +201,10 @@ const IntakeForm = () => {
       });
 
       form.reset();
+      setShowChild1(false);
+      setShowChild2(false);
+      setShowChild3(false);
+      setShowChild4(false);
     } catch (error) {
       console.error("Error submitting form:", error);
       toast({
@@ -179,10 +218,10 @@ const IntakeForm = () => {
   };
 
   // Create a single child form section
-  const renderChildSection = (childNumber: number) => {
+  const renderChildSection = (childNumber: number, show: boolean, setShow: React.Dispatch<React.SetStateAction<boolean>>) => {
     const childKey = `child${childNumber}` as 'child1' | 'child2' | 'child3' | 'child4';
     
-    return (
+    return show ? (
       <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
         <h3 className="font-serif text-woodlands-gold text-lg">
           Child {childNumber}
@@ -235,6 +274,68 @@ const IntakeForm = () => {
             </FormItem>
           )}
         />
+        
+        {shouldShowChildAddress(childNumber) && (
+          <div className="space-y-4 border border-woodlands-gold/10 p-3 rounded">
+            <FormField
+              control={form.control}
+              name={`${childKey}.address`}
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="text-woodlands-cream">Street Address</FormLabel>
+                  <FormControl>
+                    <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                  </FormControl>
+                  <FormMessage className="text-red-400" />
+                </FormItem>
+              )}
+            />
+            
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <FormField
+                control={form.control}
+                name={`${childKey}.city`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-woodlands-cream">City</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                    </FormControl>
+                    <FormMessage className="text-red-400" />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name={`${childKey}.state`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-woodlands-cream">State</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                    </FormControl>
+                    <FormMessage className="text-red-400" />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name={`${childKey}.zipCode`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-woodlands-cream">ZIP Code</FormLabel>
+                    <FormControl>
+                      <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                    </FormControl>
+                    <FormMessage className="text-red-400" />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+        )}
         
         <FormField
           control={form.control}
@@ -312,7 +413,7 @@ const IntakeForm = () => {
           />
         )}
       </div>
-    );
+    ) : null;
   };
 
   return (
@@ -590,12 +691,78 @@ const IntakeForm = () => {
                     Children
                   </h2>
                   
-                  <div className="space-y-6">
-                    {renderChildSection(1)}
-                    {renderChildSection(2)}
-                    {renderChildSection(3)}
-                    {renderChildSection(4)}
-                  </div>
+                  <FormField
+                    control={form.control}
+                    name="hasChildren"
+                    render={({ field }) => (
+                      <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                        <FormControl>
+                          <Checkbox
+                            checked={field.value}
+                            onCheckedChange={(checked) => {
+                              field.onChange(checked);
+                              if (checked) {
+                                setShowChild1(true);
+                              } else {
+                                setShowChild1(false);
+                                setShowChild2(false);
+                                setShowChild3(false);
+                                setShowChild4(false);
+                              }
+                            }}
+                            className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                          />
+                        </FormControl>
+                        <FormLabel className="text-woodlands-cream cursor-pointer font-medium">Do you have any children?</FormLabel>
+                        <FormMessage className="text-red-400" />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  {hasChildren && (
+                    <div className="space-y-6">
+                      {renderChildSection(1, showChild1, setShowChild1)}
+                      
+                      {showChild1 && !showChild2 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowChild2(true)}
+                          className="mt-4 border-woodlands-gold/50 text-woodlands-gold hover:bg-woodlands-gold/10"
+                        >
+                          <Plus className="h-4 w-4 mr-1" /> Add Another Child
+                        </Button>
+                      )}
+                      
+                      {renderChildSection(2, showChild2, setShowChild2)}
+                      
+                      {showChild2 && !showChild3 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowChild3(true)}
+                          className="mt-4 border-woodlands-gold/50 text-woodlands-gold hover:bg-woodlands-gold/10"
+                        >
+                          <Plus className="h-4 w-4 mr-1" /> Add Another Child
+                        </Button>
+                      )}
+                      
+                      {renderChildSection(3, showChild3, setShowChild3)}
+                      
+                      {showChild3 && !showChild4 && (
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowChild4(true)}
+                          className="mt-4 border-woodlands-gold/50 text-woodlands-gold hover:bg-woodlands-gold/10"
+                        >
+                          <Plus className="h-4 w-4 mr-1" /> Add Another Child
+                        </Button>
+                      )}
+                      
+                      {renderChildSection(4, showChild4, setShowChild4)}
+                    </div>
+                  )}
                 </div>
                 
                 {/* Assets Section */}
