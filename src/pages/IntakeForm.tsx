@@ -32,6 +32,14 @@ const childSchema = z.object({
   otherParentName: z.string().optional(),
 });
 
+// Define the address schema for reuse
+const addressSchema = z.object({
+  address: z.string().optional(),
+  city: z.string().optional(),
+  state: z.string().optional(),
+  zipCode: z.string().optional(),
+});
+
 // Define the form schema with validation
 const formSchema = z.object({
   // Personal Information
@@ -51,11 +59,11 @@ const formSchema = z.object({
   maritalStatus: z.enum(["single", "married", "separated", "divorced", "widowed"]),
   spouseName: z.string().optional(),
   spouseDateOfBirth: z.string().optional(),
-  spousePhone: z.string().optional(), // Added field
-  spouseEmail: z.string().email("Invalid email address").optional(), // Added field
+  spousePhone: z.string().optional(),
+  spouseEmail: z.string().email("Invalid email address").optional(),
   spouseOccupation: z.string().optional(),
   spouseEmployer: z.string().optional(),
-  formerSpouseName: z.string().optional(), // Added field
+  formerSpouseName: z.string().optional(),
   
   // Children
   hasChildren: z.boolean().default(false),
@@ -64,14 +72,62 @@ const formSchema = z.object({
   child3: childSchema,
   child4: childSchema,
   
+  // Executor Information
+  spouseAsExecutor: z.boolean().default(false),
+  executorName: z.string().optional(),
+  executorAddress: z.string().optional(),
+  executorCity: z.string().optional(),
+  executorState: z.string().optional(),
+  executorZip: z.string().optional(),
+  executorPhone: z.string().optional(),
+  executorEmail: z.string().email("Invalid email address").optional(),
+  
+  // Alternate Executor
+  alternateExecutorName: z.string().optional(),
+  alternateExecutorAddress: z.string().optional(),
+  alternateExecutorCity: z.string().optional(),
+  alternateExecutorState: z.string().optional(),
+  alternateExecutorZip: z.string().optional(),
+  alternateExecutorPhone: z.string().optional(),
+  alternateExecutorEmail: z.string().email("Invalid email address").optional(),
+  
+  // Trustee Information
+  spouseAsTrustee: z.boolean().default(false),
+  trusteeName: z.string().optional(),
+  trusteeAddress: z.string().optional(),
+  trusteeCity: z.string().optional(),
+  trusteeState: z.string().optional(),
+  trusteeZip: z.string().optional(),
+  trusteePhone: z.string().optional(),
+  trusteeEmail: z.string().email("Invalid email address").optional(),
+  
+  // Alternate Trustee
+  alternateTrusteeName: z.string().optional(),
+  alternateTrusteeAddress: z.string().optional(),
+  alternateTrusteeCity: z.string().optional(),
+  alternateTrusteeState: z.string().optional(),
+  alternateTrusteeZip: z.string().optional(),
+  alternateTrusteePhone: z.string().optional(),
+  alternateTrusteeEmail: z.string().email("Invalid email address").optional(),
+  
   // Assets
+  hasCashAndBankAccounts: z.boolean().default(false),
   cashAndBankAccounts: z.string().optional(),
+  hasRealEstate: z.boolean().default(false),
   realEstate: z.string().optional(),
+  hasInvestments: z.boolean().default(false),
   investments: z.string().optional(),
+  hasBusinessInterests: z.boolean().default(false),
   businessInterests: z.string().optional(),
+  hasLifeInsurance: z.boolean().default(false),
   lifeInsurance: z.string().optional(),
+  hasRetirementPlans: z.boolean().default(false),
   retirementPlans: z.string().optional(),
+  hasOtherAssets: z.boolean().default(false),
   otherAssets: z.string().optional(),
+  
+  // Special Bequests
+  specialBequests: z.string().optional(),
   
   // Estate Planning Goals
   estateGoals: z.string().optional(),
@@ -156,13 +212,51 @@ const IntakeForm = () => {
         relationshipType: undefined,
         otherParentName: "",
       },
+      spouseAsExecutor: false,
+      executorName: "",
+      executorAddress: "",
+      executorCity: "",
+      executorState: "",
+      executorZip: "",
+      executorPhone: "",
+      executorEmail: "",
+      alternateExecutorName: "",
+      alternateExecutorAddress: "",
+      alternateExecutorCity: "",
+      alternateExecutorState: "",
+      alternateExecutorZip: "",
+      alternateExecutorPhone: "",
+      alternateExecutorEmail: "",
+      spouseAsTrustee: false,
+      trusteeName: "",
+      trusteeAddress: "",
+      trusteeCity: "",
+      trusteeState: "",
+      trusteeZip: "",
+      trusteePhone: "",
+      trusteeEmail: "",
+      alternateTrusteeName: "",
+      alternateTrusteeAddress: "",
+      alternateTrusteeCity: "",
+      alternateTrusteeState: "",
+      alternateTrusteeZip: "",
+      alternateTrusteePhone: "",
+      alternateTrusteeEmail: "",
+      hasCashAndBankAccounts: false,
       cashAndBankAccounts: "",
+      hasRealEstate: false,
       realEstate: "",
+      hasInvestments: false,
       investments: "",
+      hasBusinessInterests: false,
       businessInterests: "",
+      hasLifeInsurance: false,
       lifeInsurance: "",
+      hasRetirementPlans: false,
       retirementPlans: "",
+      hasOtherAssets: false,
       otherAssets: "",
+      specialBequests: "",
       estateGoals: "",
       additionalInfo: "",
     },
@@ -171,6 +265,17 @@ const IntakeForm = () => {
   // Watch for changes to fields
   const hasChildren = form.watch("hasChildren");
   const maritalStatus = form.watch("maritalStatus");
+  const spouseAsExecutor = form.watch("spouseAsExecutor");
+  const spouseAsTrustee = form.watch("spouseAsTrustee");
+  
+  // Asset section watches
+  const hasCashAndBankAccounts = form.watch("hasCashAndBankAccounts");
+  const hasRealEstate = form.watch("hasRealEstate");
+  const hasInvestments = form.watch("hasInvestments");
+  const hasBusinessInterests = form.watch("hasBusinessInterests");
+  const hasLifeInsurance = form.watch("hasLifeInsurance");
+  const hasRetirementPlans = form.watch("hasRetirementPlans");
+  const hasOtherAssets = form.watch("hasOtherAssets");
 
   // Function to check if showing the "Other Parent Name" field is needed
   const shouldShowOtherParentName = (childNumber: number) => {
@@ -915,145 +1020,889 @@ const IntakeForm = () => {
                   )}
                 </div>
                 
+                {/* Executor Section */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-serif text-woodlands-gold border-b border-woodlands-gold/20 pb-2">
+                    Executor Information
+                  </h2>
+                  
+                  {maritalStatus === "married" && (
+                    <FormField
+                      control={form.control}
+                      name="spouseAsExecutor"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Would you like to name your spouse as your first executor?
+                          </FormLabel>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                  
+                  {(!spouseAsExecutor || maritalStatus !== "married") && (
+                    <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+                      <h3 className="font-serif text-woodlands-gold text-lg">First Executor</h3>
+                      
+                      <FormField
+                        control={form.control}
+                        name="executorName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Full Name</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="executorAddress"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Street Address</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="executorCity"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">City</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="executorState"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">State</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="executorZip"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">ZIP Code</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="executorPhone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Phone Number</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="executorEmail"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Email Address</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+                    <h3 className="font-serif text-woodlands-gold text-lg">Alternate Executor</h3>
+                    
+                    <FormField
+                      control={form.control}
+                      name="alternateExecutorName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-woodlands-cream">Full Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              {...field} 
+                              className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="alternateExecutorAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-woodlands-cream">Street Address</FormLabel>
+                          <FormControl>
+                            <Input 
+                              {...field} 
+                              className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="alternateExecutorCity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">City</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateExecutorState"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">State</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateExecutorZip"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">ZIP Code</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="alternateExecutorPhone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Phone Number</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateExecutorEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Email Address</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Trustee Section */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-serif text-woodlands-gold border-b border-woodlands-gold/20 pb-2">
+                    Trustee Information
+                  </h2>
+                  
+                  {maritalStatus === "married" && (
+                    <FormField
+                      control={form.control}
+                      name="spouseAsTrustee"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Would you like to name your spouse as your first trustee?
+                          </FormLabel>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                  )}
+                  
+                  {(!spouseAsTrustee || maritalStatus !== "married") && (
+                    <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+                      <h3 className="font-serif text-woodlands-gold text-lg">First Trustee</h3>
+                      
+                      <FormField
+                        control={form.control}
+                        name="trusteeName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Full Name</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="trusteeAddress"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Street Address</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="trusteeCity"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">City</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="trusteeState"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">State</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="trusteeZip"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">ZIP Code</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <FormField
+                          control={form.control}
+                          name="trusteePhone"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Phone Number</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={form.control}
+                          name="trusteeEmail"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel className="text-woodlands-cream">Email Address</FormLabel>
+                              <FormControl>
+                                <Input 
+                                  {...field} 
+                                  className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                />
+                              </FormControl>
+                              <FormMessage className="text-red-400" />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                  )}
+                  
+                  <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+                    <h3 className="font-serif text-woodlands-gold text-lg">Alternate Trustee</h3>
+                    
+                    <FormField
+                      control={form.control}
+                      name="alternateTrusteeName"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-woodlands-cream">Full Name</FormLabel>
+                          <FormControl>
+                            <Input 
+                              {...field} 
+                              className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={form.control}
+                      name="alternateTrusteeAddress"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel className="text-woodlands-cream">Street Address</FormLabel>
+                          <FormControl>
+                            <Input 
+                              {...field} 
+                              className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                            />
+                          </FormControl>
+                          <FormMessage className="text-red-400" />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="alternateTrusteeCity"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">City</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateTrusteeState"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">State</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateTrusteeZip"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">ZIP Code</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="alternateTrusteePhone"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Phone Number</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                      
+                      <FormField
+                        control={form.control}
+                        name="alternateTrusteeEmail"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel className="text-woodlands-cream">Email Address</FormLabel>
+                            <FormControl>
+                              <Input 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+                
                 {/* Assets Section */}
                 <div className="space-y-6">
                   <h2 className="text-2xl font-serif text-woodlands-gold border-b border-woodlands-gold/20 pb-2">
                     Assets
                   </h2>
                   
-                  <FormField
-                    control={form.control}
-                    name="cashAndBankAccounts"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Cash and Bank Accounts
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="List checking, savings, CDs, money market accounts, etc."
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
+                  {/* Cash and Bank Accounts */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasCashAndBankAccounts"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Cash and Bank Accounts
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasCashAndBankAccounts && (
+                      <FormField
+                        control={form.control}
+                        name="cashAndBankAccounts"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="List checking, savings, CDs, money market accounts, etc."
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
                     )}
-                  />
+                  </div>
+                  
+                  {/* Real Estate */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasRealEstate"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Real Estate
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasRealEstate && (
+                      <FormField
+                        control={form.control}
+                        name="realEstate"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="List properties owned, addresses, estimated value, mortgage information"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Investments */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasInvestments"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Investments
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasInvestments && (
+                      <FormField
+                        control={form.control}
+                        name="investments"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="Stocks, bonds, mutual funds, other investments"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Business Interests */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasBusinessInterests"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Business Interests
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasBusinessInterests && (
+                      <FormField
+                        control={form.control}
+                        name="businessInterests"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="Ownership interests in businesses, partnerships, etc."
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Life Insurance */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasLifeInsurance"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Life Insurance
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasLifeInsurance && (
+                      <FormField
+                        control={form.control}
+                        name="lifeInsurance"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="Policies, coverage amounts, beneficiaries"
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Retirement Plans */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasRetirementPlans"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Retirement Plans
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasRetirementPlans && (
+                      <FormField
+                        control={form.control}
+                        name="retirementPlans"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="401(k), IRAs, pension plans, etc."
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                  
+                  {/* Other Assets */}
+                  <div className="space-y-3">
+                    <FormField
+                      control={form.control}
+                      name="hasOtherAssets"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+                          <FormControl>
+                            <Checkbox
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                            />
+                          </FormControl>
+                          <FormLabel className="text-woodlands-cream cursor-pointer">
+                            Other Assets
+                          </FormLabel>
+                        </FormItem>
+                      )}
+                    />
+                    
+                    {hasOtherAssets && (
+                      <FormField
+                        control={form.control}
+                        name="otherAssets"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormControl>
+                              <Textarea 
+                                {...field} 
+                                className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
+                                placeholder="Valuable personal property, vehicles, collectibles, etc."
+                              />
+                            </FormControl>
+                            <FormMessage className="text-red-400" />
+                          </FormItem>
+                        )}
+                      />
+                    )}
+                  </div>
+                </div>
+                
+                {/* Special Bequests Section */}
+                <div className="space-y-6">
+                  <h2 className="text-2xl font-serif text-woodlands-gold border-b border-woodlands-gold/20 pb-2">
+                    Special Bequests
+                  </h2>
                   
                   <FormField
                     control={form.control}
-                    name="realEstate"
+                    name="specialBequests"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel className="text-woodlands-cream">
-                          Real Estate
+                          Special Bequests (Cars, Jewelry, Collectibles, etc.)
                         </FormLabel>
                         <FormControl>
                           <Textarea 
                             {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="List properties owned, addresses, estimated value, mortgage information"
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="investments"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Investments
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="Stocks, bonds, mutual funds, other investments"
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="businessInterests"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Business Interests
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="Ownership interests in businesses, partnerships, etc."
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="lifeInsurance"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Life Insurance
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="Policies, coverage amounts, beneficiaries"
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="retirementPlans"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Retirement Plans
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="401(k), IRAs, pension plans, etc."
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
-                  
-                  <FormField
-                    control={form.control}
-                    name="otherAssets"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Other Assets
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" 
-                            placeholder="Valuable personal property, vehicles, collectibles, etc."
+                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream min-h-[150px]" 
+                            placeholder="Please describe any specific items you wish to leave to particular individuals (e.g., 'My diamond ring to my daughter Jane', 'My classic car to my nephew Tom')."
                           />
                         </FormControl>
                         <FormMessage className="text-red-400" />
