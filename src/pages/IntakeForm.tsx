@@ -7,6 +7,8 @@ import MainLayout from "@/components/layout/MainLayout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Checkbox } from "@/components/ui/checkbox";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import {
   Form,
   FormControl,
@@ -17,6 +19,15 @@ import {
 } from "@/components/ui/form";
 import { toast } from "@/hooks/use-toast";
 import { ArrowRight, Check } from "lucide-react";
+
+// Define the child schema
+const childSchema = z.object({
+  fullName: z.string().optional(),
+  dateOfBirth: z.string().optional(),
+  sameAddress: z.boolean().optional(),
+  relationshipType: z.enum(["current", "previous", "adopted"]).optional(),
+  otherParentName: z.string().optional(),
+});
 
 // Define the form schema with validation
 const formSchema = z.object({
@@ -41,7 +52,10 @@ const formSchema = z.object({
   spouseEmployer: z.string().optional(),
   
   // Children
-  childrenInformation: z.string().optional(),
+  child1: childSchema,
+  child2: childSchema,
+  child3: childSchema,
+  child4: childSchema,
   
   // Assets
   cashAndBankAccounts: z.string().optional(),
@@ -83,7 +97,34 @@ const IntakeForm = () => {
       spouseDateOfBirth: "",
       spouseOccupation: "",
       spouseEmployer: "",
-      childrenInformation: "",
+      child1: {
+        fullName: "",
+        dateOfBirth: "",
+        sameAddress: false,
+        relationshipType: undefined,
+        otherParentName: "",
+      },
+      child2: {
+        fullName: "",
+        dateOfBirth: "",
+        sameAddress: false,
+        relationshipType: undefined,
+        otherParentName: "",
+      },
+      child3: {
+        fullName: "",
+        dateOfBirth: "",
+        sameAddress: false,
+        relationshipType: undefined,
+        otherParentName: "",
+      },
+      child4: {
+        fullName: "",
+        dateOfBirth: "",
+        sameAddress: false,
+        relationshipType: undefined,
+        otherParentName: "",
+      },
       cashAndBankAccounts: "",
       realEstate: "",
       investments: "",
@@ -96,40 +137,183 @@ const IntakeForm = () => {
     },
   });
 
+  // Function to check if showing the "Other Parent Name" field is needed
+  const shouldShowOtherParentName = (childNumber: number) => {
+    const childKey = `child${childNumber}` as 'child1' | 'child2' | 'child3' | 'child4';
+    return form.watch(`${childKey}.relationshipType`) === 'previous';
+  };
+
   const onSubmit = async (data: IntakeFormValues) => {
-  setIsSubmitting(true);
+    setIsSubmitting(true);
 
-  try {
-    const response = await fetch("https://n8n.twlf.dev/webhook/estate_plan_intake", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data),
-    });
+    try {
+      const response = await fetch("https://n8n.twlf.dev/webhook/estate_plan_intake", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data),
+      });
 
-    if (!response.ok) {
-      throw new Error("Network response was not ok");
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+
+      toast({
+        title: "Form Submitted Successfully",
+        description: "We'll contact you soon regarding your estate planning needs.",
+        duration: 5000,
+      });
+
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        variant: "destructive",
+        title: "Submission Error",
+        description: "There was a problem submitting your form. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
+  };
 
-    toast({
-      title: "Form Submitted Successfully",
-      description: "We'll contact you soon regarding your estate planning needs.",
-      duration: 5000,
-    });
-
-    form.reset();
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    toast({
-      variant: "destructive",
-      title: "Submission Error",
-      description: "There was a problem submitting your form. Please try again.",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
+  // Create a single child form section
+  const renderChildSection = (childNumber: number) => {
+    const childKey = `child${childNumber}` as 'child1' | 'child2' | 'child3' | 'child4';
+    
+    return (
+      <div className="space-y-4 border border-woodlands-gold/20 rounded-md p-4">
+        <h3 className="font-serif text-woodlands-gold text-lg">
+          Child {childNumber}
+        </h3>
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <FormField
+            control={form.control}
+            name={`${childKey}.fullName`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-woodlands-cream">Full Legal Name</FormLabel>
+                <FormControl>
+                  <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                </FormControl>
+                <FormMessage className="text-red-400" />
+              </FormItem>
+            )}
+          />
+          
+          <FormField
+            control={form.control}
+            name={`${childKey}.dateOfBirth`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-woodlands-cream">Date of Birth</FormLabel>
+                <FormControl>
+                  <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                </FormControl>
+                <FormMessage className="text-red-400" />
+              </FormItem>
+            )}
+          />
+        </div>
+        
+        <FormField
+          control={form.control}
+          name={`${childKey}.sameAddress`}
+          render={({ field }) => (
+            <FormItem className="flex flex-row items-start space-x-3 space-y-0">
+              <FormControl>
+                <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                  className="border-woodlands-gold data-[state=checked]:bg-woodlands-gold data-[state=checked]:text-woodlands-purple"
+                />
+              </FormControl>
+              <FormLabel className="text-woodlands-cream cursor-pointer">Same Address as You?</FormLabel>
+              <FormMessage className="text-red-400" />
+            </FormItem>
+          )}
+        />
+        
+        <FormField
+          control={form.control}
+          name={`${childKey}.relationshipType`}
+          render={({ field }) => (
+            <FormItem className="space-y-2">
+              <FormLabel className="text-woodlands-cream">Is this child from:</FormLabel>
+              <div className="flex flex-col space-y-2">
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    id={`${childKey}-current`}
+                    value="current"
+                    checked={field.value === "current"}
+                    onClick={() => form.setValue(`${childKey}.relationshipType`, "current")}
+                    className="border-woodlands-gold text-woodlands-gold"
+                  />
+                  <label 
+                    htmlFor={`${childKey}-current`} 
+                    className="text-woodlands-cream cursor-pointer text-sm"
+                  >
+                    Your current marriage
+                  </label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    id={`${childKey}-previous`}
+                    value="previous"
+                    checked={field.value === "previous"}
+                    onClick={() => form.setValue(`${childKey}.relationshipType`, "previous")}
+                    className="border-woodlands-gold text-woodlands-gold"
+                  />
+                  <label 
+                    htmlFor={`${childKey}-previous`} 
+                    className="text-woodlands-cream cursor-pointer text-sm"
+                  >
+                    A previous marriage
+                  </label>
+                </div>
+                
+                <div className="flex items-center space-x-2">
+                  <RadioGroupItem
+                    id={`${childKey}-adopted`}
+                    value="adopted"
+                    checked={field.value === "adopted"}
+                    onClick={() => form.setValue(`${childKey}.relationshipType`, "adopted")}
+                    className="border-woodlands-gold text-woodlands-gold"
+                  />
+                  <label 
+                    htmlFor={`${childKey}-adopted`} 
+                    className="text-woodlands-cream cursor-pointer text-sm"
+                  >
+                    Adopted
+                  </label>
+                </div>
+              </div>
+              <FormMessage className="text-red-400" />
+            </FormItem>
+          )}
+        />
+        
+        {shouldShowOtherParentName(childNumber) && (
+          <FormField
+            control={form.control}
+            name={`${childKey}.otherParentName`}
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-woodlands-cream">Name of Other Parent</FormLabel>
+                <FormControl>
+                  <Input {...field} className="border-woodlands-gold/30 bg-transparent text-woodlands-cream" />
+                </FormControl>
+                <FormMessage className="text-red-400" />
+              </FormItem>
+            )}
+          />
+        )}
+      </div>
+    );
+  };
 
   return (
     <MainLayout>
@@ -406,25 +590,12 @@ const IntakeForm = () => {
                     Children
                   </h2>
                   
-                  <FormField
-                    control={form.control}
-                    name="childrenInformation"
-                    render={({ field }) => (
-                      <FormItem>
-                        <FormLabel className="text-woodlands-cream">
-                          Children's Information (names, ages, and special circumstances if any)
-                        </FormLabel>
-                        <FormControl>
-                          <Textarea 
-                            {...field} 
-                            className="border-woodlands-gold/30 bg-transparent text-woodlands-cream min-h-[120px]" 
-                            placeholder="List each child's full name, date of birth, and whether they are from your current marriage, a previous marriage, or adopted."
-                          />
-                        </FormControl>
-                        <FormMessage className="text-red-400" />
-                      </FormItem>
-                    )}
-                  />
+                  <div className="space-y-6">
+                    {renderChildSection(1)}
+                    {renderChildSection(2)}
+                    {renderChildSection(3)}
+                    {renderChildSection(4)}
+                  </div>
                 </div>
                 
                 {/* Assets Section */}
