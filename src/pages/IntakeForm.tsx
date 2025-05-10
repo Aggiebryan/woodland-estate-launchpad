@@ -242,55 +242,55 @@ const IntakeForm = () => {
           render={({ field }) => (
             <FormItem className="space-y-2">
               <FormLabel className="text-woodlands-cream">Is this child from:</FormLabel>
-              <div className="flex flex-col space-y-2">
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    id={`${childKey}-current`}
-                    value="current"
-                    checked={field.value === "current"}
-                    onClick={() => form.setValue(`${childKey}.relationshipType`, "current")}
-                    className="border-woodlands-gold text-woodlands-gold"
-                  />
-                  <label 
-                    htmlFor={`${childKey}-current`} 
-                    className="text-woodlands-cream cursor-pointer text-sm"
-                  >
-                    Your current marriage
-                  </label>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    id={`${childKey}-previous`}
-                    value="previous"
-                    checked={field.value === "previous"}
-                    onClick={() => form.setValue(`${childKey}.relationshipType`, "previous")}
-                    className="border-woodlands-gold text-woodlands-gold"
-                  />
-                  <label 
-                    htmlFor={`${childKey}-previous`} 
-                    className="text-woodlands-cream cursor-pointer text-sm"
-                  >
-                    A previous marriage
-                  </label>
-                </div>
-                
-                <div className="flex items-center space-x-2">
-                  <RadioGroupItem
-                    id={`${childKey}-adopted`}
-                    value="adopted"
-                    checked={field.value === "adopted"}
-                    onClick={() => form.setValue(`${childKey}.relationshipType`, "adopted")}
-                    className="border-woodlands-gold text-woodlands-gold"
-                  />
-                  <label 
-                    htmlFor={`${childKey}-adopted`} 
-                    className="text-woodlands-cream cursor-pointer text-sm"
-                  >
-                    Adopted
-                  </label>
-                </div>
-              </div>
+              <FormControl>
+                <RadioGroup
+                  value={field.value}
+                  onValueChange={field.onChange}
+                  className="flex flex-col space-y-2"
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      id={`${childKey}-current`}
+                      value="current"
+                      className="border-woodlands-gold text-woodlands-gold"
+                    />
+                    <label 
+                      htmlFor={`${childKey}-current`} 
+                      className="text-woodlands-cream cursor-pointer text-sm"
+                    >
+                      Your current marriage
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      id={`${childKey}-previous`}
+                      value="previous"
+                      className="border-woodlands-gold text-woodlands-gold"
+                    />
+                    <label 
+                      htmlFor={`${childKey}-previous`} 
+                      className="text-woodlands-cream cursor-pointer text-sm"
+                    >
+                      A previous marriage
+                    </label>
+                  </div>
+                  
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem
+                      id={`${childKey}-adopted`}
+                      value="adopted"
+                      className="border-woodlands-gold text-woodlands-gold"
+                    />
+                    <label 
+                      htmlFor={`${childKey}-adopted`} 
+                      className="text-woodlands-cream cursor-pointer text-sm"
+                    >
+                      Adopted
+                    </label>
+                  </div>
+                </RadioGroup>
+              </FormControl>
               <FormMessage className="text-red-400" />
             </FormItem>
           )}
