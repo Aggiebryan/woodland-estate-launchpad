@@ -27,7 +27,7 @@ const formSchema = z.object({
   state: z.string().min(1, "State is required"),
   zipCode: z.string().min(5, "ZIP code is required"),
   homePhone: z.string().optional(),
-  cellPhone: z.string().min(1, "Cell phone is required"),
+  cellPhone: z.string().optional(),
   email: z.string().email("Invalid email address"),
   dateOfBirth: z.string().min(1, "Date of birth is required"),
   occupation: z.string().min(1, "Occupation is required"),
