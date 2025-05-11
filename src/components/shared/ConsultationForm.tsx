@@ -1,11 +1,15 @@
-
 import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import PersonalInfoSection from "./form-sections/PersonalInfoSection";
-import ServiceSelectionSection from "./form-sections/ServiceSelectionSection";
-import MessageSection from "./form-sections/MessageSection";
-import ConsultationFormFooter from "./form-sections/ConsultationFormFooter";
-import PowerOfAttorneySection from "./PowerOfAttorneySection";
 
 const ConsultationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,36 +20,11 @@ const ConsultationForm = () => {
     phone: "",
     service: "",
     message: "",
-    
-    // Power of Attorney Fields
-    poa_use_spouse: false,
-    poa_primary_name: "",
-    poa_primary_address: "",
-    poa_primary_phone: "",
-    poa_primary_email: "",
-    poa_primary_medical: false,
-    
-    poa_alternate_name: "",
-    poa_alternate_address: "",
-    poa_alternate_phone: "",
-    poa_alternate_email: "",
-    poa_alternate_medical: false,
-    
-    has_additional_poa: false,
-    poa_additional_name: "",
-    poa_additional_address: "",
-    poa_additional_phone: "",
-    poa_additional_email: "",
-    poa_additional_medical: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleCheckboxChange = (name: string, checked: boolean) => {
-    setFormData((prev) => ({ ...prev, [name]: checked }));
   };
 
   const handleSelectChange = (value: string) => {
@@ -79,27 +58,6 @@ const ConsultationForm = () => {
         phone: "",
         service: "",
         message: "",
-        
-        // Reset Power of Attorney Fields
-        poa_use_spouse: false,
-        poa_primary_name: "",
-        poa_primary_address: "",
-        poa_primary_phone: "",
-        poa_primary_email: "",
-        poa_primary_medical: false,
-        
-        poa_alternate_name: "",
-        poa_alternate_address: "",
-        poa_alternate_phone: "",
-        poa_alternate_email: "",
-        poa_alternate_medical: false,
-        
-        has_additional_poa: false,
-        poa_additional_name: "",
-        poa_additional_address: "",
-        poa_additional_phone: "",
-        poa_additional_email: "",
-        poa_additional_medical: false,
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -115,18 +73,119 @@ const ConsultationForm = () => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <PersonalInfoSection formData={formData} handleChange={handleChange} />
-      <ServiceSelectionSection service={formData.service} handleSelectChange={handleSelectChange} />
-      
-      {/* Power of Attorney Section */}
-      <PowerOfAttorneySection 
-        formData={formData}
-        handleChange={handleChange}
-        handleCheckboxChange={handleCheckboxChange}
-      />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="first_name" className="block text-sm font-medium text-woodlands-gold mb-1">
+            First Name *
+          </label>
+          <Input
+            id="first_name"
+            name="first_name"
+            placeholder="John"
+            required
+            value={formData.first_name}
+            onChange={handleChange}
+            className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+          />
+        </div>
+        <div>
+          <label htmlFor="last_name" className="block text-sm font-medium text-woodlands-gold mb-1">
+            Last Name *
+          </label>
+          <Input
+            id="last_name"
+            name="last_name"
+            placeholder="Doe"
+            required
+            value={formData.last_name}
+            onChange={handleChange}
+            className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+          />
+        </div>
+      </div>
 
-      <MessageSection message={formData.message} handleChange={handleChange} />
-      <ConsultationFormFooter isSubmitting={isSubmitting} />
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-woodlands-gold mb-1">
+            Email *
+          </label>
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            placeholder="john@example.com"
+            required
+            value={formData.email}
+            onChange={handleChange}
+            className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+          />
+        </div>
+        <div>
+          <label htmlFor="phone" className="block text-sm font-medium text-woodlands-gold mb-1">
+            Phone Number *
+          </label>
+          <Input
+            id="phone"
+            name="phone"
+            placeholder="(555) 123-4567"
+            required
+            value={formData.phone}
+            onChange={handleChange}
+            className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label htmlFor="service" className="block text-sm font-medium text-woodlands-gold mb-1">
+          Service Needed *
+        </label>
+        <Select 
+          name="service" 
+          value={formData.service} 
+          onValueChange={handleSelectChange} 
+          required
+        >
+          <SelectTrigger className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream focus:border-woodlands-gold">
+            <SelectValue placeholder="Select a service" />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="estate-planning">General Estate Planning</SelectItem>
+            <SelectItem value="trusts">Trusts</SelectItem>
+            <SelectItem value="probate">Probate</SelectItem>
+            <SelectItem value="Guardianship">Guardianship</SelectItem>
+            <SelectItem value="other">Other</SelectItem>
+          </SelectContent>
+        </Select>
+      </div>
+
+      <div>
+        <label htmlFor="message" className="block text-sm font-medium text-woodlands-gold mb-1">
+          Brief Description of Your Needs
+        </label>
+        <Textarea
+          id="message"
+          name="message"
+          rows={4}
+          placeholder="Please provide a brief description of your situation and what you're looking to accomplish."
+          value={formData.message}
+          onChange={handleChange}
+          className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+        />
+      </div>
+
+      <div className="pt-2">
+        <Button
+          type="submit"
+          disabled={isSubmitting}
+          className="w-full bg-woodlands-gold text-woodlands-purple hover:bg-woodlands-lightgold transition-colors"
+        >
+          {isSubmitting ? "Submitting..." : "Request Free Consultation"}
+        </Button>
+        <p className="mt-3 text-xs text-center text-woodlands-cream opacity-70">
+          By submitting this form, you agree to our privacy policy and consent to be contacted regarding your request.
+        </p>
+      </div>
     </form>
   );
 };
