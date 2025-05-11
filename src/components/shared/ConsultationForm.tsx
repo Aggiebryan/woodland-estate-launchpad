@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,6 +11,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
+import { Checkbox } from "@/components/ui/checkbox";
 
 const ConsultationForm = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -20,11 +22,36 @@ const ConsultationForm = () => {
     phone: "",
     service: "",
     message: "",
+    
+    // Power of Attorney Fields
+    poa_use_spouse: false,
+    poa_primary_name: "",
+    poa_primary_address: "",
+    poa_primary_phone: "",
+    poa_primary_email: "",
+    poa_primary_medical: false,
+    
+    poa_alternate_name: "",
+    poa_alternate_address: "",
+    poa_alternate_phone: "",
+    poa_alternate_email: "",
+    poa_alternate_medical: false,
+    
+    has_additional_poa: false,
+    poa_additional_name: "",
+    poa_additional_address: "",
+    poa_additional_phone: "",
+    poa_additional_email: "",
+    poa_additional_medical: false,
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCheckboxChange = (name: string, checked: boolean) => {
+    setFormData((prev) => ({ ...prev, [name]: checked }));
   };
 
   const handleSelectChange = (value: string) => {
@@ -58,6 +85,27 @@ const ConsultationForm = () => {
         phone: "",
         service: "",
         message: "",
+        
+        // Reset Power of Attorney Fields
+        poa_use_spouse: false,
+        poa_primary_name: "",
+        poa_primary_address: "",
+        poa_primary_phone: "",
+        poa_primary_email: "",
+        poa_primary_medical: false,
+        
+        poa_alternate_name: "",
+        poa_alternate_address: "",
+        poa_alternate_phone: "",
+        poa_alternate_email: "",
+        poa_alternate_medical: false,
+        
+        has_additional_poa: false,
+        poa_additional_name: "",
+        poa_additional_address: "",
+        poa_additional_phone: "",
+        poa_additional_email: "",
+        poa_additional_medical: false,
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -157,6 +205,265 @@ const ConsultationForm = () => {
             <SelectItem value="other">Other</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+      
+      {/* Power of Attorney Section */}
+      <div className="space-y-4 border border-woodlands-gold/30 p-4 rounded-md">
+        <h3 className="text-lg font-medium text-woodlands-gold">Power of Attorney Information</h3>
+        
+        {/* Spouse as POA Checkbox */}
+        <div className="flex items-center space-x-2">
+          <Checkbox 
+            id="poa_use_spouse" 
+            checked={formData.poa_use_spouse}
+            onCheckedChange={(checked) => handleCheckboxChange('poa_use_spouse', checked === true)} 
+          />
+          <label
+            htmlFor="poa_use_spouse"
+            className="text-sm font-medium leading-none text-woodlands-cream"
+          >
+            Would you like to name your spouse as your primary Power Of Attorney Agent?
+          </label>
+        </div>
+        
+        {/* Primary POA Information */}
+        <div className="space-y-4">
+          <h4 className="text-md font-medium text-woodlands-gold">Primary Power of Attorney</h4>
+          
+          <div>
+            <label htmlFor="poa_primary_name" className="block text-sm font-medium text-woodlands-gold mb-1">
+              Full Legal Name
+            </label>
+            <Input
+              id="poa_primary_name"
+              name="poa_primary_name"
+              value={formData.poa_primary_name}
+              onChange={handleChange}
+              className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="poa_primary_address" className="block text-sm font-medium text-woodlands-gold mb-1">
+              Address
+            </label>
+            <Input
+              id="poa_primary_address"
+              name="poa_primary_address"
+              value={formData.poa_primary_address}
+              onChange={handleChange}
+              className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+            />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="poa_primary_phone" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Phone Number
+              </label>
+              <Input
+                id="poa_primary_phone"
+                name="poa_primary_phone"
+                value={formData.poa_primary_phone}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="poa_primary_email" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Email Address
+              </label>
+              <Input
+                id="poa_primary_email"
+                name="poa_primary_email"
+                type="email"
+                value={formData.poa_primary_email}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="poa_primary_medical" 
+              checked={formData.poa_primary_medical}
+              onCheckedChange={(checked) => handleCheckboxChange('poa_primary_medical', checked === true)} 
+            />
+            <label
+              htmlFor="poa_primary_medical"
+              className="text-sm font-medium leading-none text-woodlands-cream"
+            >
+              Should this Power of Attorney also be included as the medical power of attorney?
+            </label>
+          </div>
+        </div>
+        
+        {/* Alternate POA Information */}
+        <div className="space-y-4 mt-6">
+          <h4 className="text-md font-medium text-woodlands-gold">Alternate Power of Attorney</h4>
+          
+          <div>
+            <label htmlFor="poa_alternate_name" className="block text-sm font-medium text-woodlands-gold mb-1">
+              Full Legal Name
+            </label>
+            <Input
+              id="poa_alternate_name"
+              name="poa_alternate_name"
+              value={formData.poa_alternate_name}
+              onChange={handleChange}
+              className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+            />
+          </div>
+          
+          <div>
+            <label htmlFor="poa_alternate_address" className="block text-sm font-medium text-woodlands-gold mb-1">
+              Address
+            </label>
+            <Input
+              id="poa_alternate_address"
+              name="poa_alternate_address"
+              value={formData.poa_alternate_address}
+              onChange={handleChange}
+              className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+            />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="poa_alternate_phone" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Phone Number
+              </label>
+              <Input
+                id="poa_alternate_phone"
+                name="poa_alternate_phone"
+                value={formData.poa_alternate_phone}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="poa_alternate_email" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Email Address
+              </label>
+              <Input
+                id="poa_alternate_email"
+                name="poa_alternate_email"
+                type="email"
+                value={formData.poa_alternate_email}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+          </div>
+          
+          <div className="flex items-center space-x-2">
+            <Checkbox 
+              id="poa_alternate_medical" 
+              checked={formData.poa_alternate_medical}
+              onCheckedChange={(checked) => handleCheckboxChange('poa_alternate_medical', checked === true)} 
+            />
+            <label
+              htmlFor="poa_alternate_medical"
+              className="text-sm font-medium leading-none text-woodlands-cream"
+            >
+              Should this Power of Attorney also be included as the medical power of attorney?
+            </label>
+          </div>
+        </div>
+        
+        {/* Additional POA Agent Question */}
+        <div className="flex items-center space-x-2 mt-4">
+          <Checkbox 
+            id="has_additional_poa" 
+            checked={formData.has_additional_poa}
+            onCheckedChange={(checked) => handleCheckboxChange('has_additional_poa', checked === true)} 
+          />
+          <label
+            htmlFor="has_additional_poa"
+            className="text-sm font-medium leading-none text-woodlands-cream"
+          >
+            Would you like to include additional alternate Power of Attorney agents?
+          </label>
+        </div>
+        
+        {/* Additional POA Information - Only shows if checked */}
+        {formData.has_additional_poa && (
+          <div className="space-y-4 mt-6 pl-4 border-l-2 border-woodlands-gold/30">
+            <h4 className="text-md font-medium text-woodlands-gold">Additional Alternate Power of Attorney</h4>
+            
+            <div>
+              <label htmlFor="poa_additional_name" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Full Legal Name
+              </label>
+              <Input
+                id="poa_additional_name"
+                name="poa_additional_name"
+                value={formData.poa_additional_name}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+            
+            <div>
+              <label htmlFor="poa_additional_address" className="block text-sm font-medium text-woodlands-gold mb-1">
+                Address
+              </label>
+              <Input
+                id="poa_additional_address"
+                name="poa_additional_address"
+                value={formData.poa_additional_address}
+                onChange={handleChange}
+                className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+              />
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="poa_additional_phone" className="block text-sm font-medium text-woodlands-gold mb-1">
+                  Phone Number
+                </label>
+                <Input
+                  id="poa_additional_phone"
+                  name="poa_additional_phone"
+                  value={formData.poa_additional_phone}
+                  onChange={handleChange}
+                  className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+                />
+              </div>
+              
+              <div>
+                <label htmlFor="poa_additional_email" className="block text-sm font-medium text-woodlands-gold mb-1">
+                  Email Address
+                </label>
+                <Input
+                  id="poa_additional_email"
+                  name="poa_additional_email"
+                  type="email"
+                  value={formData.poa_additional_email}
+                  onChange={handleChange}
+                  className="bg-white/10 border-woodlands-gold/30 text-woodlands-cream placeholder:text-woodlands-cream/50 focus:border-woodlands-gold"
+                />
+              </div>
+            </div>
+            
+            <div className="flex items-center space-x-2">
+              <Checkbox 
+                id="poa_additional_medical" 
+                checked={formData.poa_additional_medical}
+                onCheckedChange={(checked) => handleCheckboxChange('poa_additional_medical', checked === true)} 
+              />
+              <label
+                htmlFor="poa_additional_medical"
+                className="text-sm font-medium leading-none text-woodlands-cream"
+              >
+                Should this Power of Attorney also be included as the medical power of attorney?
+              </label>
+            </div>
+          </div>
+        )}
       </div>
 
       <div>
