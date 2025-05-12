@@ -33,8 +33,8 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   onSelectChange,
 }) => {
   return (
-    <div className="space-y-6 mb-8">
-      <h3 className="text-xl font-semibold text-woodlands-purple mb-4">Personal Information</h3>
+    <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
+      <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Personal Information</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <Label htmlFor="firstName" className="text-woodlands-gold">
@@ -46,6 +46,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.firstName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -57,6 +58,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             name="middleName"
             value={formData.middleName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -69,6 +71,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.lastName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
       </div>
@@ -84,6 +87,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.email}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -96,6 +100,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.phone}
             onChange={onChange}
+            className="text-white"
           />
         </div>
       </div>
@@ -109,6 +114,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
           required
           value={formData.address}
           onChange={onChange}
+          className="text-white"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -122,6 +128,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.city}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -132,7 +139,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             value={formData.state}
             onValueChange={(value) => onSelectChange("state", value)}
           >
-            <SelectTrigger>
+            <SelectTrigger className="text-white">
               <SelectValue placeholder="Select a state" />
             </SelectTrigger>
             <SelectContent>
@@ -200,6 +207,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             required
             value={formData.zipCode}
             onChange={onChange}
+            className="text-white"
           />
         </div>
       </div>
@@ -211,7 +219,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
           value={formData.maritalStatus}
           onValueChange={(value) => onSelectChange("maritalStatus", value)}
         >
-          <SelectTrigger>
+          <SelectTrigger className="text-white">
             <SelectValue placeholder="Select your marital status" />
           </SelectTrigger>
           <SelectContent>

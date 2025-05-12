@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -231,114 +230,110 @@ const PowerOfAttorneySection: React.FC<PowerOfAttorneySectionProps> = ({
       </div>
 
       {!formData.useSpouseAsPrimaryPOA && (
-        <Card>
-          <CardContent className="pt-6">
-            <h4 className="text-lg font-medium text-woodlands-gold mb-4">Primary Power of Attorney Agent</h4>
-            <div>
-              <Label htmlFor="primaryPOA-fullName" className="text-woodlands-gold">Full Legal Name</Label>
-              <Input
-                id="primaryPOA-fullName"
-                name="fullName"
-                value={formData.primaryPOA.fullName}
-                onChange={(e) => handleChange(e, "fullName", "primaryPOA")}
-                className="text-white"
-              />
-            </div>
-            
-            {renderAddressFields("primaryPOA", formData.primaryPOA, "primaryPOA")}
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-              <div>
-                <Label htmlFor="primaryPOA-phone" className="text-woodlands-gold">Phone Number</Label>
-                <Input
-                  id="primaryPOA-phone"
-                  name="phone"
-                  value={formData.primaryPOA.phone}
-                  onChange={(e) => handleChange(e, "phone", "primaryPOA")}
-                  className="text-white"
-                />
-              </div>
-              <div>
-                <Label htmlFor="primaryPOA-email" className="text-woodlands-gold">Email Address</Label>
-                <Input
-                  id="primaryPOA-email"
-                  name="email"
-                  type="email"
-                  value={formData.primaryPOA.email}
-                  onChange={(e) => handleChange(e, "email", "primaryPOA")}
-                  className="text-white"
-                />
-              </div>
-            </div>
-            <div className="mt-4 flex items-center space-x-2">
-              <Checkbox
-                id="primaryPOA-isMedicalPOA"
-                checked={formData.primaryPOA.isMedicalPOA}
-                onCheckedChange={(checked) =>
-                  handleCheckboxChange(!!checked, "isMedicalPOA", "primaryPOA")
-                }
-              />
-              <Label htmlFor="primaryPOA-isMedicalPOA" className="text-sm font-medium text-woodlands-cream">
-                Should this person also be included as a Medical Power of Attorney?
-              </Label>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      <Card>
-        <CardContent className="pt-6">
-          <h4 className="text-lg font-medium text-woodlands-gold mb-4">Alternate Power of Attorney Agent</h4>
+        <div className="bg-woodlands-darkpurple p-4 rounded-lg mt-4">
+          <h4 className="text-lg font-medium text-woodlands-gold mb-4">Primary Power of Attorney Agent</h4>
           <div>
-            <Label htmlFor="alternatePOA-fullName" className="text-woodlands-gold">Full Legal Name</Label>
+            <Label htmlFor="primaryPOA-fullName" className="text-woodlands-gold">Full Legal Name</Label>
             <Input
-              id="alternatePOA-fullName"
+              id="primaryPOA-fullName"
               name="fullName"
-              value={formData.alternatePOA.fullName}
-              onChange={(e) => handleChange(e, "fullName", "alternatePOA")}
+              value={formData.primaryPOA.fullName}
+              onChange={(e) => handleChange(e, "fullName", "primaryPOA")}
               className="text-white"
             />
           </div>
           
-          {renderAddressFields("alternatePOA", formData.alternatePOA, "alternatePOA")}
+          {renderAddressFields("primaryPOA", formData.primaryPOA, "primaryPOA")}
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
-              <Label htmlFor="alternatePOA-phone" className="text-woodlands-gold">Phone Number</Label>
+              <Label htmlFor="primaryPOA-phone" className="text-woodlands-gold">Phone Number</Label>
               <Input
-                id="alternatePOA-phone"
+                id="primaryPOA-phone"
                 name="phone"
-                value={formData.alternatePOA.phone}
-                onChange={(e) => handleChange(e, "phone", "alternatePOA")}
+                value={formData.primaryPOA.phone}
+                onChange={(e) => handleChange(e, "phone", "primaryPOA")}
                 className="text-white"
               />
             </div>
             <div>
-              <Label htmlFor="alternatePOA-email" className="text-woodlands-gold">Email Address</Label>
+              <Label htmlFor="primaryPOA-email" className="text-woodlands-gold">Email Address</Label>
               <Input
-                id="alternatePOA-email"
+                id="primaryPOA-email"
                 name="email"
                 type="email"
-                value={formData.alternatePOA.email}
-                onChange={(e) => handleChange(e, "email", "alternatePOA")}
+                value={formData.primaryPOA.email}
+                onChange={(e) => handleChange(e, "email", "primaryPOA")}
                 className="text-white"
               />
             </div>
           </div>
           <div className="mt-4 flex items-center space-x-2">
             <Checkbox
-              id="alternatePOA-isMedicalPOA"
-              checked={formData.alternatePOA.isMedicalPOA}
+              id="primaryPOA-isMedicalPOA"
+              checked={formData.primaryPOA.isMedicalPOA}
               onCheckedChange={(checked) =>
-                handleCheckboxChange(!!checked, "isMedicalPOA", "alternatePOA")
+                handleCheckboxChange(!!checked, "isMedicalPOA", "primaryPOA")
               }
             />
-            <Label htmlFor="alternatePOA-isMedicalPOA" className="text-sm font-medium text-woodlands-cream">
+            <Label htmlFor="primaryPOA-isMedicalPOA" className="text-sm font-medium text-woodlands-cream">
               Should this person also be included as a Medical Power of Attorney?
             </Label>
           </div>
-        </CardContent>
-      </Card>
+        </div>
+      )}
+
+      <div className="bg-woodlands-darkpurple p-4 rounded-lg">
+        <h4 className="text-lg font-medium text-woodlands-gold mb-4">Alternate Power of Attorney Agent</h4>
+        <div>
+          <Label htmlFor="alternatePOA-fullName" className="text-woodlands-gold">Full Legal Name</Label>
+          <Input
+            id="alternatePOA-fullName"
+            name="fullName"
+            value={formData.alternatePOA.fullName}
+            onChange={(e) => handleChange(e, "fullName", "alternatePOA")}
+            className="text-white"
+          />
+        </div>
+        
+        {renderAddressFields("alternatePOA", formData.alternatePOA, "alternatePOA")}
+        
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          <div>
+            <Label htmlFor="alternatePOA-phone" className="text-woodlands-gold">Phone Number</Label>
+            <Input
+              id="alternatePOA-phone"
+              name="phone"
+              value={formData.alternatePOA.phone}
+              onChange={(e) => handleChange(e, "phone", "alternatePOA")}
+              className="text-white"
+            />
+          </div>
+          <div>
+            <Label htmlFor="alternatePOA-email" className="text-woodlands-gold">Email Address</Label>
+            <Input
+              id="alternatePOA-email"
+              name="email"
+              type="email"
+              value={formData.alternatePOA.email}
+              onChange={(e) => handleChange(e, "email", "alternatePOA")}
+              className="text-white"
+            />
+          </div>
+        </div>
+        <div className="mt-4 flex items-center space-x-2">
+          <Checkbox
+            id="alternatePOA-isMedicalPOA"
+            checked={formData.alternatePOA.isMedicalPOA}
+            onCheckedChange={(checked) =>
+              handleCheckboxChange(!!checked, "isMedicalPOA", "alternatePOA")
+            }
+          />
+          <Label htmlFor="alternatePOA-isMedicalPOA" className="text-sm font-medium text-woodlands-cream">
+            Should this person also be included as a Medical Power of Attorney?
+          </Label>
+        </div>
+      </div>
 
       <div className="space-y-2">
         <div className="flex items-center space-x-2">
@@ -357,71 +352,69 @@ const PowerOfAttorneySection: React.FC<PowerOfAttorneySectionProps> = ({
         {formData.hasAdditionalAlternatePOAs && (
           <div className="space-y-4 mt-4">
             {formData.additionalAlternatePOAs.map((agent, index) => (
-              <Card key={index}>
-                <CardContent className="pt-6">
-                  <div className="flex justify-between items-center mb-4">
-                    <h4 className="text-lg font-medium text-woodlands-gold">
-                      Additional Alternate Power of Attorney Agent #{index + 1}
-                    </h4>
-                    <Button 
-                      variant="destructive" 
-                      size="sm" 
-                      onClick={() => removeAlternatePOA(index)}
-                    >
-                      Remove
-                    </Button>
-                  </div>
-                  
+              <div key={index} className="bg-woodlands-darkpurple p-4 rounded-lg">
+                <div className="flex justify-between items-center mb-4">
+                  <h4 className="text-lg font-medium text-woodlands-gold">
+                    Additional Alternate Power of Attorney Agent #{index + 1}
+                  </h4>
+                  <Button 
+                    variant="destructive" 
+                    size="sm" 
+                    onClick={() => removeAlternatePOA(index)}
+                  >
+                    Remove
+                  </Button>
+                </div>
+                
+                <div>
+                  <Label htmlFor={`additionalPOA-${index}-fullName`} className="text-woodlands-gold">Full Legal Name</Label>
+                  <Input
+                    id={`additionalPOA-${index}-fullName`}
+                    name="fullName"
+                    value={agent.fullName}
+                    onChange={(e) => handleChange(e, "fullName", index)}
+                    className="text-white"
+                  />
+                </div>
+                
+                {renderAddressFields(index, agent, `additionalPOA-${index}`)}
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
                   <div>
-                    <Label htmlFor={`additionalPOA-${index}-fullName`} className="text-woodlands-gold">Full Legal Name</Label>
+                    <Label htmlFor={`additionalPOA-${index}-phone`} className="text-woodlands-gold">Phone Number</Label>
                     <Input
-                      id={`additionalPOA-${index}-fullName`}
-                      name="fullName"
-                      value={agent.fullName}
-                      onChange={(e) => handleChange(e, "fullName", index)}
+                      id={`additionalPOA-${index}-phone`}
+                      name="phone"
+                      value={agent.phone}
+                      onChange={(e) => handleChange(e, "phone", index)}
                       className="text-white"
                     />
                   </div>
-                  
-                  {renderAddressFields(index, agent, `additionalPOA-${index}`)}
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-                    <div>
-                      <Label htmlFor={`additionalPOA-${index}-phone`} className="text-woodlands-gold">Phone Number</Label>
-                      <Input
-                        id={`additionalPOA-${index}-phone`}
-                        name="phone"
-                        value={agent.phone}
-                        onChange={(e) => handleChange(e, "phone", index)}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor={`additionalPOA-${index}-email`} className="text-woodlands-gold">Email Address</Label>
-                      <Input
-                        id={`additionalPOA-${index}-email`}
-                        name="email"
-                        type="email"
-                        value={agent.email}
-                        onChange={(e) => handleChange(e, "email", index)}
-                        className="text-white"
-                      />
-                    </div>
-                  </div>
-                  <div className="mt-4 flex items-center space-x-2">
-                    <Checkbox
-                      id={`additionalPOA-${index}-isMedicalPOA`}
-                      checked={agent.isMedicalPOA}
-                      onCheckedChange={(checked) =>
-                        handleCheckboxChange(!!checked, "isMedicalPOA", index)
-                      }
+                  <div>
+                    <Label htmlFor={`additionalPOA-${index}-email`} className="text-woodlands-gold">Email Address</Label>
+                    <Input
+                      id={`additionalPOA-${index}-email`}
+                      name="email"
+                      type="email"
+                      value={agent.email}
+                      onChange={(e) => handleChange(e, "email", index)}
+                      className="text-white"
                     />
-                    <Label htmlFor={`additionalPOA-${index}-isMedicalPOA`} className="text-sm font-medium text-woodlands-cream">
-                      Should this person also be included as a Medical Power of Attorney?
-                    </Label>
                   </div>
-                </CardContent>
-              </Card>
+                </div>
+                <div className="mt-4 flex items-center space-x-2">
+                  <Checkbox
+                    id={`additionalPOA-${index}-isMedicalPOA`}
+                    checked={agent.isMedicalPOA}
+                    onCheckedChange={(checked) =>
+                      handleCheckboxChange(!!checked, "isMedicalPOA", index)
+                    }
+                  />
+                  <Label htmlFor={`additionalPOA-${index}-isMedicalPOA`} className="text-sm font-medium text-woodlands-cream">
+                    Should this person also be included as a Medical Power of Attorney?
+                  </Label>
+                </div>
+              </div>
             ))}
             <Button 
               type="button" 
