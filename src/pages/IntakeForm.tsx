@@ -1,7 +1,11 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import MainLayout from "@/components/layout/MainLayout";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
 import PersonalInformationSection from "@/components/shared/PersonalInformationSection";
 import SpouseInformationSection from "@/components/shared/SpouseInformationSection";
 import ChildrenSection from "@/components/shared/ChildrenSection";
