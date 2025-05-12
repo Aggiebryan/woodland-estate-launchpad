@@ -233,12 +233,12 @@ const IntakeForm = () => {
   };
 
   const nextStep = () => {
-    setStep(step + 1);
+    setStep((prevStep) => prevStep + 1);
     window.scrollTo(0, 0);
   };
 
   const prevStep = () => {
-    setStep(step - 1);
+    setStep((prevStep) => prevStep - 1);
     window.scrollTo(0, 0);
   };
 
@@ -314,7 +314,7 @@ const IntakeForm = () => {
             )}
 
             <div className="flex justify-end mt-8">
-              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple">
+              <Button type="button" onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple">
                 Next Step
               </Button>
             </div>
@@ -846,7 +846,7 @@ const IntakeForm = () => {
             </div>
           </div>
 
-          <form className="space-y-6">{renderStep()}</form>
+          <div className="space-y-6">{renderStep()}</div>
         </div>
       </div>
     </MainLayout>
