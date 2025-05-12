@@ -42,7 +42,22 @@ const IntakeForm = () => {
   // Children Information
   const [childrenInfo, setChildrenInfo] = useState({
     hasChildren: false,
-    children: [],
+    children: [] as Array<{
+      firstName: string;
+      middleName: string;
+      lastName: string;
+      age: string;
+      isMinor: boolean;
+      livesWithClient: boolean;
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zipCode: string;
+      };
+      relationship: "currentMarriage" | "previousMarriage" | "adopted";
+      otherParentName: string;
+    }>,
   });
 
   // Power of Attorney Information
@@ -50,35 +65,70 @@ const IntakeForm = () => {
     useSpouseAsPrimaryPOA: false,
     primaryPOA: {
       fullName: "",
-      address: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
       phone: "",
       email: "",
       isMedicalPOA: false,
     },
     alternatePOA: {
       fullName: "",
-      address: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
       phone: "",
       email: "",
       isMedicalPOA: false,
     },
-    additionalAlternatePOAs: [],
+    additionalAlternatePOAs: [] as Array<{
+      fullName: string;
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zipCode: string;
+      };
+      phone: string;
+      email: string;
+      isMedicalPOA: boolean;
+    }>,
     hasAdditionalAlternatePOAs: false,
   });
 
   // Executor Information
   const [executorInfo, setExecutorInfo] = useState({
     useSpouseAsExecutor: false,
-    executorName: "",
-    executorRelationship: "",
-    executorAddress: "",
-    executorPhone: "",
-    executorEmail: "",
-    alternateExecutorName: "",
-    alternateExecutorRelationship: "",
-    alternateExecutorAddress: "",
-    alternateExecutorPhone: "",
-    alternateExecutorEmail: "",
+    primaryExecutor: {
+      name: "",
+      relationship: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
+      phone: "",
+      email: "",
+    },
+    alternateExecutor: {
+      name: "",
+      relationship: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
+      phone: "",
+      email: "",
+    },
   });
 
   // Trustee Information
@@ -162,16 +212,52 @@ const IntakeForm = () => {
     setChildrenInfo((prev) => ({ ...prev, children: updatedChildren }));
   };
 
-  const handleChildCheckboxChange = (index, checked) => {
+  const handleChildCheckboxChange = (index, field, checked) => {
     const updatedChildren = [...childrenInfo.children];
-    updatedChildren[index] = { ...updatedChildren[index], isMinor: checked };
+    updatedChildren[index] = { ...updatedChildren[index], [field]: checked };
+    setChildrenInfo((prev) => ({ ...prev, children: updatedChildren }));
+  };
+
+  const handleChildRadioChange = (index, field, value) => {
+    const updatedChildren = [...childrenInfo.children];
+    updatedChildren[index] = { ...updatedChildren[index], [field]: value };
+    setChildrenInfo((prev) => ({ ...prev, children: updatedChildren }));
+  };
+
+  const handleChildAddressChange = (index, field, value) => {
+    const updatedChildren = [...childrenInfo.children];
+    updatedChildren[index] = { 
+      ...updatedChildren[index], 
+      address: {
+        ...updatedChildren[index].address,
+        [field]: value
+      }
+    };
     setChildrenInfo((prev) => ({ ...prev, children: updatedChildren }));
   };
 
   const addChild = () => {
     setChildrenInfo((prev) => ({
       ...prev,
-      children: [...prev.children, { name: "", age: "", isMinor: false }],
+      children: [
+        ...prev.children, 
+        { 
+          firstName: "", 
+          middleName: "", 
+          lastName: "", 
+          age: "", 
+          isMinor: false, 
+          livesWithClient: true, 
+          address: {
+            street: "",
+            city: "",
+            state: "",
+            zipCode: ""
+          },
+          relationship: "currentMarriage",
+          otherParentName: ""
+        }
+      ],
     }));
   };
 
@@ -181,9 +267,27 @@ const IntakeForm = () => {
     setChildrenInfo((prev) => ({ ...prev, children: updatedChildren }));
   };
 
-  const handleExecutorChange = (e) => {
-    const { name, value } = e.target;
-    setExecutorInfo((prev) => ({ ...prev, [name]: value }));
+  const handleExecutorChange = (executorType, field, value) => {
+    setExecutorInfo((prev) => ({
+      ...prev,
+      [executorType]: {
+        ...prev[executorType],
+        [field]: value
+      }
+    }));
+  };
+
+  const handleExecutorAddressChange = (executorType, field, value) => {
+    setExecutorInfo((prev) => ({
+      ...prev,
+      [executorType]: {
+        ...prev[executorType],
+        address: {
+          ...prev[executorType].address,
+          [field]: value
+        }
+      }
+    }));
   };
 
   const handleTrusteeChange = (e) => {
@@ -330,6 +434,8 @@ const IntakeForm = () => {
               onCheckboxChange={handleCheckboxChange}
               onChildChange={handleChildChange}
               onChildCheckboxChange={handleChildCheckboxChange}
+              onChildRadioChange={handleChildRadioChange}
+              onChildAddressChange={handleChildAddressChange}
               addChild={addChild}
               removeChild={removeChild}
             />
@@ -344,10 +450,11 @@ const IntakeForm = () => {
                 onClick={prevStep}
                 variant="outline"
                 className="border-woodlands-gold text-woodlands-gold"
+                type="button"
               >
                 Previous Step
               </Button>
-              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple">
+              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple" type="button">
                 Next Step
               </Button>
             </div>
@@ -359,12 +466,14 @@ const IntakeForm = () => {
           <>
             <ExecutorSection
               formData={executorInfo}
-              onChange={handleExecutorChange}
+              onChange={() => {}}
               onCheckboxChange={handleCheckboxChange}
+              onAddressChange={handleExecutorAddressChange}
+              onExecutorChange={handleExecutorChange}
             />
 
             <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-purple mb-4">
+              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">
                 Trustee Information
               </h3>
               <p className="text-sm text-woodlands-cream opacity-80 mb-4">
@@ -377,7 +486,7 @@ const IntakeForm = () => {
                   checked={trusteeInfo.useSameAsExecutor}
                   onCheckedChange={(checked) => handleCheckboxChange("useSameAsExecutor", !!checked)}
                 />
-                <Label htmlFor="useSameAsExecutor" className="text-sm font-medium">
+                <Label htmlFor="useSameAsExecutor" className="text-sm font-medium text-woodlands-cream">
                   Would you like to use the same person(s) as your executor?
                 </Label>
               </div>
@@ -395,6 +504,7 @@ const IntakeForm = () => {
                         required
                         value={trusteeInfo.trusteeName}
                         onChange={handleTrusteeChange}
+                        className="text-white"
                       />
                     </div>
                     <div>
@@ -407,6 +517,7 @@ const IntakeForm = () => {
                         required
                         value={trusteeInfo.trusteeRelationship}
                         onChange={handleTrusteeChange}
+                        className="text-white"
                       />
                     </div>
                     <div>
@@ -419,6 +530,7 @@ const IntakeForm = () => {
                         required
                         value={trusteeInfo.trusteeAddress}
                         onChange={handleTrusteeChange}
+                        className="text-white"
                       />
                     </div>
                     <div>
@@ -431,6 +543,7 @@ const IntakeForm = () => {
                         required
                         value={trusteeInfo.trusteePhone}
                         onChange={handleTrusteeChange}
+                        className="text-white"
                       />
                     </div>
                     <div>
@@ -444,12 +557,13 @@ const IntakeForm = () => {
                         required
                         value={trusteeInfo.trusteeEmail}
                         onChange={handleTrusteeChange}
+                        className="text-white"
                       />
                     </div>
                   </div>
 
                   <div className="mt-6">
-                    <h4 className="text-lg font-medium mb-4">Alternate Trustee</h4>
+                    <h4 className="text-lg font-medium text-woodlands-gold mb-4">Alternate Trustee</h4>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="alternateTrusteeName" className="text-woodlands-gold">
@@ -461,6 +575,7 @@ const IntakeForm = () => {
                           required
                           value={trusteeInfo.alternateTrusteeName}
                           onChange={handleTrusteeChange}
+                          className="text-white"
                         />
                       </div>
                       <div>
@@ -473,6 +588,7 @@ const IntakeForm = () => {
                           required
                           value={trusteeInfo.alternateTrusteeRelationship}
                           onChange={handleTrusteeChange}
+                          className="text-white"
                         />
                       </div>
                       <div>
@@ -485,6 +601,7 @@ const IntakeForm = () => {
                           required
                           value={trusteeInfo.alternateTrusteeAddress}
                           onChange={handleTrusteeChange}
+                          className="text-white"
                         />
                       </div>
                       <div>
@@ -497,6 +614,7 @@ const IntakeForm = () => {
                           required
                           value={trusteeInfo.alternateTrusteePhone}
                           onChange={handleTrusteeChange}
+                          className="text-white"
                         />
                       </div>
                       <div>
@@ -510,6 +628,7 @@ const IntakeForm = () => {
                           required
                           value={trusteeInfo.alternateTrusteeEmail}
                           onChange={handleTrusteeChange}
+                          className="text-white"
                         />
                       </div>
                     </div>
@@ -523,10 +642,11 @@ const IntakeForm = () => {
                 onClick={prevStep}
                 variant="outline"
                 className="border-woodlands-gold text-woodlands-gold"
+                type="button"
               >
                 Previous Step
               </Button>
-              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple">
+              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple" type="button">
                 Next Step
               </Button>
             </div>
@@ -537,7 +657,7 @@ const IntakeForm = () => {
         return (
           <>
             <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-purple mb-4">Assets Summary</h3>
+              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Assets Summary</h3>
               <p className="text-sm text-woodlands-cream opacity-80 mb-4">
                 Please provide a general overview of your assets. This helps us better understand your estate planning needs.
               </p>
@@ -553,7 +673,7 @@ const IntakeForm = () => {
                     placeholder="Description and approximate value of properties"
                     value={assetsInfo.realEstate}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -566,7 +686,7 @@ const IntakeForm = () => {
                     placeholder="Types of accounts and approximate total value"
                     value={assetsInfo.bankAccounts}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -579,7 +699,7 @@ const IntakeForm = () => {
                     placeholder="Types of investments and approximate total value"
                     value={assetsInfo.investments}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -592,7 +712,7 @@ const IntakeForm = () => {
                     placeholder="Types of retirement accounts and approximate total value"
                     value={assetsInfo.retirementAccounts}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -605,7 +725,7 @@ const IntakeForm = () => {
                     placeholder="Description of any business ownership and approximate value"
                     value={assetsInfo.businessInterests}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -618,7 +738,7 @@ const IntakeForm = () => {
                     placeholder="Description of policies and death benefits"
                     value={assetsInfo.lifeInsurance}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -631,7 +751,7 @@ const IntakeForm = () => {
                     placeholder="Significant personal property (vehicles, jewelry, art, etc.)"
                     value={assetsInfo.personalProperty}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
                 <div>
@@ -644,7 +764,7 @@ const IntakeForm = () => {
                     placeholder="Any other significant assets not covered above"
                     value={assetsInfo.otherAssets}
                     onChange={handleAssetsChange}
-                    className="h-24"
+                    className="h-24 text-white"
                   />
                 </div>
               </div>
@@ -655,10 +775,11 @@ const IntakeForm = () => {
                 onClick={prevStep}
                 variant="outline"
                 className="border-woodlands-gold text-woodlands-gold"
+                type="button"
               >
                 Previous Step
               </Button>
-              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple">
+              <Button onClick={nextStep} className="bg-woodlands-gold text-woodlands-purple" type="button">
                 Next Step
               </Button>
             </div>
@@ -669,7 +790,7 @@ const IntakeForm = () => {
         return (
           <>
             <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-purple mb-4">
+              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">
                 Special Bequests
               </h3>
               <p className="text-sm text-woodlands-cream opacity-80 mb-4">
@@ -682,7 +803,7 @@ const IntakeForm = () => {
                   checked={specialBequestsInfo.hasSpecialBequests}
                   onCheckedChange={(checked) => handleCheckboxChange("hasSpecialBequests", !!checked)}
                 />
-                <Label htmlFor="hasSpecialBequests" className="text-sm font-medium">
+                <Label htmlFor="hasSpecialBequests" className="text-sm font-medium text-woodlands-cream">
                   I would like to include special bequests in my will
                 </Label>
               </div>
@@ -692,12 +813,13 @@ const IntakeForm = () => {
                   {specialBequestsInfo.specialBequests.map((bequest, index) => (
                     <div key={index} className="border border-woodlands-gold/10 rounded-lg p-4">
                       <div className="flex justify-between items-center mb-4">
-                        <h4 className="text-lg font-medium">Special Bequest #{index + 1}</h4>
+                        <h4 className="text-lg font-medium text-woodlands-gold">Special Bequest #{index + 1}</h4>
                         {index > 0 && (
                           <Button
                             variant="destructive"
                             size="sm"
                             onClick={() => removeSpecialBequest(index)}
+                            type="button"
                           >
                             Remove
                           </Button>
@@ -715,6 +837,7 @@ const IntakeForm = () => {
                             onChange={(e) =>
                               handleSpecialBequestChange(index, "item", e.target.value)
                             }
+                            className="text-white"
                           />
                         </div>
                         <div>
@@ -727,6 +850,7 @@ const IntakeForm = () => {
                             onChange={(e) =>
                               handleSpecialBequestChange(index, "recipient", e.target.value)
                             }
+                            className="text-white"
                           />
                         </div>
                         <div>
@@ -743,6 +867,7 @@ const IntakeForm = () => {
                                 e.target.value
                               )
                             }
+                            className="text-white"
                           />
                         </div>
                       </div>
@@ -762,14 +887,14 @@ const IntakeForm = () => {
             </div>
 
             <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-purple mb-4">
+              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">
                 Additional Notes
               </h3>
               <p className="text-sm text-woodlands-cream opacity-80 mb-4">
                 Please provide any additional information that may be relevant to your estate plan.
               </p>
               <div className="mt-2">
-                <Label htmlFor="additionalNotes" className="sr-only">
+                <Label htmlFor="additionalNotes" className="sr-only text-woodlands-gold">
                   Additional Notes
                 </Label>
                 <Textarea
@@ -778,7 +903,7 @@ const IntakeForm = () => {
                   rows={6}
                   value={additionalNotes}
                   onChange={handleAdditionalNotesChange}
-                  className="h-32"
+                  className="h-32 text-white"
                   placeholder="Enter any additional information, concerns, or questions here..."
                 />
               </div>
@@ -789,6 +914,7 @@ const IntakeForm = () => {
                 onClick={prevStep}
                 variant="outline"
                 className="border-woodlands-gold text-woodlands-gold"
+                type="button"
               >
                 Previous Step
               </Button>
@@ -796,6 +922,7 @@ const IntakeForm = () => {
                 onClick={handleSubmit}
                 disabled={isSubmitting}
                 className="bg-woodlands-gold text-woodlands-purple"
+                type="button"
               >
                 {isSubmitting ? "Submitting..." : "Submit Form"}
               </Button>

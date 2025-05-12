@@ -24,7 +24,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
 
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-      <h3 className="text-xl font-semibold text-woodlands-purple mb-4">Spouse Information</h3>
+      <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Spouse Information</h3>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <Label htmlFor="spouseFirstName" className="text-woodlands-gold">
@@ -36,6 +36,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
             required
             value={formData.spouseFirstName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -47,6 +48,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
             name="spouseMiddleName"
             value={formData.spouseMiddleName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -59,6 +61,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
             required
             value={formData.spouseLastName}
             onChange={onChange}
+            className="text-white"
           />
         </div>
       </div>
@@ -73,6 +76,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
             type="email"
             value={formData.spouseEmail}
             onChange={onChange}
+            className="text-white"
           />
         </div>
         <div>
@@ -84,6 +88,7 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
             name="spousePhone"
             value={formData.spousePhone}
             onChange={onChange}
+            className="text-white"
           />
         </div>
       </div>

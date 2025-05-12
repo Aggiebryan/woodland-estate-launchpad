@@ -5,32 +5,100 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent } from "@/components/ui/card";
 
+interface Address {
+  street: string;
+  city: string;
+  state: string;
+  zipCode: string;
+}
+
+interface ExecutorInfo {
+  name: string;
+  relationship: string;
+  address: Address;
+  phone: string;
+  email: string;
+}
+
 interface ExecutorSectionProps {
   formData: {
     useSpouseAsExecutor: boolean;
-    executorName: string;
-    executorRelationship: string;
-    executorAddress: string;
-    executorPhone: string;
-    executorEmail: string;
-    alternateExecutorName: string;
-    alternateExecutorRelationship: string;
-    alternateExecutorAddress: string;
-    alternateExecutorPhone: string;
-    alternateExecutorEmail: string;
+    primaryExecutor: ExecutorInfo;
+    alternateExecutor: ExecutorInfo;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onCheckboxChange: (field: string, checked: boolean) => void;
+  onAddressChange: (executorType: "primaryExecutor" | "alternateExecutor", field: string, value: string) => void;
+  onExecutorChange: (executorType: "primaryExecutor" | "alternateExecutor", field: string, value: string) => void;
 }
 
 const ExecutorSection: React.FC<ExecutorSectionProps> = ({
   formData,
   onChange,
   onCheckboxChange,
+  onAddressChange,
+  onExecutorChange,
 }) => {
+  const renderAddressFields = (executorType: "primaryExecutor" | "alternateExecutor", executor: ExecutorInfo, labelPrefix: string) => {
+    return (
+      <div className="space-y-4 mt-4">
+        <div>
+          <Label htmlFor={`${labelPrefix}-address-street`} className="text-woodlands-gold">
+            Street Address *
+          </Label>
+          <Input
+            id={`${labelPrefix}-address-street`}
+            required
+            value={executor.address.street}
+            onChange={(e) => onAddressChange(executorType, "street", e.target.value)}
+            className="text-white"
+          />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <Label htmlFor={`${labelPrefix}-address-city`} className="text-woodlands-gold">
+              City *
+            </Label>
+            <Input
+              id={`${labelPrefix}-address-city`}
+              required
+              value={executor.address.city}
+              onChange={(e) => onAddressChange(executorType, "city", e.target.value)}
+              className="text-white"
+            />
+          </div>
+          <div>
+            <Label htmlFor={`${labelPrefix}-address-state`} className="text-woodlands-gold">
+              State *
+            </Label>
+            <Input
+              id={`${labelPrefix}-address-state`}
+              required
+              value={executor.address.state}
+              onChange={(e) => onAddressChange(executorType, "state", e.target.value)}
+              className="text-white"
+            />
+          </div>
+          <div>
+            <Label htmlFor={`${labelPrefix}-address-zipCode`} className="text-woodlands-gold">
+              Zip Code *
+            </Label>
+            <Input
+              id={`${labelPrefix}-address-zipCode`}
+              required
+              value={executor.address.zipCode}
+              onChange={(e) => onAddressChange(executorType, "zipCode", e.target.value)}
+              className="text-white"
+            />
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-      <h3 className="text-xl font-semibold text-woodlands-purple mb-4">
+      <h3 className="text-xl font-semibold text-woodlands-gold mb-4">
         Executor Information
       </h3>
       <p className="text-sm text-woodlands-cream opacity-80 mb-4">
@@ -43,7 +111,7 @@ const ExecutorSection: React.FC<ExecutorSectionProps> = ({
           checked={formData.useSpouseAsExecutor}
           onCheckedChange={(checked) => onCheckboxChange("useSpouseAsExecutor", !!checked)}
         />
-        <Label htmlFor="useSpouseAsExecutor" className="text-sm font-medium">
+        <Label htmlFor="useSpouseAsExecutor" className="text-sm font-medium text-woodlands-cream">
           Would you like to name your spouse as your executor?
         </Label>
       </div>
@@ -51,67 +119,60 @@ const ExecutorSection: React.FC<ExecutorSectionProps> = ({
       {!formData.useSpouseAsExecutor && (
         <Card>
           <CardContent className="pt-6">
-            <h4 className="text-lg font-medium mb-4">Primary Executor</h4>
+            <h4 className="text-lg font-medium text-woodlands-gold mb-4">Primary Executor</h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="executorName" className="text-woodlands-gold">
+                <Label htmlFor="primaryExecutor-name" className="text-woodlands-gold">
                   Full Name *
                 </Label>
                 <Input
-                  id="executorName"
-                  name="executorName"
+                  id="primaryExecutor-name"
                   required
-                  value={formData.executorName}
-                  onChange={onChange}
+                  value={formData.primaryExecutor.name}
+                  onChange={(e) => onExecutorChange("primaryExecutor", "name", e.target.value)}
+                  className="text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="executorRelationship" className="text-woodlands-gold">
+                <Label htmlFor="primaryExecutor-relationship" className="text-woodlands-gold">
                   Relationship to You *
                 </Label>
                 <Input
-                  id="executorRelationship"
-                  name="executorRelationship"
+                  id="primaryExecutor-relationship"
                   required
-                  value={formData.executorRelationship}
-                  onChange={onChange}
+                  value={formData.primaryExecutor.relationship}
+                  onChange={(e) => onExecutorChange("primaryExecutor", "relationship", e.target.value)}
+                  className="text-white"
                 />
               </div>
+            </div>
+            
+            {renderAddressFields("primaryExecutor", formData.primaryExecutor, "primaryExecutor")}
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
               <div>
-                <Label htmlFor="executorAddress" className="text-woodlands-gold">
-                  Address *
-                </Label>
-                <Input
-                  id="executorAddress"
-                  name="executorAddress"
-                  required
-                  value={formData.executorAddress}
-                  onChange={onChange}
-                />
-              </div>
-              <div>
-                <Label htmlFor="executorPhone" className="text-woodlands-gold">
+                <Label htmlFor="primaryExecutor-phone" className="text-woodlands-gold">
                   Phone Number *
                 </Label>
                 <Input
-                  id="executorPhone"
-                  name="executorPhone"
+                  id="primaryExecutor-phone"
                   required
-                  value={formData.executorPhone}
-                  onChange={onChange}
+                  value={formData.primaryExecutor.phone}
+                  onChange={(e) => onExecutorChange("primaryExecutor", "phone", e.target.value)}
+                  className="text-white"
                 />
               </div>
               <div>
-                <Label htmlFor="executorEmail" className="text-woodlands-gold">
+                <Label htmlFor="primaryExecutor-email" className="text-woodlands-gold">
                   Email *
                 </Label>
                 <Input
-                  id="executorEmail"
-                  name="executorEmail"
+                  id="primaryExecutor-email"
                   type="email"
                   required
-                  value={formData.executorEmail}
-                  onChange={onChange}
+                  value={formData.primaryExecutor.email}
+                  onChange={(e) => onExecutorChange("primaryExecutor", "email", e.target.value)}
+                  className="text-white"
                 />
               </div>
             </div>
@@ -121,67 +182,60 @@ const ExecutorSection: React.FC<ExecutorSectionProps> = ({
 
       <Card>
         <CardContent className="pt-6">
-          <h4 className="text-lg font-medium mb-4">Alternate Executor</h4>
+          <h4 className="text-lg font-medium text-woodlands-gold mb-4">Alternate Executor</h4>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div>
-              <Label htmlFor="alternateExecutorName" className="text-woodlands-gold">
+              <Label htmlFor="alternateExecutor-name" className="text-woodlands-gold">
                 Full Name *
               </Label>
               <Input
-                id="alternateExecutorName"
-                name="alternateExecutorName"
+                id="alternateExecutor-name"
                 required
-                value={formData.alternateExecutorName}
-                onChange={onChange}
+                value={formData.alternateExecutor.name}
+                onChange={(e) => onExecutorChange("alternateExecutor", "name", e.target.value)}
+                className="text-white"
               />
             </div>
             <div>
-              <Label htmlFor="alternateExecutorRelationship" className="text-woodlands-gold">
+              <Label htmlFor="alternateExecutor-relationship" className="text-woodlands-gold">
                 Relationship to You *
               </Label>
               <Input
-                id="alternateExecutorRelationship"
-                name="alternateExecutorRelationship"
+                id="alternateExecutor-relationship"
                 required
-                value={formData.alternateExecutorRelationship}
-                onChange={onChange}
+                value={formData.alternateExecutor.relationship}
+                onChange={(e) => onExecutorChange("alternateExecutor", "relationship", e.target.value)}
+                className="text-white"
               />
             </div>
+          </div>
+          
+          {renderAddressFields("alternateExecutor", formData.alternateExecutor, "alternateExecutor")}
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <div>
-              <Label htmlFor="alternateExecutorAddress" className="text-woodlands-gold">
-                Address *
-              </Label>
-              <Input
-                id="alternateExecutorAddress"
-                name="alternateExecutorAddress"
-                required
-                value={formData.alternateExecutorAddress}
-                onChange={onChange}
-              />
-            </div>
-            <div>
-              <Label htmlFor="alternateExecutorPhone" className="text-woodlands-gold">
+              <Label htmlFor="alternateExecutor-phone" className="text-woodlands-gold">
                 Phone Number *
               </Label>
               <Input
-                id="alternateExecutorPhone"
-                name="alternateExecutorPhone"
+                id="alternateExecutor-phone"
                 required
-                value={formData.alternateExecutorPhone}
-                onChange={onChange}
+                value={formData.alternateExecutor.phone}
+                onChange={(e) => onExecutorChange("alternateExecutor", "phone", e.target.value)}
+                className="text-white"
               />
             </div>
             <div>
-              <Label htmlFor="alternateExecutorEmail" className="text-woodlands-gold">
+              <Label htmlFor="alternateExecutor-email" className="text-woodlands-gold">
                 Email *
               </Label>
               <Input
-                id="alternateExecutorEmail"
-                name="alternateExecutorEmail"
+                id="alternateExecutor-email"
                 type="email"
                 required
-                value={formData.alternateExecutorEmail}
-                onChange={onChange}
+                value={formData.alternateExecutor.email}
+                onChange={(e) => onExecutorChange("alternateExecutor", "email", e.target.value)}
+                className="text-white"
               />
             </div>
           </div>
