@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
@@ -6,6 +5,7 @@ import MainLayout from "@/components/layout/MainLayout";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 import PersonalInformationSection from "@/components/shared/PersonalInformationSection";
 import SpouseInformationSection from "@/components/shared/SpouseInformationSection";
 import ChildrenSection from "@/components/shared/ChildrenSection";
@@ -547,112 +547,104 @@ const IntakeForm = () => {
                   <Label htmlFor="realEstate" className="text-woodlands-gold">
                     Real Estate
                   </Label>
-                  <Input
+                  <Textarea
                     id="realEstate"
                     name="realEstate"
                     placeholder="Description and approximate value of properties"
                     value={assetsInfo.realEstate}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="bankAccounts" className="text-woodlands-gold">
                     Bank Accounts
                   </Label>
-                  <Input
+                  <Textarea
                     id="bankAccounts"
                     name="bankAccounts"
                     placeholder="Types of accounts and approximate total value"
                     value={assetsInfo.bankAccounts}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="investments" className="text-woodlands-gold">
                     Investments
                   </Label>
-                  <Input
+                  <Textarea
                     id="investments"
                     name="investments"
                     placeholder="Types of investments and approximate total value"
                     value={assetsInfo.investments}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="retirementAccounts" className="text-woodlands-gold">
                     Retirement Accounts
                   </Label>
-                  <Input
+                  <Textarea
                     id="retirementAccounts"
                     name="retirementAccounts"
                     placeholder="Types of retirement accounts and approximate total value"
                     value={assetsInfo.retirementAccounts}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="businessInterests" className="text-woodlands-gold">
                     Business Interests
                   </Label>
-                  <Input
+                  <Textarea
                     id="businessInterests"
                     name="businessInterests"
                     placeholder="Description of any business ownership and approximate value"
                     value={assetsInfo.businessInterests}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="lifeInsurance" className="text-woodlands-gold">
                     Life Insurance Policies
                   </Label>
-                  <Input
+                  <Textarea
                     id="lifeInsurance"
                     name="lifeInsurance"
                     placeholder="Description of policies and death benefits"
                     value={assetsInfo.lifeInsurance}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="personalProperty" className="text-woodlands-gold">
                     Personal Property
                   </Label>
-                  <Input
+                  <Textarea
                     id="personalProperty"
                     name="personalProperty"
                     placeholder="Significant personal property (vehicles, jewelry, art, etc.)"
                     value={assetsInfo.personalProperty}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
                 <div>
                   <Label htmlFor="otherAssets" className="text-woodlands-gold">
                     Other Assets
                   </Label>
-                  <Input
+                  <Textarea
                     id="otherAssets"
                     name="otherAssets"
                     placeholder="Any other significant assets not covered above"
                     value={assetsInfo.otherAssets}
                     onChange={handleAssetsChange}
                     className="h-24"
-                    as="textarea"
                   />
                 </div>
               </div>
@@ -780,8 +772,7 @@ const IntakeForm = () => {
                 <Label htmlFor="additionalNotes" className="sr-only">
                   Additional Notes
                 </Label>
-                <Input
-                  as="textarea"
+                <Textarea
                   id="additionalNotes"
                   name="additionalNotes"
                   rows={6}
