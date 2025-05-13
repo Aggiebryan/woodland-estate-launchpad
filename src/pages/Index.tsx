@@ -158,36 +158,45 @@ const Index = () => {
             {[
               {
                 title: "Wills",
-                description: "Ensure your assets are distributed according to your wishes with a legally binding will.",
-                link: "/wills"
+                description: "Create a legally binding document that ensures your assets are distributed according to your wishes after your passing.",
+                link: "/wills",
+                iconSrc: "/lovable-uploads/8b5c5d4f-c6d1-4353-a4d4-fd05f736eef9.png"
               },
               {
                 title: "Trusts",
-                description: "Protect your assets and provide for your beneficiaries with various trust options.",
-                link: "/trusts"
+                description: "Establish a trust to protect your assets, minimize taxes, and provide for your beneficiaries with greater control and privacy.",
+                link: "/trusts",
+                iconSrc: "/lovable-uploads/d2ad99e0-04d1-4f80-93bc-cfaa208623b4.png"
+              },
+              {
+                title: "Guardianship",
+                description: "Secure legal guardianship arrangements for minor children or loved ones who require assistance with decision-making.",
+                link: "/guardianship",
+                iconSrc: "/lovable-uploads/d2ad99e0-04d1-4f80-93bc-cfaa208623b4.png"
               },
               {
                 title: "Probate",
-                description: "Navigate the probate process with expert guidance and representation.",
-                link: "/probate"
-              },
-              {
-                title: "Estate Planning",
-                description: "Create a comprehensive plan that addresses all aspects of your estate.",
-                link: "/estate-planning"
+                description: "Navigate the probate process efficiently with expert guidance to settle estates and transfer assets to beneficiaries.",
+                link: "/probate",
+                iconSrc: "/lovable-uploads/a4a9913f-1fdf-4474-88a6-ca5984befa57.png"
               }
             ].map((service, index) => (
               <div key={index} className="group bg-white p-6 rounded-lg border border-woodlands-darkpurple/10 shadow-lg hover:shadow-xl transition-all duration-300 hover:border-woodlands-gold/20">
-                <h3 className="text-xl font-serif font-semibold text-woodlands-purple mb-3">
+                <div className="flex justify-center mb-4">
+                  <img src={service.iconSrc} alt={service.title} className="h-16 w-16" />
+                </div>
+                <h3 className="text-xl font-serif font-semibold text-woodlands-purple mb-3 text-center">
                   {service.title}
                 </h3>
                 <p className="text-woodlands-darkpurple mb-4 group-hover:text-woodlands-purple transition-colors duration-300">
                   {service.description}
                 </p>
-                <Link to={service.link} className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold font-medium transition-colors duration-300">
-                  Learn More
-                  <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
-                </Link>
+                <div className="text-center">
+                  <Link to={service.link} className="inline-flex items-center text-woodlands-gold hover:text-woodlands-lightgold font-medium transition-colors duration-300">
+                    Learn More
+                    <ArrowRight className="ml-2 h-4 w-4 transform group-hover:translate-x-1 transition-transform duration-300" />
+                  </Link>
+                </div>
               </div>
             ))}
           </div>
