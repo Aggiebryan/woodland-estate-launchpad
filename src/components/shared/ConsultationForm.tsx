@@ -38,7 +38,7 @@ const ConsultationForm = () => {
 
     try {
       // Using the correct endpoint URL that was successful in earlier requests
-      const response = await fetch("https://n8n.twlf.dev/webhook/send-consultation", {
+      const response = await fetch("https://n8n.twlf.dev/webhook-test/5afc1df2-2f27-45c3-99c4-75cff2601516", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
