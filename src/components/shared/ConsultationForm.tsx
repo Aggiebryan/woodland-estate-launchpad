@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -37,24 +36,21 @@ const ConsultationForm = () => {
     setIsSubmitting(true);
 
     try {
-      // We'll still attempt to make the API call
-      fetch("https://n8n.twlf.dev/webhook-test/send-consultation", {
+      const response = await fetch("https://n8n.twlf.dev/webhook/send-consultation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(formData),
-      }).catch(error => {
-        console.log("API call failed, but we'll show success to the user:", error);
       });
 
-      // Show success message regardless of API success
+      if (!response.ok) throw new Error("Submission failed");
+
       toast({
         title: "Consultation Request Received",
         description: "We'll contact you within 1 business day to confirm your appointment.",
       });
 
-      // Reset form data
       setFormData({
         first_name: "",
         last_name: "",
@@ -64,11 +60,11 @@ const ConsultationForm = () => {
         message: "",
       });
     } catch (error) {
-      console.error("Error in form submission process:", error);
-      // Still show success to the user
+      console.error("Error submitting form:", error);
       toast({
-        title: "Consultation Request Received",
-        description: "We'll contact you within 1 business day to confirm your appointment.",
+        title: "Submission Error",
+        description: "There was a problem submitting your request. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setIsSubmitting(false);
