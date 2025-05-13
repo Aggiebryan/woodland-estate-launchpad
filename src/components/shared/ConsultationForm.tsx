@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -36,7 +37,8 @@ const ConsultationForm = () => {
     setIsSubmitting(true);
 
     try {
-      const response = await fetch("https://n8n.twlf.dev/webhook/send-consultation", {
+      // Using the correct endpoint URL that was successful in earlier requests
+      const response = await fetch("https://n8n.twlf.dev/webhook-test/send-consultation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
