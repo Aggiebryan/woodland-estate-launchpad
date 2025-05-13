@@ -38,7 +38,7 @@ const ConsultationForm = () => {
 
     try {
       // We'll still attempt to make the API call
-      fetch("https://n8n.twlf.dev/webhook/send-consultation", {
+      fetch("https://n8n.twlf.dev/webhook-test/send-consultation", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
