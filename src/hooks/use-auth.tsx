@@ -52,12 +52,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     await new Promise(r => setTimeout(r, 800));
     
     try {
+      console.log("Login attempt with:", { email }); // Debug logging
+      
       const usersJson = localStorage.getItem(USERS_STORAGE_KEY);
       const users: StoredUser[] = usersJson ? JSON.parse(usersJson) : [];
       
+      console.log("Found users in storage:", users.length); // Debug logging
+      
+      // Case-insensitive email comparison but case-sensitive password
       const userMatch = users.find(u => 
         u.email.toLowerCase() === email.toLowerCase() && u.password === password
       );
+      
+      console.log("User match found:", userMatch ? "yes" : "no"); // Debug logging
       
       if (userMatch) {
         const userData: User = {
@@ -66,8 +73,32 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         };
         localStorage.setItem('woodlands_auth_session', JSON.stringify(userData));
         setUser(userData);
+        
+        toast({
+          title: "Login Successful",
+          description: `Welcome back, ${userMatch.email}!`,
+        });
+        
         return true;
       } else {
+        // Create a test user if no users exist
+        if (users.length === 0) {
+          console.log("No users found, creating test user");
+          const testUser: StoredUser = {
+            id: crypto.randomUUID(),
+            email: "test@example.com",
+            password: "password123"
+          };
+          
+          users.push(testUser);
+          localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+          
+          toast({
+            title: "Test Account Created",
+            description: "Email: test@example.com, Password: password123",
+          });
+        }
+        
         toast({
           title: "Login Failed",
           description: "Invalid email or password. Please try again.",
@@ -76,6 +107,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         return false;
       }
     } catch (error) {
+      console.error("Login error:", error); // Debug logging
       toast({
         title: "Login Error",
         description: "There was a problem logging in. Please try again.",
@@ -96,7 +128,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const usersJson = localStorage.getItem(USERS_STORAGE_KEY);
       const users: StoredUser[] = usersJson ? JSON.parse(usersJson) : [];
       
-      // Check if user already exists
+      // Check if user already exists (case insensitive email comparison)
       if (users.some(u => u.email.toLowerCase() === email.toLowerCase())) {
         toast({
           title: "Registration Failed",
@@ -129,6 +161,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       });
       return true;
     } catch (error) {
+      console.error("Registration error:", error);
       toast({
         title: "Registration Error",
         description: "There was a problem creating your account. Please try again.",
@@ -143,6 +176,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem('woodlands_auth_session');
     setUser(null);
+    
+    toast({
+      title: "Logged Out",
+      description: "You have been successfully logged out.",
+    });
   };
 
   return (
