@@ -18,6 +18,7 @@ const Login = () => {
       <SEOHead
         title="Login | Estate Planning Portal"
         description="Access your secure estate planning portal. Login to view or update your estate planning documents with The Woodlands Law Firm."
+        canonicalUrl="/login"
       />
       <AuthWrapper>
         {/* This will not render because AuthWrapper will show the login form when not authenticated */}
