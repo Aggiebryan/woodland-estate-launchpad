@@ -47,24 +47,10 @@ export function useIntakeFormPageLogic() {
     return () => clearInterval(autoSaveInterval);
   }, [formState, saveForm]);
 
-  // Extract all state for components
-  const { 
-    step,
-    personalInfo,
-    spouseInfo,
-    childrenInfo,
-    poaInfo,
-    executorInfo,
-    trusteeInfo,
-    assetsInfo,
-    specialBequestsInfo,
-    additionalNotes,
-    isSubmitting,
-    formErrors 
-  } = formState;
-
   // Added console log for debugging
-  console.log("Form logic state with step:", step);
+  console.log("Form state in useIntakeFormPageLogic:", formState);
+  console.log("Current user:", user);
+  console.log("Is loading:", isLoading);
 
   return {
     formState,
@@ -73,28 +59,28 @@ export function useIntakeFormPageLogic() {
     lastSaved,
     saveForm,
     formParts: {
-      step,
-      personalInfo,
+      step: formState.step,
+      personalInfo: formState.personalInfo,
       setPersonalInfo: stateUpdaters.setPersonalInfo,
-      spouseInfo,
+      spouseInfo: formState.spouseInfo,
       setSpouseInfo: stateUpdaters.setSpouseInfo,
-      childrenInfo,
+      childrenInfo: formState.childrenInfo,
       setChildrenInfo: stateUpdaters.setChildrenInfo,
-      poaInfo,
+      poaInfo: formState.poaInfo,
       setPoaInfo: stateUpdaters.setPoaInfo,
-      executorInfo,
+      executorInfo: formState.executorInfo,
       setExecutorInfo: stateUpdaters.setExecutorInfo,
-      trusteeInfo,
+      trusteeInfo: formState.trusteeInfo,
       setTrusteeInfo: stateUpdaters.setTrusteeInfo,
-      assetsInfo,
+      assetsInfo: formState.assetsInfo,
       setAssetsInfo: stateUpdaters.setAssetsInfo,
-      specialBequestsInfo,
+      specialBequestsInfo: formState.specialBequestsInfo,
       setSpecialBequestsInfo: stateUpdaters.setSpecialBequestsInfo,
-      additionalNotes,
+      additionalNotes: formState.additionalNotes,
       setAdditionalNotes: stateUpdaters.setAdditionalNotes,
-      isSubmitting,
+      isSubmitting: formState.isSubmitting,
       setIsSubmitting: stateUpdaters.setIsSubmitting,
-      formErrors,
+      formErrors: formState.formErrors,
       setStep: navigation.setStep,
       nextStep: navigation.nextStep,
       prevStep: navigation.prevStep,

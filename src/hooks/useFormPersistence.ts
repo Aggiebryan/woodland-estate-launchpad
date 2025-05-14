@@ -11,41 +11,70 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
 
   const userSpecificKey = user ? `${formKey}_${user.id}` : null;
 
+  // Added console log for debugging
+  console.log("useFormPersistence initialized with:", { userSpecificKey, user, initialState });
+
   // Load saved data when user logs in
   useEffect(() => {
+    console.log("useFormPersistence effect running with user:", user);
+    
     if (userSpecificKey) {
       setIsLoading(true);
       try {
         const savedData = localStorage.getItem(userSpecificKey);
+        console.log("Loaded saved data from localStorage:", savedData);
+        
         if (savedData) {
-          const { data, timestamp } = JSON.parse(savedData);
-          setData(data);
-          setLastSaved(new Date(timestamp));
+          try {
+            const parsed = JSON.parse(savedData);
+            console.log("Parsed saved data:", parsed);
+            
+            if (parsed && parsed.data) {
+              setData(parsed.data);
+              if (parsed.timestamp) {
+                setLastSaved(new Date(parsed.timestamp));
+              }
+            } else {
+              console.warn("Saved data exists but has invalid format, using initial state");
+              setData(initialState);
+            }
+          } catch (parseError) {
+            console.error("Error parsing saved form data:", parseError);
+            setData(initialState);
+          }
+        } else {
+          // No saved data, use initial state
+          console.log("No saved data found, using initial state");
+          setData(initialState);
         }
       } catch (e) {
         console.error("Error loading saved form data:", e);
+        setData(initialState);
       } finally {
         setIsLoading(false);
       }
     } else {
+      console.log("No user specific key, using initial state");
+      setData(initialState);
       setIsLoading(false);
     }
-  }, [userSpecificKey]);
+  }, [userSpecificKey, initialState]);
 
   const saveData = (newData: T) => {
     if (!userSpecificKey) {
+      console.warn("Cannot save data - no user is logged in");
       return false;
     }
     
     try {
       const timestamp = new Date().toISOString();
-      localStorage.setItem(
-        userSpecificKey, 
-        JSON.stringify({ 
-          data: newData, 
-          timestamp 
-        })
-      );
+      const dataToSave = {
+        data: newData,
+        timestamp
+      };
+      
+      console.log("Saving data to localStorage:", dataToSave);
+      localStorage.setItem(userSpecificKey, JSON.stringify(dataToSave));
       setLastSaved(new Date(timestamp));
       return true;
     } catch (e) {
@@ -55,10 +84,12 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
   };
 
   const updateData = (newData: T) => {
+    console.log("Updating form data:", newData);
     setData(newData);
   };
 
   const persistData = () => {
+    console.log("Persisting current data:", data);
     if (saveData(data)) {
       toast({
         title: "Progress Saved",

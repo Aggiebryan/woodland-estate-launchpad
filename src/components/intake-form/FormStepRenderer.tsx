@@ -1,4 +1,3 @@
-
 import React from "react";
 import ErrorBoundary from "@/components/shared/ErrorBoundary";
 import Step1PersonalInfo from "@/components/intake-form/steps/Step1PersonalInfo";
@@ -77,7 +76,13 @@ const FormStepRenderer: React.FC<FormStepRendererProps> = ({
   } = formProps;
 
   // Added console log for debugging
-  console.log("Rendering FormStepRenderer with step:", step);
+  console.log("Rendering FormStepRenderer with step:", step, "personalInfo:", personalInfo);
+
+  // Safety checks to ensure we have proper data
+  if (!personalInfo || typeof personalInfo !== 'object') {
+    console.error("PersonalInfo is invalid:", personalInfo);
+    return <div className="text-red-500">Error: Form data is not properly initialized. Please refresh the page.</div>;
+  }
 
   switch (step) {
     case 1:

@@ -34,9 +34,37 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   validateSpouseInfo,
   formErrors,
 }) => {
+  // Added console log for debugging
+  console.log("Step1PersonalInfo rendering with:", { personalInfo, spouseInfo, formErrors });
+  
+  // Create default objects if undefined to prevent errors
+  const safePersonalInfo = personalInfo || {
+    firstName: "",
+    middleName: "",
+    lastName: "",
+    dateOfBirth: undefined,
+    email: "",
+    phone: "",
+    address: "",
+    city: "",
+    state: "",
+    zipCode: "",
+    maritalStatus: "",
+    spouseFullName: ""
+  };
+
+  const safeSpouseInfo = spouseInfo || {
+    spouseFirstName: "",
+    spouseMiddleName: "",
+    spouseLastName: "",
+    spouseDateOfBirth: undefined,
+    spouseEmail: "",
+    spousePhone: ""
+  };
+
   const handleNext = () => {
     const personalValid = validatePersonalInfo();
-    const spouseValid = personalInfo?.maritalStatus === "married" ? validateSpouseInfo() : true;
+    const spouseValid = safePersonalInfo?.maritalStatus === "married" ? validateSpouseInfo() : true;
     
     if (personalValid && spouseValid) {
       nextStep();
@@ -50,12 +78,12 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   };
 
   // Safety check to prevent errors
-  const isMarried = personalInfo && personalInfo.maritalStatus === "married";
+  const isMarried = safePersonalInfo && safePersonalInfo.maritalStatus === "married";
 
   return (
     <>
       <PersonalInformationSection
-        formData={personalInfo}
+        formData={safePersonalInfo}
         onChange={(e) => handlePersonalInfoChange(e, setPersonalInfo)}
         onSelectChange={(field, value) => handleSelectChange(field, value, setPersonalInfo)}
         onDateChange={(field, value) => handleDateChange(field, value, setPersonalInfo)}
@@ -64,7 +92,7 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
 
       {isMarried && (
         <SpouseInformationSection
-          formData={spouseInfo}
+          formData={safeSpouseInfo}
           onChange={(e) => handleSpouseInfoChange(e, setSpouseInfo)}
           onDateChange={(field, value) => handleSpouseDateChange(field, value, setSpouseInfo)}
           showSpouseSection={true}
