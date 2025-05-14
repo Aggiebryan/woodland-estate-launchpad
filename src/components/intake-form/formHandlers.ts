@@ -1,4 +1,4 @@
-
+import React from "react";
 import { 
   PersonalInfo, 
   SpouseInfo, 
@@ -9,6 +9,7 @@ import {
   SpecialBequestsInfo, 
   PowerOfAttorneyInfo 
 } from "@/hooks/useIntakeFormState";
+import { toast } from "@/components/ui/use-toast";
 
 export const handlePersonalInfoChange = (
   e: React.ChangeEvent<HTMLInputElement>,
@@ -26,12 +27,28 @@ export const handleSelectChange = (
   setPersonalInfo((prev) => ({ ...prev, [field]: value }));
 };
 
+export const handleDateChange = (
+  field: string,
+  value: Date | undefined,
+  setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo>>
+) => {
+  setPersonalInfo((prev) => ({ ...prev, [field]: value }));
+};
+
 export const handleSpouseInfoChange = (
   e: React.ChangeEvent<HTMLInputElement>,
   setSpouseInfo: React.Dispatch<React.SetStateAction<SpouseInfo>>
 ) => {
   const { name, value } = e.target;
   setSpouseInfo((prev) => ({ ...prev, [name]: value }));
+};
+
+export const handleSpouseDateChange = (
+  field: string,
+  value: Date | undefined,
+  setSpouseInfo: React.Dispatch<React.SetStateAction<SpouseInfo>>
+) => {
+  setSpouseInfo((prev) => ({ ...prev, [field]: value }));
 };
 
 export const handleCheckboxChange = (

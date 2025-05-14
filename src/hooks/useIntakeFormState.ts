@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 
 export interface PersonalInfo {
   firstName: string;
   middleName: string;
   lastName: string;
+  dateOfBirth: Date | undefined;
   email: string;
   phone: string;
   address: string;
@@ -19,6 +19,7 @@ export interface SpouseInfo {
   spouseFirstName: string;
   spouseMiddleName: string;
   spouseLastName: string;
+  spouseDateOfBirth: Date | undefined;
   spouseEmail: string;
   spousePhone: string;
 }
@@ -199,12 +200,23 @@ export interface SpecialBequestsInfo {
 export function useIntakeFormState() {
   const [step, setStep] = useState(1);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [formErrors, setFormErrors] = useState<Record<string, Record<string, string>>>({
+    personalInfo: {},
+    spouseInfo: {},
+    childrenInfo: {},
+    poaInfo: {},
+    executorInfo: {},
+    trusteeInfo: {},
+    assetsInfo: {},
+    specialBequestsInfo: {}
+  });
 
   // Personal Information
   const [personalInfo, setPersonalInfo] = useState<PersonalInfo>({
     firstName: "",
     middleName: "",
     lastName: "",
+    dateOfBirth: undefined,
     email: "",
     phone: "",
     address: "",
@@ -220,6 +232,7 @@ export function useIntakeFormState() {
     spouseFirstName: "",
     spouseMiddleName: "",
     spouseLastName: "",
+    spouseDateOfBirth: undefined,
     spouseEmail: "",
     spousePhone: "",
   });
@@ -358,9 +371,103 @@ export function useIntakeFormState() {
   // Additional Notes
   const [additionalNotes, setAdditionalNotes] = useState("");
 
+  const validatePersonalInfo = () => {
+    const errors: Record<string, string> = {};
+    
+    if (!personalInfo.firstName.trim()) errors.firstName = "First name is required";
+    if (!personalInfo.lastName.trim()) errors.lastName = "Last name is required";
+    if (!personalInfo.dateOfBirth) errors.dateOfBirth = "Date of birth is required";
+    if (!personalInfo.email.trim()) {
+      errors.email = "Email is required";
+    } else {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(personalInfo.email)) {
+        errors.email = "Please enter a valid email address";
+      }
+    }
+    
+    if (!personalInfo.phone.trim()) {
+      errors.phone = "Phone number is required";
+    } else {
+      // Check for (XXX) XXX-XXXX format
+      const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+      if (!phoneRegex.test(personalInfo.phone)) {
+        errors.phone = "Phone number must be in (XXX) XXX-XXXX format";
+      }
+    }
+    
+    if (!personalInfo.address.trim()) errors.address = "Address is required";
+    if (!personalInfo.city.trim()) errors.city = "City is required";
+    if (!personalInfo.state.trim()) errors.state = "State is required";
+    
+    if (!personalInfo.zipCode.trim()) {
+      errors.zipCode = "ZIP code is required";
+    } else {
+      const zipRegex = /^\d{5}(-\d{4})?$/;
+      if (!zipRegex.test(personalInfo.zipCode)) {
+        errors.zipCode = "ZIP code must be in XXXXX or XXXXX-XXXX format";
+      }
+    }
+    
+    if (!personalInfo.maritalStatus) errors.maritalStatus = "Marital status is required";
+    
+    // Check if spouse's name is required based on marital status
+    if (["separated", "divorced", "widowed"].includes(personalInfo.maritalStatus) && 
+        !personalInfo.spouseFullName.trim()) {
+      errors.spouseFullName = "Spouse's full name is required";
+    }
+    
+    setFormErrors(prev => ({ ...prev, personalInfo: errors }));
+    return Object.keys(errors).length === 0;
+  };
+
+  const validateSpouseInfo = () => {
+    // Only validate if married
+    if (personalInfo.maritalStatus !== "married") return true;
+
+    const errors: Record<string, string> = {};
+    
+    if (!spouseInfo.spouseFirstName.trim()) errors.spouseFirstName = "Spouse's first name is required";
+    if (!spouseInfo.spouseLastName.trim()) errors.spouseLastName = "Spouse's last name is required";
+    if (!spouseInfo.spouseDateOfBirth) errors.spouseDateOfBirth = "Spouse's date of birth is required";
+    
+    if (spouseInfo.spouseEmail.trim()) {
+      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailRegex.test(spouseInfo.spouseEmail)) {
+        errors.spouseEmail = "Please enter a valid email address";
+      }
+    }
+    
+    if (spouseInfo.spousePhone.trim()) {
+      const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
+      if (!phoneRegex.test(spouseInfo.spousePhone)) {
+        errors.spousePhone = "Phone number must be in (XXX) XXX-XXXX format";
+      }
+    }
+    
+    setFormErrors(prev => ({ ...prev, spouseInfo: errors }));
+    return Object.keys(errors).length === 0;
+  };
+
   const nextStep = () => {
-    setStep((prevStep) => prevStep + 1);
-    window.scrollTo(0, 0);
+    // Validate current step before proceeding
+    let isValid = true;
+    
+    if (step === 1) {
+      isValid = validatePersonalInfo() && validateSpouseInfo();
+    }
+    
+    if (isValid) {
+      setStep((prevStep) => prevStep + 1);
+      window.scrollTo(0, 0);
+    } else {
+      // Show error toast if validation fails
+      toast({
+        title: "Validation Error",
+        description: "Please fix the highlighted errors before continuing",
+        variant: "destructive",
+      });
+    }
   };
 
   const prevStep = () => {
@@ -373,6 +480,8 @@ export function useIntakeFormState() {
     setStep,
     isSubmitting,
     setIsSubmitting,
+    formErrors,
+    setFormErrors,
     personalInfo,
     setPersonalInfo,
     spouseInfo,
