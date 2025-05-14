@@ -1,9 +1,10 @@
 
 import { toast } from "@/components/ui/use-toast";
+import { FormErrors } from "@/types/intakeFormTypes";
 
 interface FormState {
   step: number;
-  formErrors: Record<string, Record<string, string>>;
+  formErrors: FormErrors;
   [key: string]: any;
 }
 

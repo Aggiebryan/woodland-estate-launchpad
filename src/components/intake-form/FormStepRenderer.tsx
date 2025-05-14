@@ -6,6 +6,7 @@ import Step2FamilyInfo from "@/components/intake-form/steps/Step2FamilyInfo";
 import Step3FiduciariesInfo from "@/components/intake-form/steps/Step3FiduciariesInfo";
 import Step4AssetsInfo from "@/components/intake-form/steps/Step4AssetsInfo";
 import Step5FinalDetails from "@/components/intake-form/steps/Step5FinalDetails";
+import { FormErrors } from "@/types/intakeFormTypes";
 
 interface FormStepRendererProps {
   step: number;
@@ -35,7 +36,7 @@ interface FormStepRendererProps {
     isSubmitting: boolean;
     setIsSubmitting: (value: boolean) => void;
     setStep: (step: number) => void;
-    formErrors: Record<string, Record<string, string>>;
+    formErrors: FormErrors;
     step: number;
   };
   formData: any;

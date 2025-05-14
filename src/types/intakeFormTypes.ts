@@ -205,6 +205,7 @@ export interface FormErrors {
   trusteeInfo: Record<string, string>;
   assetsInfo: Record<string, string>;
   specialBequestsInfo: Record<string, string>;
+  [key: string]: Record<string, string>; // Add index signature to allow any string key
 }
 
 export interface IntakeFormState {
