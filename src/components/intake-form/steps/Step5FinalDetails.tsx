@@ -12,7 +12,7 @@ import {
   addSpecialBequest,
   removeSpecialBequest,
   handleAdditionalNotesChange
-} from "../formHandlers";
+} from "../handlers";
 import { handleFormSubmission } from "../formSubmissionHandler";
 
 interface Step5Props {
