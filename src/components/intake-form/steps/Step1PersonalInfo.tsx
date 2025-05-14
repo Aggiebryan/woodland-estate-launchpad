@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfo, SpouseInfo } from "@/hooks/useIntakeFormState";
 import PersonalInformationSection from "@/components/shared/PersonalInformationSection";
@@ -12,6 +12,7 @@ import {
   handleSpouseDateChange
 } from "../formHandlers";
 import { toast } from "@/components/ui/use-toast";
+import { format } from "date-fns";
 
 interface Step1Props {
   personalInfo: PersonalInfo;

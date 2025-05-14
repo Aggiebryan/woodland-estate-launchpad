@@ -9,8 +9,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { format, parse, isValid } from "date-fns";
-import { cn } from "@/lib/utils";
+import { parse, isValid } from "date-fns";
+import { cn, applyDateMask } from "@/lib/utils";
 
 interface PersonalInformationSectionProps {
   formData: {
@@ -40,10 +40,8 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   onDateChange,
   errors,
 }) => {
-  // State to track the manually entered date
-  const [dateInputValue, setDateInputValue] = useState(
-    formData.dateOfBirth ? format(formData.dateOfBirth, "MM/dd/yyyy") : ""
-  );
+  // State to track the masked date input value
+  const [dateInputValue, setDateInputValue] = useState("");
 
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
@@ -107,17 +105,22 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
     }
   };
 
-  // Handle manual date input
+  // Handle date input with masking
   const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    setDateInputValue(value);
     
-    // Try to parse the date
-    const parsedDate = parse(value, "MM/dd/yyyy", new Date());
+    // Apply the mask and update the input value
+    const maskedValue = applyDateMask(value);
+    setDateInputValue(maskedValue);
     
-    // Update the form data if the date is valid
-    if (isValid(parsedDate)) {
-      onDateChange("dateOfBirth", parsedDate);
+    // Try to parse the date if it's in the right format (MM/DD/YYYY)
+    if (maskedValue.length === 10) {
+      const parsedDate = parse(maskedValue, "MM/dd/yyyy", new Date());
+      
+      // Update the form data if the date is valid
+      if (isValid(parsedDate)) {
+        onDateChange("dateOfBirth", parsedDate);
+      }
     } else if (value === "") {
       // If the input is cleared, set date to undefined
       onDateChange("dateOfBirth", undefined);
@@ -170,7 +173,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
         </div>
       </div>
 
-      {/* Date of Birth Field with manual input only */}
+      {/* Date of Birth Field with manual masked input */}
       <div>
         <Label htmlFor="dateOfBirth" className={cn("text-woodlands-gold", errors.dateOfBirth && "text-red-400")}>
           Date of Birth *
@@ -181,6 +184,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
           value={dateInputValue}
           onChange={handleDateInputChange}
           className={cn("text-white", errors.dateOfBirth && "border-red-400")}
+          maxLength={10}
         />
         {errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth}</p>}
       </div>
