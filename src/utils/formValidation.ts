@@ -6,6 +6,7 @@ export const validatePersonalInfo = (
   formErrors: FormErrors,
   setFormErrors: (errors: FormErrors) => void
 ): boolean => {
+  console.log("Running validatePersonalInfo with:", personalInfo);
   const errors: Record<string, string> = {};
   
   if (!personalInfo.firstName?.trim()) errors.firstName = "First name is required";
@@ -51,6 +52,7 @@ export const validatePersonalInfo = (
     errors.spouseFullName = "Spouse's full name is required";
   }
   
+  console.log("Validation errors:", errors);
   setFormErrors({...formErrors, personalInfo: errors});
   return Object.keys(errors).length === 0;
 };
@@ -61,6 +63,7 @@ export const validateSpouseInfo = (
   formErrors: FormErrors,
   setFormErrors: (errors: FormErrors) => void
 ): boolean => {
+  console.log("Running validateSpouseInfo with:", spouseInfo);
   // Only validate if married
   if (personalInfo.maritalStatus !== "married") return true;
 
@@ -84,6 +87,7 @@ export const validateSpouseInfo = (
     }
   }
   
+  console.log("Spouse validation errors:", errors);
   setFormErrors({...formErrors, spouseInfo: errors});
   return Object.keys(errors).length === 0;
 };

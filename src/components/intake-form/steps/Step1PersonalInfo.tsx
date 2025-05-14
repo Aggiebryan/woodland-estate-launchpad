@@ -11,7 +11,7 @@ import {
   handleSpouseInfoChange,
   handleSpouseDateChange
 } from "../handlers";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 interface Step1Props {
   personalInfo: PersonalInfo;
@@ -35,7 +35,12 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   formErrors,
 }) => {
   // Added console log for debugging
-  console.log("Step1PersonalInfo rendering with:", { personalInfo, spouseInfo, formErrors });
+  console.log("Step1PersonalInfo rendering with:", { 
+    personalInfo, 
+    spouseInfo, 
+    formErrors,
+    personalInfoType: typeof personalInfo
+  });
   
   // Create default objects if undefined to prevent errors
   const safePersonalInfo = personalInfo || {
@@ -63,8 +68,12 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   };
 
   const handleNext = () => {
+    console.log("Attempting to validate personal info", safePersonalInfo);
     const personalValid = validatePersonalInfo();
+    console.log("Personal validation result:", personalValid);
+    
     const spouseValid = safePersonalInfo?.maritalStatus === "married" ? validateSpouseInfo() : true;
+    console.log("Spouse validation result:", spouseValid);
     
     if (personalValid && spouseValid) {
       nextStep();

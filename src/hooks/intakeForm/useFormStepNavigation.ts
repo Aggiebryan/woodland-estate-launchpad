@@ -1,5 +1,5 @@
 
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { FormErrors, IntakeFormState } from "@/types/intakeFormTypes";
 
 interface ValidationFunctions {
@@ -8,8 +8,8 @@ interface ValidationFunctions {
 }
 
 export function useFormStepNavigation(
-  formState: IntakeFormState, // Changed FormState to IntakeFormState
-  setFormState: (state: IntakeFormState) => void, // Changed parameter type to IntakeFormState
+  formState: IntakeFormState,
+  setFormState: (state: IntakeFormState) => void,
   saveForm: () => void,
   validationFns: ValidationFunctions
 ) {
@@ -25,9 +25,13 @@ export function useFormStepNavigation(
     const { step, personalInfo } = formState;
     
     if (step === 1) {
+      console.log("Validating step 1");
       isValid = validatePersonalInfo();
+      console.log("Personal info validation result:", isValid);
+      
       if (isValid && personalInfo?.maritalStatus === "married") {
         isValid = validateSpouseInfo();
+        console.log("Spouse info validation result:", isValid);
       }
     }
     

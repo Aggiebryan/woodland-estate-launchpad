@@ -1,112 +1,58 @@
 
 import { FormErrors, IntakeFormState } from "@/types/intakeFormTypes";
+import { validatePersonalInfo, validateSpouseInfo } from "@/utils/formValidation";
 
-export function useFormValidation(formState: IntakeFormState, setFormState: (state: IntakeFormState) => void) {
+export function useFormValidation(
+  formState: IntakeFormState, 
+  setFormState: (state: IntakeFormState) => void
+) {
   const validatePersonalInfo = () => {
     const errors: Record<string, string> = {};
     const { personalInfo } = formState;
     
-    // Safety checks to prevent accessing undefined properties
-    if (!personalInfo) {
-      setFormState({
-        ...formState, 
-        formErrors: { ...formState.formErrors, personalInfo: { general: "Personal information is missing" } }
-      });
-      return false;
-    }
+    // Create a new errors object to be passed to the validation function
+    const tempFormErrors = { ...formState.formErrors };
     
-    if (!personalInfo.firstName?.trim()) errors.firstName = "First name is required";
-    if (!personalInfo.lastName?.trim()) errors.lastName = "Last name is required";
-    if (!personalInfo.dateOfBirth) errors.dateOfBirth = "Date of birth is required";
-    if (!personalInfo.email?.trim()) {
-      errors.email = "Email is required";
-    } else {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailRegex.test(personalInfo.email)) {
-        errors.email = "Please enter a valid email address";
+    // Use the utility validation function to validate personal info
+    const isValid = validatePersonalInfo(
+      personalInfo,
+      tempFormErrors,
+      (updatedErrors) => {
+        // This callback is called by the validation function with updated errors
+        setFormState({
+          ...formState,
+          formErrors: updatedErrors
+        });
       }
-    }
+    );
     
-    if (!personalInfo.phone?.trim()) {
-      errors.phone = "Phone number is required";
-    } else {
-      // Check for (XXX) XXX-XXXX format
-      const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
-      if (!phoneRegex.test(personalInfo.phone)) {
-        errors.phone = "Phone number must be in (XXX) XXX-XXXX format";
-      }
-    }
-    
-    if (!personalInfo.address?.trim()) errors.address = "Address is required";
-    if (!personalInfo.city?.trim()) errors.city = "City is required";
-    if (!personalInfo.state?.trim()) errors.state = "State is required";
-    
-    if (!personalInfo.zipCode?.trim()) {
-      errors.zipCode = "ZIP code is required";
-    } else {
-      const zipRegex = /^\d{5}(-\d{4})?$/;
-      if (!zipRegex.test(personalInfo.zipCode)) {
-        errors.zipCode = "ZIP code must be in XXXXX or XXXXX-XXXX format";
-      }
-    }
-    
-    if (!personalInfo.maritalStatus) errors.maritalStatus = "Marital status is required";
-    
-    // Check if spouse's name is required based on marital status
-    if (["separated", "divorced", "widowed"].includes(personalInfo.maritalStatus) && 
-        !personalInfo.spouseFullName?.trim()) {
-      errors.spouseFullName = "Spouse's full name is required";
-    }
-    
-    setFormState({
-      ...formState, 
-      formErrors: { ...formState.formErrors, personalInfo: errors }
-    });
-    
-    return Object.keys(errors).length === 0;
+    return isValid;
   };
 
   const validateSpouseInfo = () => {
     const { personalInfo, spouseInfo } = formState;
     
-    // Safety checks to prevent accessing undefined properties
-    if (!personalInfo || !spouseInfo) {
-      setFormState({
-        ...formState, 
-        formErrors: { ...formState.formErrors, spouseInfo: { general: "Spouse information is missing" } }
-      });
-      return false;
-    }
-    
     // Only validate if married
     if (personalInfo.maritalStatus !== "married") return true;
 
-    const errors: Record<string, string> = {};
+    // Create a new errors object to be passed to the validation function
+    const tempFormErrors = { ...formState.formErrors };
     
-    if (!spouseInfo.spouseFirstName?.trim()) errors.spouseFirstName = "Spouse's first name is required";
-    if (!spouseInfo.spouseLastName?.trim()) errors.spouseLastName = "Spouse's last name is required";
-    if (!spouseInfo.spouseDateOfBirth) errors.spouseDateOfBirth = "Spouse's date of birth is required";
-    
-    if (spouseInfo.spouseEmail?.trim()) {
-      const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-      if (!emailRegex.test(spouseInfo.spouseEmail)) {
-        errors.spouseEmail = "Please enter a valid email address";
+    // Use the utility validation function to validate spouse info
+    const isValid = validateSpouseInfo(
+      personalInfo,
+      spouseInfo,
+      tempFormErrors,
+      (updatedErrors) => {
+        // This callback is called by the validation function with updated errors
+        setFormState({
+          ...formState,
+          formErrors: updatedErrors
+        });
       }
-    }
+    );
     
-    if (spouseInfo.spousePhone?.trim()) {
-      const phoneRegex = /^\(\d{3}\) \d{3}-\d{4}$/;
-      if (!phoneRegex.test(spouseInfo.spousePhone)) {
-        errors.spousePhone = "Phone number must be in (XXX) XXX-XXXX format";
-      }
-    }
-    
-    setFormState({
-      ...formState, 
-      formErrors: { ...formState.formErrors, spouseInfo: errors }
-    });
-    
-    return Object.keys(errors).length === 0;
+    return isValid;
   };
 
   return {

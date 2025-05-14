@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/components/ui/use-toast";
-import { parse, isValid } from "date-fns";
+import { toast } from "@/hooks/use-toast";
+import { parse, isValid, format } from "date-fns";
 import { cn, applyDateMask } from "@/lib/utils";
 
 interface SpouseInformationSectionProps {
@@ -31,6 +31,13 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
 
   // State to track the masked date input value
   const [dateInputValue, setDateInputValue] = useState("");
+  
+  // Initialize date input value from formData
+  useEffect(() => {
+    if (formData.spouseDateOfBirth) {
+      setDateInputValue(format(formData.spouseDateOfBirth, "MM/dd/yyyy"));
+    }
+  }, [formData.spouseDateOfBirth]);
 
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
