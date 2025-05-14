@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
@@ -11,6 +12,8 @@ import SpouseInformationSection from "@/components/shared/SpouseInformationSecti
 import ChildrenSection from "@/components/shared/ChildrenSection";
 import PowerOfAttorneySection from "@/components/shared/PowerOfAttorneySection";
 import ExecutorSection from "@/components/shared/ExecutorSection";
+import TrusteeSection from "@/components/shared/TrusteeSection";
+import AssetsCategorySection from "@/components/shared/AssetsCategorySection";
 
 const IntakeForm = () => {
   const [step, setStep] = useState(1);
@@ -28,6 +31,7 @@ const IntakeForm = () => {
     state: "",
     zipCode: "",
     maritalStatus: "",
+    spouseFullName: "",
   });
 
   // Spouse Information
@@ -46,7 +50,7 @@ const IntakeForm = () => {
       firstName: string;
       middleName: string;
       lastName: string;
-      age: string;
+      dateOfBirth: string; // Changed from age to dateOfBirth
       isMinor: boolean;
       livesWithClient: boolean;
       address: {
@@ -129,21 +133,59 @@ const IntakeForm = () => {
       phone: "",
       email: "",
     },
+    additionalAlternateExecutors: [] as Array<{
+      name: string;
+      relationship: string;
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zipCode: string;
+      };
+      phone: string;
+      email: string;
+    }>,
   });
 
   // Trustee Information
   const [trusteeInfo, setTrusteeInfo] = useState({
     useSameAsExecutor: false,
-    trusteeName: "",
-    trusteeRelationship: "",
-    trusteeAddress: "",
-    trusteePhone: "",
-    trusteeEmail: "",
-    alternateTrusteeName: "",
-    alternateTrusteeRelationship: "",
-    alternateTrusteeAddress: "",
-    alternateTrusteePhone: "",
-    alternateTrusteeEmail: "",
+    primaryTrustee: {
+      name: "",
+      relationship: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
+      phone: "",
+      email: ""
+    },
+    alternateTrustee: {
+      name: "",
+      relationship: "",
+      address: {
+        street: "",
+        city: "",
+        state: "",
+        zipCode: ""
+      },
+      phone: "",
+      email: ""
+    },
+    additionalAlternateTrustees: [] as Array<{
+      name: string;
+      relationship: string;
+      address: {
+        street: string;
+        city: string;
+        state: string;
+        zipCode: string;
+      };
+      phone: string;
+      email: string;
+    }>
   });
 
   // Assets Information
@@ -156,6 +198,16 @@ const IntakeForm = () => {
     lifeInsurance: "",
     personalProperty: "",
     otherAssets: "",
+    selectedCategories: {
+      realEstate: false,
+      bankAccounts: false,
+      investments: false,
+      retirementAccounts: false,
+      businessInterests: false,
+      lifeInsurance: false,
+      personalProperty: false,
+      otherAssets: false
+    }
   });
 
   // Special Bequests
@@ -245,7 +297,7 @@ const IntakeForm = () => {
           firstName: "", 
           middleName: "", 
           lastName: "", 
-          age: "", 
+          dateOfBirth: "", 
           isMinor: false, 
           livesWithClient: true, 
           address: {
@@ -290,14 +342,184 @@ const IntakeForm = () => {
     }));
   };
 
-  const handleTrusteeChange = (e) => {
-    const { name, value } = e.target;
-    setTrusteeInfo((prev) => ({ ...prev, [name]: value }));
+  const handleAdditionalExecutorChange = (index, field, value) => {
+    const updatedExecutors = [...executorInfo.additionalAlternateExecutors];
+    updatedExecutors[index] = { 
+      ...updatedExecutors[index], 
+      [field]: value 
+    };
+    setExecutorInfo((prev) => ({
+      ...prev,
+      additionalAlternateExecutors: updatedExecutors
+    }));
+  };
+
+  const handleAdditionalExecutorAddressChange = (index, field, value) => {
+    const updatedExecutors = [...executorInfo.additionalAlternateExecutors];
+    updatedExecutors[index] = { 
+      ...updatedExecutors[index], 
+      address: {
+        ...updatedExecutors[index].address,
+        [field]: value
+      }
+    };
+    setExecutorInfo((prev) => ({
+      ...prev,
+      additionalAlternateExecutors: updatedExecutors
+    }));
+  };
+
+  const addAlternateExecutor = () => {
+    setExecutorInfo((prev) => ({
+      ...prev,
+      additionalAlternateExecutors: [
+        ...prev.additionalAlternateExecutors,
+        {
+          name: "",
+          relationship: "",
+          address: {
+            street: "",
+            city: "",
+            state: "",
+            zipCode: ""
+          },
+          phone: "",
+          email: "",
+        }
+      ]
+    }));
+  };
+
+  const removeAlternateExecutor = (index) => {
+    const updatedExecutors = [...executorInfo.additionalAlternateExecutors];
+    updatedExecutors.splice(index, 1);
+    setExecutorInfo((prev) => ({
+      ...prev,
+      additionalAlternateExecutors: updatedExecutors
+    }));
+  };
+
+  const handleTrusteeChange = (trusteeType, field, value) => {
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      [trusteeType]: {
+        ...prev[trusteeType],
+        [field]: value
+      }
+    }));
+  };
+
+  const handleTrusteeAddressChange = (trusteeType, field, value) => {
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      [trusteeType]: {
+        ...prev[trusteeType],
+        address: {
+          ...prev[trusteeType].address,
+          [field]: value
+        }
+      }
+    }));
+  };
+
+  const handleTrusteeStateChange = (trusteeType, value) => {
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      [trusteeType]: {
+        ...prev[trusteeType],
+        address: {
+          ...prev[trusteeType].address,
+          state: value
+        }
+      }
+    }));
+  };
+
+  const handleAdditionalTrusteeChange = (index, field, value) => {
+    const updatedTrustees = [...trusteeInfo.additionalAlternateTrustees];
+    updatedTrustees[index] = { 
+      ...updatedTrustees[index], 
+      [field]: value 
+    };
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      additionalAlternateTrustees: updatedTrustees
+    }));
+  };
+
+  const handleAdditionalTrusteeAddressChange = (index, field, value) => {
+    const updatedTrustees = [...trusteeInfo.additionalAlternateTrustees];
+    updatedTrustees[index] = { 
+      ...updatedTrustees[index], 
+      address: {
+        ...updatedTrustees[index].address,
+        [field]: value
+      }
+    };
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      additionalAlternateTrustees: updatedTrustees
+    }));
+  };
+
+  const handleAdditionalTrusteeStateChange = (index, value) => {
+    const updatedTrustees = [...trusteeInfo.additionalAlternateTrustees];
+    updatedTrustees[index] = { 
+      ...updatedTrustees[index], 
+      address: {
+        ...updatedTrustees[index].address,
+        state: value
+      }
+    };
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      additionalAlternateTrustees: updatedTrustees
+    }));
+  };
+
+  const addAlternateTrustee = () => {
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      additionalAlternateTrustees: [
+        ...prev.additionalAlternateTrustees,
+        {
+          name: "",
+          relationship: "",
+          address: {
+            street: "",
+            city: "",
+            state: "",
+            zipCode: ""
+          },
+          phone: "",
+          email: "",
+        }
+      ]
+    }));
+  };
+
+  const removeAlternateTrustee = (index) => {
+    const updatedTrustees = [...trusteeInfo.additionalAlternateTrustees];
+    updatedTrustees.splice(index, 1);
+    setTrusteeInfo((prev) => ({
+      ...prev,
+      additionalAlternateTrustees: updatedTrustees
+    }));
   };
 
   const handleAssetsChange = (e) => {
     const { name, value } = e.target;
     setAssetsInfo((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleCategoryToggle = (category, isSelected) => {
+    setAssetsInfo((prev) => ({
+      ...prev,
+      selectedCategories: {
+        ...prev.selectedCategories,
+        [category]: isSelected
+      }
+    }));
   };
 
   const handleSpecialBequestChange = (index, field, value) => {
@@ -346,54 +568,53 @@ const IntakeForm = () => {
     window.scrollTo(0, 0);
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
-  setIsSubmitting(true);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
-  // Combine all form data
-  const formData = {
-    personal: personalInfo,
-    spouse: spouseInfo,
-    children: childrenInfo,
-    powerOfAttorney: poaInfo,
-    executor: executorInfo,
-    trustee: trusteeInfo,
-    assets: assetsInfo,
-    specialBequests: specialBequestsInfo,
-    additionalNotes,
-  };
+    // Combine all form data
+    const formData = {
+      personal: personalInfo,
+      spouse: spouseInfo,
+      children: childrenInfo,
+      powerOfAttorney: poaInfo,
+      executor: executorInfo,
+      trustee: trusteeInfo,
+      assets: assetsInfo,
+      specialBequests: specialBequestsInfo,
+      additionalNotes,
+    };
 
-  try {
-    const response = await fetch("https://n8n.twlf.dev/webhook-test/estate-intake", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(formData),
-    });
+    try {
+      const response = await fetch("https://n8n.twlf.dev/webhook-test/estate-intake", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
 
-    if (!response.ok) {
-      throw new Error("Submission failed");
+      if (!response.ok) {
+        throw new Error("Submission failed");
+      }
+
+      toast({
+        title: "Form Submitted Successfully",
+        description: "We'll review your information and contact you soon.",
+      });
+
+      setStep(1);
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Submission Error",
+        description: "There was a problem submitting your form. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-
-    toast({
-      title: "Form Submitted Successfully",
-      description: "We'll review your information and contact you soon.",
-    });
-
-    setStep(1);
-  } catch (error) {
-    console.error("Error submitting form:", error);
-    toast({
-      title: "Submission Error",
-      description: "There was a problem submitting your form. Please try again.",
-      variant: "destructive",
-    });
-  } finally {
-    setIsSubmitting(false);
-  }
-};
-
+  };
 
   // Render steps
   const renderStep = () => {
@@ -468,172 +689,24 @@ const handleSubmit = async (e) => {
               onCheckboxChange={handleCheckboxChange}
               onAddressChange={handleExecutorAddressChange}
               onExecutorChange={handleExecutorChange}
+              onAdditionalExecutorChange={handleAdditionalExecutorChange}
+              onAdditionalExecutorAddressChange={handleAdditionalExecutorAddressChange}
+              addAlternateExecutor={addAlternateExecutor}
+              removeAlternateExecutor={removeAlternateExecutor}
             />
 
-            <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">
-                Trustee Information
-              </h3>
-              <p className="text-sm text-woodlands-cream opacity-80 mb-4">
-                A trustee is responsible for managing assets held in trust.
-              </p>
-              
-              <div className="flex items-center space-x-2">
-                <Checkbox
-                  id="useSameAsExecutor"
-                  checked={trusteeInfo.useSameAsExecutor}
-                  onCheckedChange={(checked) => handleCheckboxChange("useSameAsExecutor", !!checked)}
-                />
-                <Label htmlFor="useSameAsExecutor" className="text-sm font-medium text-woodlands-cream">
-                  Would you like to use the same person(s) as your executor?
-                </Label>
-              </div>
-
-              {!trusteeInfo.useSameAsExecutor && (
-                <div className="space-y-6 mt-4">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="trusteeName" className="text-woodlands-gold">
-                        Trustee Full Name *
-                      </Label>
-                      <Input
-                        id="trusteeName"
-                        name="trusteeName"
-                        required
-                        value={trusteeInfo.trusteeName}
-                        onChange={handleTrusteeChange}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="trusteeRelationship" className="text-woodlands-gold">
-                        Relationship to You *
-                      </Label>
-                      <Input
-                        id="trusteeRelationship"
-                        name="trusteeRelationship"
-                        required
-                        value={trusteeInfo.trusteeRelationship}
-                        onChange={handleTrusteeChange}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="trusteeAddress" className="text-woodlands-gold">
-                        Address *
-                      </Label>
-                      <Input
-                        id="trusteeAddress"
-                        name="trusteeAddress"
-                        required
-                        value={trusteeInfo.trusteeAddress}
-                        onChange={handleTrusteeChange}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="trusteePhone" className="text-woodlands-gold">
-                        Phone Number *
-                      </Label>
-                      <Input
-                        id="trusteePhone"
-                        name="trusteePhone"
-                        required
-                        value={trusteeInfo.trusteePhone}
-                        onChange={handleTrusteeChange}
-                        className="text-white"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="trusteeEmail" className="text-woodlands-gold">
-                        Email *
-                      </Label>
-                      <Input
-                        id="trusteeEmail"
-                        name="trusteeEmail"
-                        type="email"
-                        required
-                        value={trusteeInfo.trusteeEmail}
-                        onChange={handleTrusteeChange}
-                        className="text-white"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="mt-6">
-                    <h4 className="text-lg font-medium text-woodlands-gold mb-4">Alternate Trustee</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                      <div>
-                        <Label htmlFor="alternateTrusteeName" className="text-woodlands-gold">
-                          Full Name *
-                        </Label>
-                        <Input
-                          id="alternateTrusteeName"
-                          name="alternateTrusteeName"
-                          required
-                          value={trusteeInfo.alternateTrusteeName}
-                          onChange={handleTrusteeChange}
-                          className="text-white"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="alternateTrusteeRelationship" className="text-woodlands-gold">
-                          Relationship to You *
-                        </Label>
-                        <Input
-                          id="alternateTrusteeRelationship"
-                          name="alternateTrusteeRelationship"
-                          required
-                          value={trusteeInfo.alternateTrusteeRelationship}
-                          onChange={handleTrusteeChange}
-                          className="text-white"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="alternateTrusteeAddress" className="text-woodlands-gold">
-                          Address *
-                        </Label>
-                        <Input
-                          id="alternateTrusteeAddress"
-                          name="alternateTrusteeAddress"
-                          required
-                          value={trusteeInfo.alternateTrusteeAddress}
-                          onChange={handleTrusteeChange}
-                          className="text-white"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="alternateTrusteePhone" className="text-woodlands-gold">
-                          Phone Number *
-                        </Label>
-                        <Input
-                          id="alternateTrusteePhone"
-                          name="alternateTrusteePhone"
-                          required
-                          value={trusteeInfo.alternateTrusteePhone}
-                          onChange={handleTrusteeChange}
-                          className="text-white"
-                        />
-                      </div>
-                      <div>
-                        <Label htmlFor="alternateTrusteeEmail" className="text-woodlands-gold">
-                          Email *
-                        </Label>
-                        <Input
-                          id="alternateTrusteeEmail"
-                          name="alternateTrusteeEmail"
-                          type="email"
-                          required
-                          value={trusteeInfo.alternateTrusteeEmail}
-                          onChange={handleTrusteeChange}
-                          className="text-white"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            <TrusteeSection
+              formData={trusteeInfo}
+              onCheckboxChange={handleCheckboxChange}
+              onTrusteeChange={handleTrusteeChange}
+              onTrusteeAddressChange={handleTrusteeAddressChange}
+              onTrusteeStateChange={handleTrusteeStateChange}
+              onAdditionalTrusteeChange={handleAdditionalTrusteeChange}
+              onAdditionalTrusteeAddressChange={handleAdditionalTrusteeAddressChange}
+              onAdditionalTrusteeStateChange={handleAdditionalTrusteeStateChange}
+              addAlternateTrustee={addAlternateTrustee}
+              removeAlternateTrustee={removeAlternateTrustee}
+            />
 
             <div className="flex justify-between mt-8">
               <Button
@@ -654,119 +727,11 @@ const handleSubmit = async (e) => {
       case 4:
         return (
           <>
-            <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
-              <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Assets Summary</h3>
-              <p className="text-sm text-woodlands-cream opacity-80 mb-4">
-                Please provide a general overview of your assets. This helps us better understand your estate planning needs.
-              </p>
-
-              <div className="grid grid-cols-1 gap-4">
-                <div>
-                  <Label htmlFor="realEstate" className="text-woodlands-gold">
-                    Real Estate
-                  </Label>
-                  <Textarea
-                    id="realEstate"
-                    name="realEstate"
-                    placeholder="Description and approximate value of properties"
-                    value={assetsInfo.realEstate}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="bankAccounts" className="text-woodlands-gold">
-                    Bank Accounts
-                  </Label>
-                  <Textarea
-                    id="bankAccounts"
-                    name="bankAccounts"
-                    placeholder="Types of accounts and approximate total value"
-                    value={assetsInfo.bankAccounts}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="investments" className="text-woodlands-gold">
-                    Investments
-                  </Label>
-                  <Textarea
-                    id="investments"
-                    name="investments"
-                    placeholder="Types of investments and approximate total value"
-                    value={assetsInfo.investments}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="retirementAccounts" className="text-woodlands-gold">
-                    Retirement Accounts
-                  </Label>
-                  <Textarea
-                    id="retirementAccounts"
-                    name="retirementAccounts"
-                    placeholder="Types of retirement accounts and approximate total value"
-                    value={assetsInfo.retirementAccounts}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="businessInterests" className="text-woodlands-gold">
-                    Business Interests
-                  </Label>
-                  <Textarea
-                    id="businessInterests"
-                    name="businessInterests"
-                    placeholder="Description of any business ownership and approximate value"
-                    value={assetsInfo.businessInterests}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="lifeInsurance" className="text-woodlands-gold">
-                    Life Insurance Policies
-                  </Label>
-                  <Textarea
-                    id="lifeInsurance"
-                    name="lifeInsurance"
-                    placeholder="Description of policies and death benefits"
-                    value={assetsInfo.lifeInsurance}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="personalProperty" className="text-woodlands-gold">
-                    Personal Property
-                  </Label>
-                  <Textarea
-                    id="personalProperty"
-                    name="personalProperty"
-                    placeholder="Significant personal property (vehicles, jewelry, art, etc.)"
-                    value={assetsInfo.personalProperty}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="otherAssets" className="text-woodlands-gold">
-                    Other Assets
-                  </Label>
-                  <Textarea
-                    id="otherAssets"
-                    name="otherAssets"
-                    placeholder="Any other significant assets not covered above"
-                    value={assetsInfo.otherAssets}
-                    onChange={handleAssetsChange}
-                    className="h-24 text-white"
-                  />
-                </div>
-              </div>
-            </div>
+            <AssetsCategorySection
+              formData={assetsInfo}
+              onAssetsChange={handleAssetsChange}
+              onCategoryToggle={handleCategoryToggle}
+            />
 
             <div className="flex justify-between mt-8">
               <Button

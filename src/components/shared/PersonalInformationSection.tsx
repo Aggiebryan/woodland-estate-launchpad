@@ -22,6 +22,7 @@ interface PersonalInformationSectionProps {
     state: string;
     zipCode: string;
     maritalStatus: string;
+    spouseFullName?: string;
   };
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSelectChange: (field: string, value: string) => void;
@@ -32,6 +33,37 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   onChange,
   onSelectChange,
 }) => {
+  // Function to format phone number as XXX-XXX-XXXX
+  const formatPhoneNumber = (value: string) => {
+    // Remove all non-numeric characters
+    const digits = value.replace(/\D/g, '');
+    
+    // Format into XXX-XXX-XXXX pattern
+    if (digits.length <= 3) {
+      return digits;
+    } else if (digits.length <= 6) {
+      return `${digits.slice(0, 3)}-${digits.slice(3)}`;
+    } else {
+      return `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
+    }
+  };
+
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formattedNumber = formatPhoneNumber(e.target.value);
+    
+    // Create a synthetic event with the formatted value
+    const syntheticEvent = {
+      ...e,
+      target: {
+        ...e.target,
+        name: e.target.name,
+        value: formattedNumber,
+      },
+    };
+    
+    onChange(syntheticEvent as React.ChangeEvent<HTMLInputElement>);
+  };
+
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
       <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Personal Information</h3>
@@ -99,7 +131,9 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
             name="phone"
             required
             value={formData.phone}
-            onChange={onChange}
+            onChange={handlePhoneChange}
+            placeholder="XXX-XXX-XXXX"
+            maxLength={12}
             className="text-white"
           />
         </div>
@@ -225,11 +259,61 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
           <SelectContent>
             <SelectItem value="single">Single</SelectItem>
             <SelectItem value="married">Married</SelectItem>
+            <SelectItem value="separated">Separated</SelectItem>
             <SelectItem value="divorced">Divorced</SelectItem>
             <SelectItem value="widowed">Widowed</SelectItem>
           </SelectContent>
         </Select>
       </div>
+      
+      {/* Additional fields based on marital status */}
+      {formData.maritalStatus === "separated" && (
+        <div>
+          <Label htmlFor="spouseFullName" className="text-woodlands-gold">
+            Spouse's Full Name *
+          </Label>
+          <Input
+            id="spouseFullName"
+            name="spouseFullName"
+            required
+            value={formData.spouseFullName || ""}
+            onChange={onChange}
+            className="text-white"
+          />
+        </div>
+      )}
+      
+      {formData.maritalStatus === "divorced" && (
+        <div>
+          <Label htmlFor="spouseFullName" className="text-woodlands-gold">
+            Former Spouse's Full Name *
+          </Label>
+          <Input
+            id="spouseFullName"
+            name="spouseFullName"
+            required
+            value={formData.spouseFullName || ""}
+            onChange={onChange}
+            className="text-white"
+          />
+        </div>
+      )}
+      
+      {formData.maritalStatus === "widowed" && (
+        <div>
+          <Label htmlFor="spouseFullName" className="text-woodlands-gold">
+            Late Spouse's Full Name *
+          </Label>
+          <Input
+            id="spouseFullName"
+            name="spouseFullName"
+            required
+            value={formData.spouseFullName || ""}
+            onChange={onChange}
+            className="text-white"
+          />
+        </div>
+      )}
     </div>
   );
 };
