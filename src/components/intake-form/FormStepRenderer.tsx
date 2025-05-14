@@ -46,6 +46,10 @@ const FormStepRenderer: React.FC<FormStepRendererProps> = ({
   formProps,
   formData
 }) => {
+  // Added console log for debugging
+  console.log("Rendering FormStepRenderer with step:", step);
+  
+  // Extract props
   const {
     personalInfo,
     setPersonalInfo,
@@ -75,15 +79,13 @@ const FormStepRenderer: React.FC<FormStepRendererProps> = ({
     formErrors
   } = formProps;
 
-  // Added console log for debugging
-  console.log("Rendering FormStepRenderer with step:", step, "personalInfo:", personalInfo);
-
-  // Safety checks to ensure we have proper data
-  if (!personalInfo || typeof personalInfo !== 'object') {
-    console.error("PersonalInfo is invalid:", personalInfo);
-    return <div className="text-red-500">Error: Form data is not properly initialized. Please refresh the page.</div>;
+  // Safety check - if any required sections are missing, return an error
+  if (!personalInfo) {
+    console.error("PersonalInfo is undefined or null");
+    return <div className="text-red-500 p-4">Error: Form data is not properly initialized. Please refresh the page and try again.</div>;
   }
 
+  // Proceed with rendering the appropriate step
   switch (step) {
     case 1:
       return (

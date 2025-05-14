@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import MainLayout from "@/components/layout/MainLayout";
 import FormProgress from "@/components/intake-form/FormProgress";
@@ -14,7 +14,6 @@ import { toast } from "@/components/ui/use-toast";
 
 const IntakeForm = () => {
   const { isAuthenticated, isLoading: authLoading } = useAuth();
-  const navigate = useNavigate();
 
   const {
     formState,
@@ -30,18 +29,13 @@ const IntakeForm = () => {
     isAuthenticated,
     authLoading,
     isLoading,
-    formState
+    formState,
+    formParts
   });
 
   // If not authenticated and not loading, redirect to login
   if (!authLoading && !isAuthenticated) {
     console.log("User not authenticated, redirecting to login");
-    toast({
-      title: "Authentication Required",
-      description: "Please log in to access the intake form.",
-      variant: "destructive"
-    });
-    
     return <Navigate to="/login" replace />;
   }
 
@@ -51,6 +45,24 @@ const IntakeForm = () => {
       <MainLayout>
         <div className="container max-w-4xl mx-auto px-4 py-12">
           <FormLoading />
+        </div>
+      </MainLayout>
+    );
+  }
+
+  // Make sure formState has been properly initialized
+  if (!formState || !formParts || !formParts.personalInfo) {
+    console.error("Form state not properly initialized:", { formState, formParts });
+    
+    return (
+      <MainLayout>
+        <div className="container max-w-4xl mx-auto px-4 py-12">
+          <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg">
+            <div className="text-red-500 text-center p-4">
+              <h2 className="text-xl font-bold mb-2">Error Initializing Form</h2>
+              <p>There was a problem loading your form data. Please try refreshing the page or contact support.</p>
+            </div>
+          </div>
         </div>
       </MainLayout>
     );

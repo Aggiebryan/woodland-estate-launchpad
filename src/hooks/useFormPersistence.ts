@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from './use-auth';
@@ -18,6 +17,9 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
   useEffect(() => {
     console.log("useFormPersistence effect running with user:", user);
     
+    // Always set initial state first to avoid undefined data
+    setData(initialState);
+    
     if (userSpecificKey) {
       setIsLoading(true);
       try {
@@ -34,28 +36,20 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
               if (parsed.timestamp) {
                 setLastSaved(new Date(parsed.timestamp));
               }
-            } else {
-              console.warn("Saved data exists but has invalid format, using initial state");
-              setData(initialState);
             }
           } catch (parseError) {
             console.error("Error parsing saved form data:", parseError);
-            setData(initialState);
+            // Keep using initialState that was already set
           }
-        } else {
-          // No saved data, use initial state
-          console.log("No saved data found, using initial state");
-          setData(initialState);
         }
       } catch (e) {
         console.error("Error loading saved form data:", e);
-        setData(initialState);
+        // Keep using initialState that was already set
       } finally {
         setIsLoading(false);
       }
     } else {
       console.log("No user specific key, using initial state");
-      setData(initialState);
       setIsLoading(false);
     }
   }, [userSpecificKey, initialState]);
