@@ -9,7 +9,6 @@ import Step5FinalDetails from "@/components/intake-form/steps/Step5FinalDetails"
 
 interface FormStepRendererProps {
   step: number;
-  formState: any;
   formProps: {
     personalInfo: any;
     setPersonalInfo: any;
@@ -37,6 +36,7 @@ interface FormStepRendererProps {
     setIsSubmitting: (value: boolean) => void;
     setStep: (step: number) => void;
     formErrors: Record<string, Record<string, string>>;
+    step: number;
   };
   formData: any;
 }
@@ -74,6 +74,9 @@ const FormStepRenderer: React.FC<FormStepRendererProps> = ({
     setStep,
     formErrors
   } = formProps;
+
+  // Added console log for debugging
+  console.log("Rendering FormStepRenderer with step:", step);
 
   switch (step) {
     case 1:
