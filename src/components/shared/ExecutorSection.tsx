@@ -1,5 +1,4 @@
-
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -33,6 +32,15 @@ interface ExecutorSectionProps {
   onAdditionalExecutorAddressChange?: (index: number, field: string, value: string) => void;
   addAlternateExecutor?: () => void;
   removeAlternateExecutor?: (index: number) => void;
+  spouseFullName?: string;
+  spousePhone?: string;
+  spouseEmail?: string;
+  clientAddress?: {
+    street: string;
+    city: string;
+    state: string;
+    zipCode: string;
+  };
 }
 
 const ExecutorSection: React.FC<ExecutorSectionProps> = ({
@@ -43,11 +51,34 @@ const ExecutorSection: React.FC<ExecutorSectionProps> = ({
   onAdditionalExecutorChange,
   onAdditionalExecutorAddressChange,
   addAlternateExecutor,
-  removeAlternateExecutor
+  removeAlternateExecutor,
+  spouseFullName,
+  spousePhone,
+  spouseEmail,
+  clientAddress
 }) => {
   const [hasAdditionalExecutors, setHasAdditionalExecutors] = useState(
     formData.additionalAlternateExecutors && formData.additionalAlternateExecutors.length > 0
   );
+
+  // Effect to auto-fill spouse information when the checkbox is toggled
+  useEffect(() => {
+    if (formData.useSpouseAsExecutor && spouseFullName) {
+      // Update primary executor with spouse information
+      onExecutorChange("primaryExecutor", "name", spouseFullName);
+      onExecutorChange("primaryExecutor", "relationship", "Spouse");
+      onExecutorChange("primaryExecutor", "phone", spousePhone || "");
+      onExecutorChange("primaryExecutor", "email", spouseEmail || "");
+      
+      // Update address information
+      if (clientAddress) {
+        onAddressChange("primaryExecutor", "street", clientAddress.street || "");
+        onAddressChange("primaryExecutor", "city", clientAddress.city || "");
+        onAddressChange("primaryExecutor", "state", clientAddress.state || "");
+        onAddressChange("primaryExecutor", "zipCode", clientAddress.zipCode || "");
+      }
+    }
+  }, [formData.useSpouseAsExecutor, spouseFullName, spousePhone, spouseEmail, clientAddress]);
 
   const handleAddExecutorChange = (checked: boolean) => {
     setHasAdditionalExecutors(checked);

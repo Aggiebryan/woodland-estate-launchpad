@@ -83,6 +83,8 @@ const IntakeForm = () => {
             setExecutorInfo={setExecutorInfo}
             setTrusteeInfo={setTrusteeInfo}
             setSpecialBequestsInfo={setSpecialBequestsInfo}
+            personalInfo={personalInfo}
+            spouseInfo={spouseInfo}
           />
         );
 
@@ -97,6 +99,8 @@ const IntakeForm = () => {
             prevStep={prevStep}
             setChildrenInfo={setChildrenInfo}
             setSpecialBequestsInfo={setSpecialBequestsInfo}
+            personalInfo={personalInfo}
+            spouseInfo={spouseInfo}
           />
         );
 
