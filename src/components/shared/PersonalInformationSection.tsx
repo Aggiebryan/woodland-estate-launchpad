@@ -1,5 +1,4 @@
-
-import React from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -14,7 +13,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { CalendarIcon } from "lucide-react";
-import { format } from "date-fns";
+import { format, parse, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 
 interface PersonalInformationSectionProps {
@@ -45,6 +44,11 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   onDateChange,
   errors,
 }) => {
+  // State to track the manually entered date
+  const [dateInputValue, setDateInputValue] = useState(
+    formData.dateOfBirth ? format(formData.dateOfBirth, "MM/dd/yyyy") : ""
+  );
+
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
     // Remove all non-numeric characters
@@ -107,6 +111,28 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
     }
   };
 
+  // Handle manual date input
+  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDateInputValue(value);
+    
+    // Try to parse the date
+    const parsedDate = parse(value, "MM/dd/yyyy", new Date());
+    
+    // Update the form data if the date is valid
+    if (isValid(parsedDate)) {
+      onDateChange("dateOfBirth", parsedDate);
+    }
+  };
+
+  // Handle date selection from calendar
+  const handleCalendarSelect = (date: Date | undefined) => {
+    onDateChange("dateOfBirth", date);
+    if (date) {
+      setDateInputValue(format(date, "MM/dd/yyyy"));
+    }
+  };
+
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
       <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Personal Information</h3>
@@ -153,39 +179,48 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
         </div>
       </div>
 
-      {/* Date of Birth Field */}
+      {/* Date of Birth Field with manual input */}
       <div>
         <Label htmlFor="dateOfBirth" className={cn("text-woodlands-gold", errors.dateOfBirth && "text-red-400")}>
           Date of Birth *
         </Label>
-        <Popover>
-          <PopoverTrigger asChild>
-            <Button
-              variant="outline"
-              className={cn(
-                "w-full pl-3 text-left font-normal text-white",
-                !formData.dateOfBirth && "text-muted-foreground",
-                errors.dateOfBirth && "border-red-400"
-              )}
-            >
-              {formData.dateOfBirth ? (
-                format(formData.dateOfBirth, "PPP")
-              ) : (
-                <span>Select your date of birth</span>
-              )}
-              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-auto p-0" align="start">
-            <Calendar
-              mode="single"
-              selected={formData.dateOfBirth}
-              onSelect={(date) => onDateChange("dateOfBirth", date)}
-              disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-              initialFocus
-            />
-          </PopoverContent>
-        </Popover>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Input
+            id="dateOfBirthInput"
+            placeholder="MM/DD/YYYY"
+            value={dateInputValue}
+            onChange={handleDateInputChange}
+            className={cn("text-white", errors.dateOfBirth && "border-red-400")}
+          />
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button
+                variant="outline"
+                className={cn(
+                  "pl-3 text-left font-normal text-white",
+                  !formData.dateOfBirth && "text-muted-foreground",
+                  errors.dateOfBirth && "border-red-400"
+                )}
+              >
+                {formData.dateOfBirth ? (
+                  format(formData.dateOfBirth, "PPP")
+                ) : (
+                  <span>Select from calendar</span>
+                )}
+                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-auto p-0" align="start">
+              <Calendar
+                mode="single"
+                selected={formData.dateOfBirth}
+                onSelect={handleCalendarSelect}
+                disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+                initialFocus
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
         {errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth}</p>}
       </div>
 
