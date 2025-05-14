@@ -1,10 +1,10 @@
-
 import { useState } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { 
   PersonalInfo, 
   SpouseInfo, 
-  ChildrenInfo, 
+  ChildrenInfo,
+  ChildInfo,
   PowerOfAttorneyInfo, 
   ExecutorInfo, 
   TrusteeInfo, 
@@ -19,8 +19,8 @@ import { initialIntakeFormState } from "./intakeForm/initialState";
 export type {
   PersonalInfo,
   SpouseInfo,
-  ChildInfo,
   ChildrenInfo,
+  ChildInfo,
   PowerOfAttorneyInfo,
   ExecutorInfo,
   TrusteeInfo,
