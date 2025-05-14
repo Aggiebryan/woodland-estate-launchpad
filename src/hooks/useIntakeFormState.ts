@@ -1,4 +1,5 @@
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { toast } from "@/components/ui/use-toast";
 import { 
   PersonalInfo, 
@@ -61,7 +62,11 @@ export function useIntakeFormState() {
     let isValid = true;
     
     if (step === 1) {
-      isValid = validatePersonalInfoWrapper() && validateSpouseInfoWrapper();
+      isValid = validatePersonalInfoWrapper();
+      // Only validate spouse info if married
+      if (isValid && personalInfo.maritalStatus === "married") {
+        isValid = validateSpouseInfoWrapper();
+      }
     }
     
     if (isValid) {

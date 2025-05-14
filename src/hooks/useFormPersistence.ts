@@ -2,18 +2,16 @@ import { useState, useEffect } from 'react';
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from './use-auth';
 
-export function useFormPersistence<T>(formKey: string, initialState: T) {
-  const { user } = useAuth();
+export function useFormPersistence<T>(key: string, initialState: T) {
   const [data, setData] = useState<T>(initialState);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const { user } = useAuth();
 
-  const userSpecificKey = user ? `${formKey}_${user.id}` : null;
+  // Create a user specific key for storage
+  const userSpecificKey = user ? `${key}_${user.uid}` : null;
 
-  // Added console log for debugging
-  console.log("useFormPersistence initialized with:", { userSpecificKey, user, initialState });
-
-  // Load saved data when user logs in
+  // Load data on initial render and when user changes
   useEffect(() => {
     console.log("useFormPersistence effect running with user:", user);
     
@@ -23,16 +21,18 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
     if (userSpecificKey) {
       setIsLoading(true);
       try {
+        // Attempt to load saved form data
         const savedData = localStorage.getItem(userSpecificKey);
-        console.log("Loaded saved data from localStorage:", savedData);
         
         if (savedData) {
+          console.log("Found saved data for key:", userSpecificKey);
           try {
             const parsed = JSON.parse(savedData);
-            console.log("Parsed saved data:", parsed);
             
-            if (parsed && parsed.data) {
-              setData(parsed.data);
+            if (parsed && typeof parsed === 'object') {
+              console.log("Successfully parsed saved form data");
+              setData({ ...initialState, ...parsed.data });
+              
               if (parsed.timestamp) {
                 setLastSaved(new Date(parsed.timestamp));
               }
@@ -54,57 +54,44 @@ export function useFormPersistence<T>(formKey: string, initialState: T) {
     }
   }, [userSpecificKey, initialState]);
 
-  const saveData = (newData: T) => {
-    if (!userSpecificKey) {
-      console.warn("Cannot save data - no user is logged in");
-      return false;
-    }
-    
-    try {
-      const timestamp = new Date().toISOString();
-      const dataToSave = {
-        data: newData,
-        timestamp
-      };
-      
-      console.log("Saving data to localStorage:", dataToSave);
-      localStorage.setItem(userSpecificKey, JSON.stringify(dataToSave));
-      setLastSaved(new Date(timestamp));
-      return true;
-    } catch (e) {
-      console.error("Error saving form data:", e);
-      return false;
-    }
-  };
-
-  const updateData = (newData: T) => {
-    console.log("Updating form data:", newData);
-    setData(newData);
-  };
-
+  // Method to persist data
   const persistData = () => {
-    console.log("Persisting current data:", data);
-    if (saveData(data)) {
-      toast({
-        title: "Progress Saved",
-        description: "Your form progress has been saved.",
-      });
-      return true;
-    } else {
-      toast({
-        title: "Save Failed",
-        description: "There was a problem saving your progress.",
-        variant: "destructive"
-      });
-      return false;
+    if (userSpecificKey) {
+      try {
+        const dataToSave = {
+          data,
+          timestamp: new Date().toISOString()
+        };
+        
+        localStorage.setItem(userSpecificKey, JSON.stringify(dataToSave));
+        setLastSaved(new Date());
+        
+        toast({
+          title: "Form saved",
+          description: "Your form progress has been saved",
+        });
+        
+        return true;
+      } catch (e) {
+        console.error("Error saving form data:", e);
+        
+        toast({
+          title: "Save failed",
+          description: "There was an error saving your form progress",
+          variant: "destructive",
+        });
+        
+        return false;
+      }
     }
+    return false;
   };
 
   return {
     data,
-    updateData,
+    updateData: setData,
     persistData,
     lastSaved,
-    isLoading,
+    isLoading
   };
 }

@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+
+import React, { useState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,7 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { toast } from "@/components/ui/use-toast";
-import { parse, isValid } from "date-fns";
+import { parse, isValid, format } from "date-fns";
 import { cn, applyDateMask } from "@/lib/utils";
 
 interface PersonalInformationSectionProps {
@@ -43,6 +44,13 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   // State to track the masked date input value
   const [dateInputValue, setDateInputValue] = useState("");
 
+  // Initialize date input value from formData
+  useEffect(() => {
+    if (formData.dateOfBirth) {
+      setDateInputValue(format(formData.dateOfBirth, "MM/dd/yyyy"));
+    }
+  }, [formData.dateOfBirth]);
+
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
     // Remove all non-numeric characters
@@ -50,7 +58,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
     
     // Format into (XXX) XXX-XXXX pattern
     if (digits.length <= 3) {
-      return digits;
+      return digits.length > 0 ? `(${digits}` : '';
     } else if (digits.length <= 6) {
       return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
     } else {
@@ -358,44 +366,12 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
       </div>
       
       {/* Additional fields based on marital status */}
-      {formData.maritalStatus === "separated" && (
+      {["separated", "divorced", "widowed"].includes(formData.maritalStatus) && (
         <div>
           <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
-            Spouse's Full Name *
-          </Label>
-          <Input
-            id="spouseFullName"
-            name="spouseFullName"
-            required
-            value={formData.spouseFullName || ""}
-            onChange={onChange}
-            className={cn("text-white", errors.spouseFullName && "border-red-400")}
-          />
-          {errors.spouseFullName && <p className="mt-1 text-sm text-red-400">{errors.spouseFullName}</p>}
-        </div>
-      )}
-      
-      {formData.maritalStatus === "divorced" && (
-        <div>
-          <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
-            Former Spouse's Full Name *
-          </Label>
-          <Input
-            id="spouseFullName"
-            name="spouseFullName"
-            required
-            value={formData.spouseFullName || ""}
-            onChange={onChange}
-            className={cn("text-white", errors.spouseFullName && "border-red-400")}
-          />
-          {errors.spouseFullName && <p className="mt-1 text-sm text-red-400">{errors.spouseFullName}</p>}
-        </div>
-      )}
-      
-      {formData.maritalStatus === "widowed" && (
-        <div>
-          <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
-            Late Spouse's Full Name *
+            {formData.maritalStatus === "separated" ? "Spouse's Full Name *" : 
+             formData.maritalStatus === "divorced" ? "Former Spouse's Full Name *" : 
+             "Late Spouse's Full Name *"}
           </Label>
           <Input
             id="spouseFullName"
