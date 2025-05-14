@@ -1,13 +1,6 @@
 
 import { toast } from "@/components/ui/use-toast";
-import { FormErrors } from "@/types/intakeFormTypes";
-
-interface FormState {
-  step: number;
-  formErrors: FormErrors;
-  personalInfo?: any;
-  [key: string]: any;
-}
+import { FormErrors, IntakeFormState } from "@/types/intakeFormTypes";
 
 interface ValidationFunctions {
   validatePersonalInfo: () => boolean;
@@ -15,8 +8,8 @@ interface ValidationFunctions {
 }
 
 export function useFormStepNavigation(
-  formState: FormState,
-  setFormState: (state: FormState) => void,
+  formState: IntakeFormState, // Changed FormState to IntakeFormState
+  setFormState: (state: IntakeFormState) => void, // Changed parameter type to IntakeFormState
   saveForm: () => void,
   validationFns: ValidationFunctions
 ) {

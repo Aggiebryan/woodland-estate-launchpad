@@ -8,6 +8,7 @@ import { useFormStateUpdaters } from './intakeForm/useFormStateUpdaters';
 import { useFormValidation } from './intakeForm/useFormValidation';
 import { useFormDataPreparation } from './intakeForm/useFormDataPreparation';
 import { initialIntakeFormState } from "./intakeForm/initialState";
+import { IntakeFormState } from "@/types/intakeFormTypes"; // Make sure to import the IntakeFormState type
 
 export function useIntakeFormPageLogic() {
   const { user } = useAuth();
@@ -19,7 +20,7 @@ export function useIntakeFormPageLogic() {
     persistData: saveForm,
     lastSaved,
     isLoading
-  } = useFormPersistence('intake_form', initialIntakeFormState);
+  } = useFormPersistence<IntakeFormState>('intake_form', initialIntakeFormState);
 
   // Form validation hooks
   const { validatePersonalInfo, validateSpouseInfo } = useFormValidation(formState, setFormState);
@@ -27,10 +28,10 @@ export function useIntakeFormPageLogic() {
   // Form state update handlers
   const stateUpdaters = useFormStateUpdaters(formState, setFormState);
   
-  // Navigation handlers
+  // Navigation handlers - Fix the type by using a type assertion
   const navigation = useFormStepNavigation(
     formState, 
-    setFormState, 
+    setFormState as (state: any) => void, // Use type assertion to fix the type mismatch
     saveForm, 
     { validatePersonalInfo, validateSpouseInfo }
   );

@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { toast } from "@/components/ui/use-toast";
 import { useAuth } from './use-auth';
@@ -9,7 +10,7 @@ export function useFormPersistence<T>(key: string, initialState: T) {
   const { user } = useAuth();
 
   // Create a user specific key for storage
-  const userSpecificKey = user ? `${key}_${user.uid}` : null;
+  const userSpecificKey = user ? `${key}_${user.id}` : null; // Changed from user.uid to user.id
 
   // Load data on initial render and when user changes
   useEffect(() => {
