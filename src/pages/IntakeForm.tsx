@@ -346,56 +346,54 @@ const IntakeForm = () => {
     window.scrollTo(0, 0);
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setIsSubmitting(true);
+const handleSubmit = async (e) => {
+  e.preventDefault();
+  setIsSubmitting(true);
 
-    // Combine all form data
-    const formData = {
-      personal: personalInfo,
-      spouse: spouseInfo,
-      children: childrenInfo,
-      powerOfAttorney: poaInfo,
-      executor: executorInfo,
-      trustee: trusteeInfo,
-      assets: assetsInfo,
-      specialBequests: specialBequestsInfo,
-      additionalNotes,
-    };
-
-    try {
-      // API endpoint can be updated later
-      const response = await fetch("https://n8n.twlf.dev/webhook-test/estate-intake", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) {
-        throw new Error("Submission failed");
-      }
-
-      toast({
-        title: "Form Submitted Successfully",
-        description: "We'll review your information and contact you soon.",
-      });
-
-      // Reset form or navigate to a thank you page
-      // For now, just navigate back to step 1
-      setStep(1);
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: "Submission Error",
-        description: "There was a problem submitting your form. Please try again.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+  // Combine all form data
+  const formData = {
+    personal: personalInfo,
+    spouse: spouseInfo,
+    children: childrenInfo,
+    powerOfAttorney: poaInfo,
+    executor: executorInfo,
+    trustee: trusteeInfo,
+    assets: assetsInfo,
+    specialBequests: specialBequestsInfo,
+    additionalNotes,
   };
+
+  try {
+    const response = await fetch("https://n8n.twlf.dev/webhook-test/estate-intake", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(formData),
+    });
+
+    if (!response.ok) {
+      throw new Error("Submission failed");
+    }
+
+    toast({
+      title: "Form Submitted Successfully",
+      description: "We'll review your information and contact you soon.",
+    });
+
+    setStep(1);
+  } catch (error) {
+    console.error("Error submitting form:", error);
+    toast({
+      title: "Submission Error",
+      description: "There was a problem submitting your form. Please try again.",
+      variant: "destructive",
+    });
+  } finally {
+    setIsSubmitting(false);
+  }
+};
+
 
   // Render steps
   const renderStep = () => {
