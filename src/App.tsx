@@ -1,3 +1,4 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -31,6 +32,7 @@ import ElderLaw from "./pages/ElderLaw";
 import Schedule from "./pages/Schedule";
 import IntakeForm from "./pages/IntakeForm";
 import ErrorBoundary from "./components/shared/ErrorBoundary";
+import Login from "./pages/Login"; // Import the new Login page
 
 // Generic component for pages under development
 const UnderDevelopment = () => (
@@ -97,6 +99,9 @@ const App = () => (
               <Route path="/probate" element={<Probate />} />
               <Route path="/guardianship" element={<Guardianship />} />
               <Route path="/elder-law" element={<ElderLaw />} />
+              
+              {/* Authentication Routes */}
+              <Route path="/login" element={<Login />} />
               
               {/* Landing Page Route */}
               <Route path="/estate-planning" element={<EstatePlanningLanding />} />
