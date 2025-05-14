@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -183,6 +182,9 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
               onSelect={(date) => onDateChange("dateOfBirth", date)}
               disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
               initialFocus
+              captionLayout="dropdown-buttons"
+              fromYear={1900}
+              toYear={new Date().getFullYear()}
             />
           </PopoverContent>
         </Popover>
