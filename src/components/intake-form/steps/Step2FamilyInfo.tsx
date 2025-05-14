@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChildrenInfo, PowerOfAttorneyInfo } from "@/hooks/useIntakeFormState";
@@ -13,7 +12,7 @@ import {
   addChild,
   removeChild,
   handlePoaChange
-} from "../formHandlers";
+} from "../handlers";
 
 interface Step2Props {
   childrenInfo: ChildrenInfo;

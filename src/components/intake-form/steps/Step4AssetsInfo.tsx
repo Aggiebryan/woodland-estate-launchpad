@@ -1,9 +1,8 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { AssetsInfo } from "@/hooks/useIntakeFormState";
 import AssetsCategorySection from "@/components/shared/AssetsCategorySection";
-import { handleAssetsChange, handleCategoryToggle } from "../formHandlers";
+import { handleAssetsChange, handleCategoryToggle } from "../handlers";
 
 interface Step4Props {
   assetsInfo: AssetsInfo;

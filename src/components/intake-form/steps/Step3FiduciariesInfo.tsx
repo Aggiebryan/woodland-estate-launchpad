@@ -1,4 +1,3 @@
-
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExecutorInfo, TrusteeInfo } from "@/hooks/useIntakeFormState";
@@ -20,7 +19,7 @@ import {
   handleAdditionalTrusteeStateChange,
   addAlternateTrustee,
   removeAlternateTrustee
-} from "../formHandlers";
+} from "../handlers";
 
 interface Step3Props {
   executorInfo: ExecutorInfo;

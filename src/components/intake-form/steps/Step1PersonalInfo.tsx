@@ -10,7 +10,7 @@ import {
   handleDateChange,
   handleSpouseInfoChange,
   handleSpouseDateChange
-} from "../formHandlers";
+} from "../handlers";
 import { toast } from "@/hooks/use-toast";
 
 interface Step1Props {
