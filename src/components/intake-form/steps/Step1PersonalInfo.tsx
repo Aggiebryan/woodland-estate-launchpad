@@ -11,7 +11,7 @@ import {
   handleSpouseInfoChange,
   handleSpouseDateChange
 } from "../handlers";
-import { toast } from "@/hooks/use-toast";
+import { toast } from "@/components/ui/use-toast";
 
 interface Step1Props {
   personalInfo: PersonalInfo;
@@ -36,7 +36,7 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
 }) => {
   const handleNext = () => {
     const personalValid = validatePersonalInfo();
-    const spouseValid = validateSpouseInfo();
+    const spouseValid = personalInfo?.maritalStatus === "married" ? validateSpouseInfo() : true;
     
     if (personalValid && spouseValid) {
       nextStep();
@@ -49,6 +49,9 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
     }
   };
 
+  // Safety check to prevent errors
+  const isMarried = personalInfo && personalInfo.maritalStatus === "married";
+
   return (
     <>
       <PersonalInformationSection
@@ -59,7 +62,7 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
         errors={formErrors.personalInfo || {}}
       />
 
-      {personalInfo.maritalStatus === "married" && (
+      {isMarried && (
         <SpouseInformationSection
           formData={spouseInfo}
           onChange={(e) => handleSpouseInfoChange(e, setSpouseInfo)}

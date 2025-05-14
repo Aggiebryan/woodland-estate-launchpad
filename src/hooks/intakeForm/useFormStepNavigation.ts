@@ -5,6 +5,7 @@ import { FormErrors } from "@/types/intakeFormTypes";
 interface FormState {
   step: number;
   formErrors: FormErrors;
+  personalInfo?: any;
   [key: string]: any;
 }
 
@@ -28,10 +29,13 @@ export function useFormStepNavigation(
   const nextStep = () => {
     // Validate current step before proceeding
     let isValid = true;
-    const { step } = formState;
+    const { step, personalInfo } = formState;
     
     if (step === 1) {
-      isValid = validatePersonalInfo() && validateSpouseInfo();
+      isValid = validatePersonalInfo();
+      if (isValid && personalInfo?.maritalStatus === "married") {
+        isValid = validateSpouseInfo();
+      }
     }
     
     if (isValid) {
