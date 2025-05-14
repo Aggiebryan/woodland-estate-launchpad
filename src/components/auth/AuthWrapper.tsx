@@ -12,9 +12,9 @@ interface AuthWrapperProps {
 
 const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const [showLogin, setShowLogin] = useState(true);
-  const { user, logout, isLoading } = useAuth();
+  const { user, logout, isLoading, isAuthenticated } = useAuth();
 
-  console.log("AuthWrapper rendering, user:", user ? "logged in" : "not logged in");
+  console.log("AuthWrapper rendering, user:", isAuthenticated ? "logged in" : "not logged in");
 
   if (isLoading) {
     return (
@@ -24,7 +24,7 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     );
   }
 
-  if (!user) {
+  if (!isAuthenticated) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-woodlands-darkpurple via-woodlands-purple to-woodlands-lightpurple">
         <div className="container mx-auto px-4 py-16">

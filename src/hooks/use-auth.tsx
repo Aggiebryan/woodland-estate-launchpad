@@ -14,6 +14,7 @@ interface AuthContextType {
   logout: () => void;
   register: (email: string, password: string) => Promise<boolean>;
   isLoading: boolean;
+  isAuthenticated: boolean; // Added isAuthenticated property
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -31,6 +32,7 @@ interface StoredUser {
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isAuthenticated, setIsAuthenticated] = useState(false); // Add state for isAuthenticated
 
   useEffect(() => {
     // Check for existing session on mount
@@ -39,8 +41,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       try {
         const userData = JSON.parse(storedSession) as User;
         setUser(userData);
+        setIsAuthenticated(true); // Set to true when user is found
       } catch (e) {
         localStorage.removeItem('woodlands_auth_session');
+        setIsAuthenticated(false); // Set to false on error
       }
     }
     setIsLoading(false);
@@ -73,6 +77,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         };
         localStorage.setItem('woodlands_auth_session', JSON.stringify(userData));
         setUser(userData);
+        setIsAuthenticated(true); // Set to true on successful login
         
         toast({
           title: "Login Successful",
@@ -154,6 +159,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       };
       localStorage.setItem('woodlands_auth_session', JSON.stringify(userData));
       setUser(userData);
+      setIsAuthenticated(true); // Set to true after successful registration
       
       toast({
         title: "Registration Successful",
@@ -176,6 +182,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const logout = () => {
     localStorage.removeItem('woodlands_auth_session');
     setUser(null);
+    setIsAuthenticated(false); // Set to false on logout
     
     toast({
       title: "Logged Out",
@@ -184,7 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, register, isLoading }}>
+    <AuthContext.Provider value={{ user, login, logout, register, isLoading, isAuthenticated }}>
       {children}
     </AuthContext.Provider>
   );
