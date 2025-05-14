@@ -16,6 +16,7 @@ const IntakeForm = () => {
     setStep,
     isSubmitting,
     setIsSubmitting,
+    formErrors,
     personalInfo,
     setPersonalInfo,
     spouseInfo,
@@ -35,7 +36,9 @@ const IntakeForm = () => {
     additionalNotes,
     setAdditionalNotes,
     nextStep,
-    prevStep
+    prevStep,
+    validatePersonalInfo,
+    validateSpouseInfo
   } = useIntakeFormState();
 
   // Combined form data for submission
@@ -62,6 +65,9 @@ const IntakeForm = () => {
             spouseInfo={spouseInfo}
             setSpouseInfo={setSpouseInfo}
             nextStep={nextStep}
+            validatePersonalInfo={validatePersonalInfo}
+            validateSpouseInfo={validateSpouseInfo}
+            formErrors={formErrors}
           />
         );
 

@@ -1,4 +1,6 @@
+
 import { useState } from "react";
+import { toast } from "@/components/ui/use-toast";
 
 export interface PersonalInfo {
   firstName: string;
@@ -501,6 +503,8 @@ export function useIntakeFormState() {
     additionalNotes,
     setAdditionalNotes,
     nextStep,
-    prevStep
+    prevStep,
+    validatePersonalInfo,
+    validateSpouseInfo
   };
 }
