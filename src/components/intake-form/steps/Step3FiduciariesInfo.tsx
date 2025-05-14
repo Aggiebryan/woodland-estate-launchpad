@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ExecutorInfo, TrusteeInfo } from "@/hooks/useIntakeFormState";
@@ -19,7 +20,7 @@ import {
   handleAdditionalTrusteeStateChange,
   addAlternateTrustee,
   removeAlternateTrustee
-} from "../handlers";
+} from "../formHandlers";
 
 interface Step3Props {
   executorInfo: ExecutorInfo;
@@ -30,8 +31,6 @@ interface Step3Props {
   prevStep: () => void;
   setChildrenInfo: any;
   setSpecialBequestsInfo: any;
-  personalInfo: any;
-  spouseInfo: any;
 }
 
 const Step3FiduciariesInfo: React.FC<Step3Props> = ({
@@ -42,23 +41,8 @@ const Step3FiduciariesInfo: React.FC<Step3Props> = ({
   nextStep,
   prevStep,
   setChildrenInfo,
-  setSpecialBequestsInfo,
-  personalInfo,
-  spouseInfo
+  setSpecialBequestsInfo
 }) => {
-  // Create address object from personal information
-  const clientAddress = {
-    street: personalInfo.address || "",
-    city: personalInfo.city || "",
-    state: personalInfo.state || "",
-    zipCode: personalInfo.zipCode || ""
-  };
-
-  // Combine spouse's name
-  const spouseFullName = personalInfo.maritalStatus === "married" 
-    ? `${spouseInfo.spouseFirstName} ${spouseInfo.spouseMiddleName ? spouseInfo.spouseMiddleName + ' ' : ''}${spouseInfo.spouseLastName}`.trim()
-    : "";
-
   return (
     <>
       <ExecutorSection
@@ -81,10 +65,6 @@ const Step3FiduciariesInfo: React.FC<Step3Props> = ({
         }
         addAlternateExecutor={() => addAlternateExecutor(setExecutorInfo)}
         removeAlternateExecutor={(index) => removeAlternateExecutor(index, setExecutorInfo)}
-        spouseFullName={spouseFullName}
-        spousePhone={spouseInfo.spousePhone}
-        spouseEmail={spouseInfo.spouseEmail}
-        clientAddress={clientAddress}
       />
 
       <TrusteeSection

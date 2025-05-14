@@ -1,5 +1,4 @@
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
@@ -27,45 +26,11 @@ interface PowerOfAttorneySectionProps {
     hasAdditionalAlternatePOAs: boolean;
   };
   onChange: (data: any) => void;
-  spouseFullName?: string;
-  spousePhone?: string;
-  spouseEmail?: string;
-  clientAddress?: {
-    street: string;
-    city: string;
-    state: string;
-    zipCode: string;
-  };
 }
 const PowerOfAttorneySection: React.FC<PowerOfAttorneySectionProps> = ({
   formData,
-  onChange,
-  spouseFullName,
-  spousePhone,
-  spouseEmail,
-  clientAddress
+  onChange
 }) => {
-  // Add effect to handle spouse information when checkbox is toggled
-  useEffect(() => {
-    if (formData.useSpouseAsPrimaryPOA && spouseFullName) {
-      onChange({
-        ...formData,
-        primaryPOA: {
-          ...formData.primaryPOA,
-          fullName: spouseFullName,
-          phone: spousePhone || "",
-          email: spouseEmail || "",
-          address: {
-            street: clientAddress?.street || "",
-            city: clientAddress?.city || "",
-            state: clientAddress?.state || "",
-            zipCode: clientAddress?.zipCode || ""
-          }
-        }
-      });
-    }
-  }, [formData.useSpouseAsPrimaryPOA, spouseFullName, spousePhone, spouseEmail, clientAddress]);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, field: string, agentType: "primaryPOA" | "alternatePOA" | number) => {
     const {
       name,

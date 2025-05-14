@@ -9,7 +9,7 @@ import {
   TrusteeInfo, 
   AssetsInfo, 
   SpecialBequestsInfo 
-} from "@/types/intakeFormTypes";
+} from "@/hooks/useIntakeFormState";
 
 interface FormSubmissionData {
   personal: PersonalInfo;

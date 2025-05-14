@@ -1,5 +1,5 @@
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import {
@@ -9,9 +9,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { toast } from "@/hooks/use-toast";
-import { parse, isValid, format } from "date-fns";
-import { cn, applyDateMask } from "@/lib/utils";
+import { toast } from "@/components/ui/use-toast";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface PersonalInformationSectionProps {
   formData: {
@@ -41,16 +45,6 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
   onDateChange,
   errors,
 }) => {
-  // State to track the masked date input value
-  const [dateInputValue, setDateInputValue] = useState("");
-
-  // Initialize date input value from formData
-  useEffect(() => {
-    if (formData.dateOfBirth) {
-      setDateInputValue(format(formData.dateOfBirth, "MM/dd/yyyy"));
-    }
-  }, [formData.dateOfBirth]);
-
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
     // Remove all non-numeric characters
@@ -58,7 +52,7 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
     
     // Format into (XXX) XXX-XXXX pattern
     if (digits.length <= 3) {
-      return digits.length > 0 ? `(${digits}` : '';
+      return digits;
     } else if (digits.length <= 6) {
       return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
     } else {
@@ -113,28 +107,6 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
     }
   };
 
-  // Handle date input with masking
-  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    
-    // Apply the mask and update the input value
-    const maskedValue = applyDateMask(value);
-    setDateInputValue(maskedValue);
-    
-    // Try to parse the date if it's in the right format (MM/DD/YYYY)
-    if (maskedValue.length === 10) {
-      const parsedDate = parse(maskedValue, "MM/dd/yyyy", new Date());
-      
-      // Update the form data if the date is valid
-      if (isValid(parsedDate)) {
-        onDateChange("dateOfBirth", parsedDate);
-      }
-    } else if (value === "") {
-      // If the input is cleared, set date to undefined
-      onDateChange("dateOfBirth", undefined);
-    }
-  };
-
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
       <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Personal Information</h3>
@@ -181,19 +153,39 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
         </div>
       </div>
 
-      {/* Date of Birth Field with manual masked input */}
+      {/* Date of Birth Field */}
       <div>
         <Label htmlFor="dateOfBirth" className={cn("text-woodlands-gold", errors.dateOfBirth && "text-red-400")}>
           Date of Birth *
         </Label>
-        <Input
-          id="dateOfBirthInput"
-          placeholder="MM/DD/YYYY"
-          value={dateInputValue}
-          onChange={handleDateInputChange}
-          className={cn("text-white", errors.dateOfBirth && "border-red-400")}
-          maxLength={10}
-        />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full pl-3 text-left font-normal text-white",
+                !formData.dateOfBirth && "text-muted-foreground",
+                errors.dateOfBirth && "border-red-400"
+              )}
+            >
+              {formData.dateOfBirth ? (
+                format(formData.dateOfBirth, "PPP")
+              ) : (
+                <span>Select your date of birth</span>
+              )}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={formData.dateOfBirth}
+              onSelect={(date) => onDateChange("dateOfBirth", date)}
+              disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
         {errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth}</p>}
       </div>
 
@@ -366,12 +358,44 @@ const PersonalInformationSection: React.FC<PersonalInformationSectionProps> = ({
       </div>
       
       {/* Additional fields based on marital status */}
-      {["separated", "divorced", "widowed"].includes(formData.maritalStatus) && (
+      {formData.maritalStatus === "separated" && (
         <div>
           <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
-            {formData.maritalStatus === "separated" ? "Spouse's Full Name *" : 
-             formData.maritalStatus === "divorced" ? "Former Spouse's Full Name *" : 
-             "Late Spouse's Full Name *"}
+            Spouse's Full Name *
+          </Label>
+          <Input
+            id="spouseFullName"
+            name="spouseFullName"
+            required
+            value={formData.spouseFullName || ""}
+            onChange={onChange}
+            className={cn("text-white", errors.spouseFullName && "border-red-400")}
+          />
+          {errors.spouseFullName && <p className="mt-1 text-sm text-red-400">{errors.spouseFullName}</p>}
+        </div>
+      )}
+      
+      {formData.maritalStatus === "divorced" && (
+        <div>
+          <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
+            Former Spouse's Full Name *
+          </Label>
+          <Input
+            id="spouseFullName"
+            name="spouseFullName"
+            required
+            value={formData.spouseFullName || ""}
+            onChange={onChange}
+            className={cn("text-white", errors.spouseFullName && "border-red-400")}
+          />
+          {errors.spouseFullName && <p className="mt-1 text-sm text-red-400">{errors.spouseFullName}</p>}
+        </div>
+      )}
+      
+      {formData.maritalStatus === "widowed" && (
+        <div>
+          <Label htmlFor="spouseFullName" className={cn("text-woodlands-gold", errors.spouseFullName && "text-red-400")}>
+            Late Spouse's Full Name *
           </Label>
           <Input
             id="spouseFullName"

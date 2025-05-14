@@ -1,5 +1,5 @@
 
-import React, { useEffect } from "react";
+import React from "react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfo, SpouseInfo } from "@/hooks/useIntakeFormState";
 import PersonalInformationSection from "@/components/shared/PersonalInformationSection";
@@ -10,8 +10,8 @@ import {
   handleDateChange,
   handleSpouseInfoChange,
   handleSpouseDateChange
-} from "../handlers";
-import { toast } from "@/hooks/use-toast";
+} from "../formHandlers";
+import { toast } from "@/components/ui/use-toast";
 
 interface Step1Props {
   personalInfo: PersonalInfo;
@@ -34,46 +34,9 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   validateSpouseInfo,
   formErrors,
 }) => {
-  // Added console log for debugging
-  console.log("Step1PersonalInfo rendering with:", { 
-    personalInfo, 
-    spouseInfo, 
-    formErrors,
-    personalInfoType: typeof personalInfo
-  });
-  
-  // Create default objects if undefined to prevent errors
-  const safePersonalInfo = personalInfo || {
-    firstName: "",
-    middleName: "",
-    lastName: "",
-    dateOfBirth: undefined,
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    maritalStatus: "",
-    spouseFullName: ""
-  };
-
-  const safeSpouseInfo = spouseInfo || {
-    spouseFirstName: "",
-    spouseMiddleName: "",
-    spouseLastName: "",
-    spouseDateOfBirth: undefined,
-    spouseEmail: "",
-    spousePhone: ""
-  };
-
   const handleNext = () => {
-    console.log("Attempting to validate personal info", safePersonalInfo);
     const personalValid = validatePersonalInfo();
-    console.log("Personal validation result:", personalValid);
-    
-    const spouseValid = safePersonalInfo?.maritalStatus === "married" ? validateSpouseInfo() : true;
-    console.log("Spouse validation result:", spouseValid);
+    const spouseValid = validateSpouseInfo();
     
     if (personalValid && spouseValid) {
       nextStep();
@@ -86,22 +49,19 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
     }
   };
 
-  // Safety check to prevent errors
-  const isMarried = safePersonalInfo && safePersonalInfo.maritalStatus === "married";
-
   return (
     <>
       <PersonalInformationSection
-        formData={safePersonalInfo}
+        formData={personalInfo}
         onChange={(e) => handlePersonalInfoChange(e, setPersonalInfo)}
         onSelectChange={(field, value) => handleSelectChange(field, value, setPersonalInfo)}
         onDateChange={(field, value) => handleDateChange(field, value, setPersonalInfo)}
         errors={formErrors.personalInfo || {}}
       />
 
-      {isMarried && (
+      {personalInfo.maritalStatus === "married" && (
         <SpouseInformationSection
-          formData={safeSpouseInfo}
+          formData={spouseInfo}
           onChange={(e) => handleSpouseInfoChange(e, setSpouseInfo)}
           onDateChange={(field, value) => handleSpouseDateChange(field, value, setSpouseInfo)}
           showSpouseSection={true}

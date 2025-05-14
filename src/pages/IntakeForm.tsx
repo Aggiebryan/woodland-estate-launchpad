@@ -1,94 +1,156 @@
 
 import React from "react";
-import { useNavigate, Navigate } from "react-router-dom";
-import MainLayout from "@/components/layout/MainLayout";
-import FormProgress from "@/components/intake-form/FormProgress";
-import AuthWrapper from "@/components/auth/AuthWrapper";
-import ErrorBoundary from "@/components/shared/ErrorBoundary";
-import FormHeader from "@/components/intake-form/FormHeader";
-import FormStepRenderer from "@/components/intake-form/FormStepRenderer";
-import FormLoading from "@/components/intake-form/FormLoading";
-import { useIntakeFormPageLogic } from "@/hooks/useIntakeFormPageLogic";
-import { useAuth } from "@/hooks/use-auth";
 import { toast } from "@/components/ui/use-toast";
+import MainLayout from "@/components/layout/MainLayout";
+import { useIntakeFormState } from "@/hooks/useIntakeFormState";
+import FormProgress from "@/components/intake-form/FormProgress";
+import Step1PersonalInfo from "@/components/intake-form/steps/Step1PersonalInfo";
+import Step2FamilyInfo from "@/components/intake-form/steps/Step2FamilyInfo";
+import Step3FiduciariesInfo from "@/components/intake-form/steps/Step3FiduciariesInfo";
+import Step4AssetsInfo from "@/components/intake-form/steps/Step4AssetsInfo";
+import Step5FinalDetails from "@/components/intake-form/steps/Step5FinalDetails";
 
 const IntakeForm = () => {
-  const { isAuthenticated, isLoading: authLoading } = useAuth();
-
   const {
-    formState,
-    formData,
-    isLoading,
-    lastSaved,
-    saveForm,
-    formParts
-  } = useIntakeFormPageLogic();
+    step,
+    setStep,
+    isSubmitting,
+    setIsSubmitting,
+    formErrors,
+    personalInfo,
+    setPersonalInfo,
+    spouseInfo,
+    setSpouseInfo,
+    childrenInfo,
+    setChildrenInfo,
+    poaInfo,
+    setPoaInfo,
+    executorInfo,
+    setExecutorInfo,
+    trusteeInfo,
+    setTrusteeInfo,
+    assetsInfo,
+    setAssetsInfo,
+    specialBequestsInfo,
+    setSpecialBequestsInfo,
+    additionalNotes,
+    setAdditionalNotes,
+    nextStep,
+    prevStep,
+    validatePersonalInfo,
+    validateSpouseInfo
+  } = useIntakeFormState();
 
-  // Added console log for debugging
-  console.log("Rendering IntakeForm component", {
-    isAuthenticated,
-    authLoading,
-    isLoading,
-    formState,
-    formParts
-  });
+  // Combined form data for submission
+  const formData = {
+    personal: personalInfo,
+    spouse: spouseInfo,
+    children: childrenInfo,
+    powerOfAttorney: poaInfo,
+    executor: executorInfo,
+    trustee: trusteeInfo,
+    assets: assetsInfo,
+    specialBequests: specialBequestsInfo,
+    additionalNotes,
+  };
 
-  // If not authenticated and not loading, redirect to login
-  if (!authLoading && !isAuthenticated) {
-    console.log("User not authenticated, redirecting to login");
-    return <Navigate to="/login" replace />;
-  }
+  // Render steps
+  const renderStep = () => {
+    switch (step) {
+      case 1:
+        return (
+          <Step1PersonalInfo
+            personalInfo={personalInfo}
+            setPersonalInfo={setPersonalInfo}
+            spouseInfo={spouseInfo}
+            setSpouseInfo={setSpouseInfo}
+            nextStep={nextStep}
+            validatePersonalInfo={validatePersonalInfo}
+            validateSpouseInfo={validateSpouseInfo}
+            formErrors={formErrors}
+          />
+        );
 
-  // Show loading state while checking authentication or loading form data
-  if (authLoading || isLoading) {
-    return (
-      <MainLayout>
-        <div className="container max-w-4xl mx-auto px-4 py-12">
-          <FormLoading />
-        </div>
-      </MainLayout>
-    );
-  }
+      case 2:
+        return (
+          <Step2FamilyInfo
+            childrenInfo={childrenInfo}
+            setChildrenInfo={setChildrenInfo}
+            poaInfo={poaInfo}
+            setPoaInfo={setPoaInfo}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setExecutorInfo={setExecutorInfo}
+            setTrusteeInfo={setTrusteeInfo}
+            setSpecialBequestsInfo={setSpecialBequestsInfo}
+          />
+        );
 
-  // Make sure formState has been properly initialized
-  if (!formState || !formParts || !formParts.personalInfo) {
-    console.error("Form state not properly initialized:", { formState, formParts });
-    
-    return (
-      <MainLayout>
-        <div className="container max-w-4xl mx-auto px-4 py-12">
-          <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg">
-            <div className="text-red-500 text-center p-4">
-              <h2 className="text-xl font-bold mb-2">Error Initializing Form</h2>
-              <p>There was a problem loading your form data. Please try refreshing the page or contact support.</p>
-            </div>
-          </div>
-        </div>
-      </MainLayout>
-    );
-  }
+      case 3:
+        return (
+          <Step3FiduciariesInfo
+            executorInfo={executorInfo}
+            setExecutorInfo={setExecutorInfo}
+            trusteeInfo={trusteeInfo}
+            setTrusteeInfo={setTrusteeInfo}
+            nextStep={nextStep}
+            prevStep={prevStep}
+            setChildrenInfo={setChildrenInfo}
+            setSpecialBequestsInfo={setSpecialBequestsInfo}
+          />
+        );
+
+      case 4:
+        return (
+          <Step4AssetsInfo
+            assetsInfo={assetsInfo}
+            setAssetsInfo={setAssetsInfo}
+            nextStep={nextStep}
+            prevStep={prevStep}
+          />
+        );
+
+      case 5:
+        return (
+          <Step5FinalDetails
+            specialBequestsInfo={specialBequestsInfo}
+            setSpecialBequestsInfo={setSpecialBequestsInfo}
+            additionalNotes={additionalNotes}
+            setAdditionalNotes={setAdditionalNotes}
+            prevStep={prevStep}
+            isSubmitting={isSubmitting}
+            setIsSubmitting={setIsSubmitting}
+            setStep={setStep}
+            formData={formData}
+            setChildrenInfo={setChildrenInfo}
+            setExecutorInfo={setExecutorInfo}
+            setTrusteeInfo={setTrusteeInfo}
+          />
+        );
+
+      default:
+        return <div>Unknown step</div>;
+    }
+  };
 
   return (
-    <AuthWrapper>
-      <MainLayout>
-        <div className="container max-w-4xl mx-auto px-4 py-12">
-          <FormHeader saveForm={saveForm} lastSaved={lastSaved} />
-
-          <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg">
-            <ErrorBoundary>
-              <FormProgress step={formParts.step} totalSteps={5} />
-              <div className="space-y-6">
-                <FormStepRenderer 
-                  step={formParts.step} 
-                  formProps={formParts}
-                  formData={formData}
-                />
-              </div>
-            </ErrorBoundary>
-          </div>
+    <MainLayout>
+      <div className="container max-w-4xl mx-auto px-4 py-12">
+        <div className="mb-8 text-center">
+          <h1 className="text-3xl md:text-4xl font-bold text-woodlands-gold mb-4">
+            Estate Planning Intake Form
+          </h1>
+          <p className="text-woodlands-cream opacity-80">
+            Please provide the following information to help us prepare your estate planning documents.
+          </p>
         </div>
-      </MainLayout>
-    </AuthWrapper>
+
+        <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg">
+          <FormProgress step={step} totalSteps={5} />
+          <div className="space-y-6">{renderStep()}</div>
+        </div>
+      </div>
+    </MainLayout>
   );
 };
 

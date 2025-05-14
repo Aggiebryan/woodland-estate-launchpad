@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Button } from "@/components/ui/button";
 import { ChildrenInfo, PowerOfAttorneyInfo } from "@/hooks/useIntakeFormState";
@@ -12,7 +13,7 @@ import {
   addChild,
   removeChild,
   handlePoaChange
-} from "../handlers";
+} from "../formHandlers";
 
 interface Step2Props {
   childrenInfo: ChildrenInfo;
@@ -24,8 +25,6 @@ interface Step2Props {
   setExecutorInfo: any;
   setTrusteeInfo: any;
   setSpecialBequestsInfo: any;
-  personalInfo: any;
-  spouseInfo: any;
 }
 
 const Step2FamilyInfo: React.FC<Step2Props> = ({
@@ -37,23 +36,8 @@ const Step2FamilyInfo: React.FC<Step2Props> = ({
   prevStep,
   setExecutorInfo,
   setTrusteeInfo,
-  setSpecialBequestsInfo,
-  personalInfo,
-  spouseInfo
+  setSpecialBequestsInfo
 }) => {
-  // Create address object from personal information
-  const clientAddress = {
-    street: personalInfo.address || "",
-    city: personalInfo.city || "",
-    state: personalInfo.state || "",
-    zipCode: personalInfo.zipCode || ""
-  };
-
-  // Combine spouse's name
-  const spouseFullName = personalInfo.maritalStatus === "married" 
-    ? `${spouseInfo.spouseFirstName} ${spouseInfo.spouseMiddleName ? spouseInfo.spouseMiddleName + ' ' : ''}${spouseInfo.spouseLastName}`.trim()
-    : "";
-
   return (
     <>
       <ChildrenSection
@@ -81,10 +65,6 @@ const Step2FamilyInfo: React.FC<Step2Props> = ({
       <PowerOfAttorneySection
         formData={poaInfo}
         onChange={(updatedData) => handlePoaChange(updatedData, setPoaInfo)}
-        spouseFullName={spouseFullName}
-        spousePhone={spouseInfo.spousePhone}
-        spouseEmail={spouseInfo.spouseEmail}
-        clientAddress={clientAddress}
       />
 
       <div className="flex justify-between mt-8">

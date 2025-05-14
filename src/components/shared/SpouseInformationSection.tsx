@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+
+import React from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { toast } from "@/hooks/use-toast";
-import { parse, isValid, format } from "date-fns";
-import { cn, applyDateMask } from "@/lib/utils";
+import { toast } from "@/components/ui/use-toast";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Button } from "@/components/ui/button";
+import { CalendarIcon } from "lucide-react";
+import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 interface SpouseInformationSectionProps {
   formData: {
@@ -28,16 +33,6 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
   errors,
 }) => {
   if (!showSpouseSection) return null;
-
-  // State to track the masked date input value
-  const [dateInputValue, setDateInputValue] = useState("");
-  
-  // Initialize date input value from formData
-  useEffect(() => {
-    if (formData.spouseDateOfBirth) {
-      setDateInputValue(format(formData.spouseDateOfBirth, "MM/dd/yyyy"));
-    }
-  }, [formData.spouseDateOfBirth]);
 
   // Function to format phone number as (XXX) XXX-XXXX
   const formatPhoneNumber = (value: string) => {
@@ -87,28 +82,6 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
     }
   };
 
-  // Handle date input with masking
-  const handleDateInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    
-    // Apply the mask and update the input value
-    const maskedValue = applyDateMask(value);
-    setDateInputValue(maskedValue);
-    
-    // Try to parse the date if it's in the right format (MM/DD/YYYY)
-    if (maskedValue.length === 10) {
-      const parsedDate = parse(maskedValue, "MM/dd/yyyy", new Date());
-      
-      // Update the form data if the date is valid
-      if (isValid(parsedDate)) {
-        onDateChange("spouseDateOfBirth", parsedDate);
-      }
-    } else if (value === "") {
-      // If the input is cleared, set date to undefined
-      onDateChange("spouseDateOfBirth", undefined);
-    }
-  };
-
   return (
     <div className="space-y-6 mb-8 border border-woodlands-gold/20 rounded-lg p-6">
       <h3 className="text-xl font-semibold text-woodlands-gold mb-4">Spouse Information</h3>
@@ -155,19 +128,39 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
         </div>
       </div>
 
-      {/* Date of Birth Field with manual masked input */}
+      {/* Date of Birth Field */}
       <div>
         <Label htmlFor="spouseDateOfBirth" className={cn("text-woodlands-gold", errors.spouseDateOfBirth && "text-red-400")}>
           Date of Birth *
         </Label>
-        <Input
-          id="spouseDateOfBirthInput"
-          placeholder="MM/DD/YYYY"
-          value={dateInputValue}
-          onChange={handleDateInputChange}
-          className={cn("text-white", errors.spouseDateOfBirth && "border-red-400")}
-          maxLength={10}
-        />
+        <Popover>
+          <PopoverTrigger asChild>
+            <Button
+              variant="outline"
+              className={cn(
+                "w-full pl-3 text-left font-normal text-white",
+                !formData.spouseDateOfBirth && "text-muted-foreground",
+                errors.spouseDateOfBirth && "border-red-400"
+              )}
+            >
+              {formData.spouseDateOfBirth ? (
+                format(formData.spouseDateOfBirth, "PPP")
+              ) : (
+                <span>Select spouse's date of birth</span>
+              )}
+              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-auto p-0" align="start">
+            <Calendar
+              mode="single"
+              selected={formData.spouseDateOfBirth}
+              onSelect={(date) => onDateChange("spouseDateOfBirth", date)}
+              disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
+              initialFocus
+            />
+          </PopoverContent>
+        </Popover>
         {errors.spouseDateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.spouseDateOfBirth}</p>}
       </div>
 
