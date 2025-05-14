@@ -3,10 +3,6 @@ import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/use-toast";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { CalendarIcon } from "lucide-react";
 import { format, parse, isValid } from "date-fns";
 import { cn } from "@/lib/utils";
 
@@ -98,14 +94,9 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
     // Update the form data if the date is valid
     if (isValid(parsedDate)) {
       onDateChange("spouseDateOfBirth", parsedDate);
-    }
-  };
-
-  // Handle date selection from calendar
-  const handleCalendarSelect = (date: Date | undefined) => {
-    onDateChange("spouseDateOfBirth", date);
-    if (date) {
-      setDateInputValue(format(date, "MM/dd/yyyy"));
+    } else if (value === "") {
+      // If the input is cleared, set date to undefined
+      onDateChange("spouseDateOfBirth", undefined);
     }
   };
 
@@ -155,48 +146,18 @@ const SpouseInformationSection: React.FC<SpouseInformationSectionProps> = ({
         </div>
       </div>
 
-      {/* Date of Birth Field with manual input */}
+      {/* Date of Birth Field with manual input only */}
       <div>
         <Label htmlFor="spouseDateOfBirth" className={cn("text-woodlands-gold", errors.spouseDateOfBirth && "text-red-400")}>
           Date of Birth *
         </Label>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <Input
-            id="spouseDateOfBirthInput"
-            placeholder="MM/DD/YYYY"
-            value={dateInputValue}
-            onChange={handleDateInputChange}
-            className={cn("text-white", errors.spouseDateOfBirth && "border-red-400")}
-          />
-          <Popover>
-            <PopoverTrigger asChild>
-              <Button
-                variant="outline"
-                className={cn(
-                  "pl-3 text-left font-normal text-white",
-                  !formData.spouseDateOfBirth && "text-muted-foreground",
-                  errors.spouseDateOfBirth && "border-red-400"
-                )}
-              >
-                {formData.spouseDateOfBirth ? (
-                  format(formData.spouseDateOfBirth, "PPP")
-                ) : (
-                  <span>Select from calendar</span>
-                )}
-                <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-              </Button>
-            </PopoverTrigger>
-            <PopoverContent className="w-auto p-0" align="start">
-              <Calendar
-                mode="single"
-                selected={formData.spouseDateOfBirth}
-                onSelect={handleCalendarSelect}
-                disabled={(date) => date > new Date() || date < new Date('1900-01-01')}
-                initialFocus
-              />
-            </PopoverContent>
-          </Popover>
-        </div>
+        <Input
+          id="spouseDateOfBirthInput"
+          placeholder="MM/DD/YYYY"
+          value={dateInputValue}
+          onChange={handleDateInputChange}
+          className={cn("text-white", errors.spouseDateOfBirth && "border-red-400")}
+        />
         {errors.spouseDateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.spouseDateOfBirth}</p>}
       </div>
 

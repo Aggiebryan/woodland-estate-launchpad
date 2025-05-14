@@ -5,7 +5,6 @@ import { DayPicker, CaptionProps } from "react-day-picker";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
-import { Select } from "@/components/ui/select";
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>;
 
@@ -15,87 +14,6 @@ function Calendar({
   showOutsideDays = true,
   ...props
 }: CalendarProps) {
-  // Custom caption component with year dropdown
-  function CustomCaption(captionProps: CaptionProps) {
-    const { displayMonth, fromMonth, toMonth } = captionProps;
-    
-    // Get the current year
-    const currentYear = displayMonth.getFullYear();
-    
-    // Generate a list of years (from 100 years ago to current year)
-    const startYear = new Date().getFullYear() - 100;
-    const endYear = new Date().getFullYear();
-    const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => startYear + i);
-
-    // Handle month navigation
-    const handlePreviousClick = () => {
-      const newMonth = new Date(displayMonth);
-      newMonth.setMonth(newMonth.getMonth() - 1);
-      captionProps.onMonthChange(newMonth);
-    };
-
-    const handleNextClick = () => {
-      const newMonth = new Date(displayMonth);
-      newMonth.setMonth(newMonth.getMonth() + 1);
-      captionProps.onMonthChange(newMonth);
-    };
-
-    // Handle year change
-    const handleYearChange = (year: string) => {
-      const newMonth = new Date(displayMonth);
-      newMonth.setFullYear(parseInt(year));
-      captionProps.onMonthChange(newMonth);
-    };
-    
-    return (
-      <div className="flex justify-center pt-1 relative items-center">
-        <div className="flex items-center justify-between w-full">
-          <button
-            onClick={handlePreviousClick}
-            disabled={fromMonth && displayMonth <= fromMonth}
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute left-1"
-            )}
-          >
-            <ChevronLeft className="h-4 w-4" />
-          </button>
-          <div className="flex items-center gap-1">
-            <span className="text-sm font-medium">
-              {displayMonth.toLocaleString('default', { month: 'long' })}
-            </span>
-            <Select
-              value={currentYear.toString()}
-              onValueChange={handleYearChange}
-            >
-              <select 
-                className="h-7 text-sm border-0 bg-transparent font-medium focus:ring-0 focus:outline-none"
-                value={currentYear.toString()}
-                onChange={(e) => handleYearChange(e.target.value)}
-              >
-                {years.map((year) => (
-                  <option key={year} value={year}>
-                    {year}
-                  </option>
-                ))}
-              </select>
-            </Select>
-          </div>
-          <button
-            onClick={handleNextClick}
-            disabled={toMonth && displayMonth >= toMonth}
-            className={cn(
-              buttonVariants({ variant: "outline" }),
-              "h-7 w-7 bg-transparent p-0 opacity-50 hover:opacity-100 absolute right-1"
-            )}
-          >
-            <ChevronRight className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
@@ -133,9 +51,6 @@ function Calendar({
           "aria-selected:bg-accent aria-selected:text-accent-foreground",
         day_hidden: "invisible",
         ...classNames,
-      }}
-      components={{
-        Caption: CustomCaption
       }}
       {...props}
     />
