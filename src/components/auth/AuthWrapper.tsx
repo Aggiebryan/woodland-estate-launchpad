@@ -4,6 +4,7 @@ import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { useAuth } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
+import ErrorBoundary from "@/components/shared/ErrorBoundary";
 
 interface AuthWrapperProps {
   children: React.ReactNode;
@@ -13,10 +14,12 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
   const [showLogin, setShowLogin] = useState(true);
   const { user, logout, isLoading } = useAuth();
 
+  console.log("AuthWrapper rendering, user:", user ? "logged in" : "not logged in");
+
   if (isLoading) {
     return (
       <div className="w-full h-screen flex items-center justify-center bg-woodlands-purple">
-        <div className="text-woodlands-gold text-xl">Loading...</div>
+        <div className="text-woodlands-gold text-xl">Loading authentication...</div>
       </div>
     );
   }
@@ -43,11 +46,13 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
             </div>
             
             <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg border border-woodlands-gold/20">
-              {showLogin ? (
-                <LoginForm onToggleForm={() => setShowLogin(false)} />
-              ) : (
-                <RegisterForm onToggleForm={() => setShowLogin(true)} />
-              )}
+              <ErrorBoundary>
+                {showLogin ? (
+                  <LoginForm onToggleForm={() => setShowLogin(false)} />
+                ) : (
+                  <RegisterForm onToggleForm={() => setShowLogin(true)} />
+                )}
+              </ErrorBoundary>
             </div>
             
             <div className="text-center mt-8">
@@ -61,7 +66,8 @@ const AuthWrapper: React.FC<AuthWrapperProps> = ({ children }) => {
     );
   }
 
-  return <>{children}</>;
+  console.log("Rendering authenticated content");
+  return <ErrorBoundary>{children}</ErrorBoundary>;
 };
 
 export default AuthWrapper;

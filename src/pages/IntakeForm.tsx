@@ -1,6 +1,5 @@
-
 import React, { useEffect } from "react";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 import MainLayout from "@/components/layout/MainLayout";
 import FormProgress from "@/components/intake-form/FormProgress";
 import Step1PersonalInfo from "@/components/intake-form/steps/Step1PersonalInfo";
@@ -14,6 +13,7 @@ import { Save } from "lucide-react";
 import { useFormPersistence } from "@/hooks/useFormPersistence";
 import { useAuth } from "@/hooks/use-auth";
 import { format } from "date-fns";
+import ErrorBoundary from "@/components/shared/ErrorBoundary";
 
 const IntakeForm = () => {
   const { user } = useAuth();
@@ -389,83 +389,96 @@ const IntakeForm = () => {
     switch (step) {
       case 1:
         return (
-          <Step1PersonalInfo
-            personalInfo={personalInfo}
-            setPersonalInfo={setPersonalInfo}
-            spouseInfo={spouseInfo}
-            setSpouseInfo={setSpouseInfo}
-            nextStep={nextStep}
-            validatePersonalInfo={validatePersonalInfo}
-            validateSpouseInfo={validateSpouseInfo}
-            formErrors={formErrors}
-          />
+          <ErrorBoundary>
+            <Step1PersonalInfo
+              personalInfo={personalInfo}
+              setPersonalInfo={setPersonalInfo}
+              spouseInfo={spouseInfo}
+              setSpouseInfo={setSpouseInfo}
+              nextStep={nextStep}
+              validatePersonalInfo={validatePersonalInfo}
+              validateSpouseInfo={validateSpouseInfo}
+              formErrors={formErrors}
+            />
+          </ErrorBoundary>
         );
 
       case 2:
         return (
-          <Step2FamilyInfo
-            childrenInfo={childrenInfo}
-            setChildrenInfo={setChildrenInfo}
-            poaInfo={poaInfo}
-            setPoaInfo={setPoaInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setExecutorInfo={setExecutorInfo}
-            setTrusteeInfo={setTrusteeInfo}
-            setSpecialBequestsInfo={setSpecialBequestsInfo}
-            personalInfo={personalInfo}
-            spouseInfo={spouseInfo}
-          />
+          <ErrorBoundary>
+            <Step2FamilyInfo
+              childrenInfo={childrenInfo}
+              setChildrenInfo={setChildrenInfo}
+              poaInfo={poaInfo}
+              setPoaInfo={setPoaInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+              setExecutorInfo={setExecutorInfo}
+              setTrusteeInfo={setTrusteeInfo}
+              setSpecialBequestsInfo={setSpecialBequestsInfo}
+              personalInfo={personalInfo}
+              spouseInfo={spouseInfo}
+            />
+          </ErrorBoundary>
         );
 
       case 3:
         return (
-          <Step3FiduciariesInfo
-            executorInfo={executorInfo}
-            setExecutorInfo={setExecutorInfo}
-            trusteeInfo={trusteeInfo}
-            setTrusteeInfo={setTrusteeInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-            setChildrenInfo={setChildrenInfo}
-            setSpecialBequestsInfo={setSpecialBequestsInfo}
-            personalInfo={personalInfo}
-            spouseInfo={spouseInfo}
-          />
+          <ErrorBoundary>
+            <Step3FiduciariesInfo
+              executorInfo={executorInfo}
+              setExecutorInfo={setExecutorInfo}
+              trusteeInfo={trusteeInfo}
+              setTrusteeInfo={setTrusteeInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+              setChildrenInfo={setChildrenInfo}
+              setSpecialBequestsInfo={setSpecialBequestsInfo}
+              personalInfo={personalInfo}
+              spouseInfo={spouseInfo}
+            />
+          </ErrorBoundary>
         );
 
       case 4:
         return (
-          <Step4AssetsInfo
-            assetsInfo={assetsInfo}
-            setAssetsInfo={setAssetsInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
+          <ErrorBoundary>
+            <Step4AssetsInfo
+              assetsInfo={assetsInfo}
+              setAssetsInfo={setAssetsInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          </ErrorBoundary>
         );
 
       case 5:
         return (
-          <Step5FinalDetails
-            specialBequestsInfo={specialBequestsInfo}
-            setSpecialBequestsInfo={setSpecialBequestsInfo}
-            additionalNotes={additionalNotes}
-            setAdditionalNotes={setAdditionalNotes}
-            prevStep={prevStep}
-            isSubmitting={isSubmitting}
-            setIsSubmitting={setIsSubmitting}
-            setStep={setStep}
-            formData={formData}
-            setChildrenInfo={setChildrenInfo}
-            setExecutorInfo={setExecutorInfo}
-            setTrusteeInfo={setTrusteeInfo}
-          />
+          <ErrorBoundary>
+            <Step5FinalDetails
+              specialBequestsInfo={specialBequestsInfo}
+              setSpecialBequestsInfo={setSpecialBequestsInfo}
+              additionalNotes={additionalNotes}
+              setAdditionalNotes={setAdditionalNotes}
+              prevStep={prevStep}
+              isSubmitting={isSubmitting}
+              setIsSubmitting={setIsSubmitting}
+              setStep={setStep}
+              formData={formData}
+              setChildrenInfo={setChildrenInfo}
+              setExecutorInfo={setExecutorInfo}
+              setTrusteeInfo={setTrusteeInfo}
+            />
+          </ErrorBoundary>
         );
 
       default:
         return <div>Unknown step</div>;
     }
   };
+
+  // Added console log for debugging
+  console.log("Rendering IntakeForm with step:", step);
 
   if (isLoading) {
     return (
