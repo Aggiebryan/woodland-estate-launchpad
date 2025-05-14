@@ -1,20 +1,19 @@
 
 import { FormErrors, IntakeFormState } from "@/types/intakeFormTypes";
-import { validatePersonalInfo, validateSpouseInfo } from "@/utils/formValidation";
+import { validatePersonalInfo as validatePersonalInfoUtil, validateSpouseInfo as validateSpouseInfoUtil } from "@/utils/formValidation";
 
 export function useFormValidation(
   formState: IntakeFormState, 
   setFormState: (state: IntakeFormState) => void
 ) {
   const validatePersonalInfo = () => {
-    const errors: Record<string, string> = {};
     const { personalInfo } = formState;
     
     // Create a new errors object to be passed to the validation function
     const tempFormErrors = { ...formState.formErrors };
     
     // Use the utility validation function to validate personal info
-    const isValid = validatePersonalInfo(
+    const isValid = validatePersonalInfoUtil(
       personalInfo,
       tempFormErrors,
       (updatedErrors) => {
@@ -39,7 +38,7 @@ export function useFormValidation(
     const tempFormErrors = { ...formState.formErrors };
     
     // Use the utility validation function to validate spouse info
-    const isValid = validateSpouseInfo(
+    const isValid = validateSpouseInfoUtil(
       personalInfo,
       spouseInfo,
       tempFormErrors,
