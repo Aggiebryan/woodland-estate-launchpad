@@ -9,14 +9,38 @@ import {
   SpecialBequestsInfo, 
   PowerOfAttorneyInfo 
 } from "@/hooks/useIntakeFormState";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 export const handlePersonalInfoChange = (
   e: React.ChangeEvent<HTMLInputElement>,
   setPersonalInfo: React.Dispatch<React.SetStateAction<PersonalInfo>>
 ) => {
+  if (!e || !e.target) {
+    console.error("Invalid event in handlePersonalInfoChange");
+    return;
+  }
+  
   const { name, value } = e.target;
-  setPersonalInfo((prev) => ({ ...prev, [name]: value }));
+  setPersonalInfo((prev) => {
+    if (!prev) {
+      console.error("Previous personal info state is undefined");
+      return {
+        firstName: "",
+        middleName: "",
+        lastName: "",
+        dateOfBirth: undefined,
+        email: "",
+        phone: "",
+        address: "",
+        city: "",
+        state: "",
+        zipCode: "",
+        maritalStatus: "",
+        spouseFullName: "",
+      } as PersonalInfo;
+    }
+    return { ...prev, [name]: value };
+  });
 };
 
 export const handleSelectChange = (

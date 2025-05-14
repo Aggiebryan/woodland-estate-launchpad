@@ -1,6 +1,6 @@
 
-import React from "react";
-import { toast } from "@/components/ui/use-toast";
+import React, { useEffect } from "react";
+import { toast } from "@/hooks/use-toast";
 import MainLayout from "@/components/layout/MainLayout";
 import { useIntakeFormState } from "@/hooks/useIntakeFormState";
 import FormProgress from "@/components/intake-form/FormProgress";
@@ -40,6 +40,16 @@ const IntakeForm = () => {
     validatePersonalInfo,
     validateSpouseInfo
   } = useIntakeFormState();
+  
+  // Debug logging to track form state
+  useEffect(() => {
+    console.log("IntakeForm state:", {
+      step,
+      formErrors,
+      personalInfo,
+      spouseInfo,
+    });
+  }, [step, formErrors, personalInfo, spouseInfo]);
 
   // Combined form data for submission
   const formData = {
@@ -54,6 +64,19 @@ const IntakeForm = () => {
     additionalNotes,
   };
 
+  // Safety check for rendering
+  if (!personalInfo) {
+    return (
+      <MainLayout>
+        <div className="container max-w-4xl mx-auto px-4 py-12">
+          <div className="bg-woodlands-purple-dark p-6 md:p-8 rounded-lg shadow-lg">
+            <p className="text-woodlands-cream">Loading form data...</p>
+          </div>
+        </div>
+      </MainLayout>
+    );
+  }
+
   // Render steps
   const renderStep = () => {
     switch (step) {
@@ -67,7 +90,7 @@ const IntakeForm = () => {
             nextStep={nextStep}
             validatePersonalInfo={validatePersonalInfo}
             validateSpouseInfo={validateSpouseInfo}
-            formErrors={formErrors}
+            formErrors={formErrors || {}}
           />
         );
 

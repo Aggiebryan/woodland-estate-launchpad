@@ -1,5 +1,5 @@
 
-import React from "react";
+import React, { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { PersonalInfo, SpouseInfo } from "@/hooks/useIntakeFormState";
 import PersonalInformationSection from "@/components/shared/PersonalInformationSection";
@@ -11,7 +11,7 @@ import {
   handleSpouseInfoChange,
   handleSpouseDateChange
 } from "../formHandlers";
-import { toast } from "@/components/ui/use-toast";
+import { toast } from "@/hooks/use-toast";
 
 interface Step1Props {
   personalInfo: PersonalInfo;
@@ -34,9 +34,25 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
   validateSpouseInfo,
   formErrors,
 }) => {
+  // Add useEffect to log the props and ensure they're properly initialized
+  useEffect(() => {
+    console.log("Step1 props:", { personalInfo, spouseInfo, formErrors });
+  }, [personalInfo, spouseInfo, formErrors]);
+
   const handleNext = () => {
+    // Ensure objects exist before validation
+    if (!personalInfo) {
+      console.error("personalInfo is undefined");
+      toast({
+        title: "Error",
+        description: "Form data is not properly initialized",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     const personalValid = validatePersonalInfo();
-    const spouseValid = validateSpouseInfo();
+    const spouseValid = personalInfo.maritalStatus === "married" ? validateSpouseInfo() : true;
     
     if (personalValid && spouseValid) {
       nextStep();
@@ -49,6 +65,15 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
     }
   };
 
+  // Safety check for rendering
+  if (!personalInfo) {
+    return (
+      <div className="p-4 bg-red-100 text-red-800 rounded">
+        Loading personal information...
+      </div>
+    );
+  }
+
   return (
     <>
       <PersonalInformationSection
@@ -56,7 +81,7 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
         onChange={(e) => handlePersonalInfoChange(e, setPersonalInfo)}
         onSelectChange={(field, value) => handleSelectChange(field, value, setPersonalInfo)}
         onDateChange={(field, value) => handleDateChange(field, value, setPersonalInfo)}
-        errors={formErrors.personalInfo || {}}
+        errors={formErrors?.personalInfo || {}}
       />
 
       {personalInfo.maritalStatus === "married" && (
@@ -65,7 +90,7 @@ const Step1PersonalInfo: React.FC<Step1Props> = ({
           onChange={(e) => handleSpouseInfoChange(e, setSpouseInfo)}
           onDateChange={(field, value) => handleSpouseDateChange(field, value, setSpouseInfo)}
           showSpouseSection={true}
-          errors={formErrors.spouseInfo || {}}
+          errors={formErrors?.spouseInfo || {}}
         />
       )}
 
