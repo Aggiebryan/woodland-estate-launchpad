@@ -61,7 +61,10 @@ function Calendar({
           const options = React.Children.toArray(children) as React.ReactElement[];
           const selected = options.find((child) => child.props.value === value);
           const handleValueChange = (value: string) => {
-            onChange?.(value);
+            // Create a synthetic event with the selected value
+            if (onChange) {
+              onChange(value);
+            }
           };
           return (
             <Select
